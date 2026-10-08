@@ -78,8 +78,8 @@ export const site = {
   cv: '/pham-ba-tuan-khoa-cv.pdf',
   status: 'Open to remote roles and freelance projects',
   headline: "Hi, I'm Khoa. I build the shops and tools your team runs on.",
-  pitch: 'I build Shopware stores, PHP and Node.js back ends and Vue front ends for teams around the world, from the database to the deploy.',
-  badge: { label: 'Full-stack engineer', stack: 'PHP · Node.js · Vue' },
+  pitch: 'I build Shopware stores, PHP and Node.js back ends and JavaScript front ends for teams around the world, from the database to the deploy.',
+  badge: 'Full-stack engineer',
   replyPromise: 'I reply within one working day.',
 } as const
 

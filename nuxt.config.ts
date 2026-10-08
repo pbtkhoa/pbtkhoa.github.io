@@ -20,7 +20,7 @@ export default defineNuxtConfig({
       htmlAttrs: { lang: 'en', class: 'scheme-dark light:scheme-light motion-safe:scroll-smooth' },
       bodyAttrs: { class: 'm-0 overflow-x-clip bg-bg font-sans text-base/[1.65] text-fg antialiased selection:bg-amber/35' },
       meta: [
-        { name: 'description', content: 'Full-stack software engineer in Vietnam building Shopware stores, PHP and Node.js back ends and Vue front ends for teams around the world.' },
+        { name: 'description', content: 'Full-stack software engineer in Vietnam building Shopware stores, PHP and Node.js back ends and JavaScript front ends for teams around the world.' },
         { name: 'author', content: 'Phạm Bá Tuấn Khoa' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Khoa Phạm' },

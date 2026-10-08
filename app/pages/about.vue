@@ -15,9 +15,10 @@ useSeoMeta({
       <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-14">
         <figure class="m-0 overflow-hidden rounded-panel border border-line lg:sticky lg:top-24">
           <KhoaPhoto
-            :size="460"
-            densities="x1"
+            :size="470"
+            sizes="320:92vw 640:600px 900:470px"
             alt="Photo of Khoa"
+            priority
             class="aspect-square w-full object-cover"
           />
           <figcaption class="bg-card px-4.5 py-3.5 text-[0.9rem] text-muted">

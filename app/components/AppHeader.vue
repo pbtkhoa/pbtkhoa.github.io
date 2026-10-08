@@ -43,7 +43,7 @@ function closeMenu() {
           :size="36"
           alt=""
           class="size-9 rounded-full border-2 border-amber object-cover"
-          priority
+          eager
         />
         {{ site.shortName }}
       </NuxtLink>

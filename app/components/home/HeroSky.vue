@@ -41,10 +41,7 @@ import { site } from '~/data/site'
             </AppButton>
           </div>
         </div>
-        <PhotoMoon
-          :label="site.badge.label"
-          :stack="site.badge.stack"
-        />
+        <PhotoMoon :badge="site.badge" />
       </div>
     </SkyScene>
   </section>

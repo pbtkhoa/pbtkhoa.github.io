@@ -1,8 +1,5 @@
 <script setup lang="ts">
-defineProps<{
-  label: string
-  stack: string
-}>()
+defineProps<{ badge: string }>()
 </script>
 
 <template>
@@ -12,15 +9,14 @@ defineProps<{
       aria-hidden="true"
     />
     <KhoaPhoto
-      :size="460"
-      densities="x1"
+      :size="420"
+      sizes="300px 900:420px"
       alt="Photo of Khoa smiling"
       class="relative size-full rounded-full border-8 border-white/85 object-cover shadow-[0_30px_80px_-20px_#0008]"
       priority
     />
-    <p class="absolute bottom-[10%] left-[-4%] m-0 grid rounded-tile bg-card px-4 py-2.5 text-[0.85rem] text-fg shadow-[0_16px_40px_-12px_#0007]">
-      <span>{{ label }}</span>
-      <strong class="font-display text-[1.15rem] font-semibold">{{ stack }}</strong>
+    <p class="absolute bottom-[10%] left-[-4%] m-0 rounded-tile bg-card px-5 py-3 font-display text-[clamp(1.25rem,2.2vw,1.5rem)] leading-tight font-semibold whitespace-nowrap text-fg shadow-[0_16px_40px_-12px_#0007]">
+      {{ badge }}
     </p>
   </div>
 </template>

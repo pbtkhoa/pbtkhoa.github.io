@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-check.html](../artifact/lantern-hour-check.html) (vòng 3; báo cáo các vòng trước ở commit 281cc94 và e0f78a9).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-photo.html](../artifact/lantern-hour-photo.html) (vòng 4; báo cáo các vòng trước ở commit 281cc94, e0f78a9 và bde577c).
 
 ## 1. Cấu trúc
 
@@ -57,7 +57,7 @@
 
 - [x] **CV công khai có số điện thoại:** Khoa chọn giữ nguyên (08/10/2026). Số điện thoại không xuất hiện trên các trang, chỉ nằm trong file CV tải về.
 - [x] Dịch vụ nhận form: không dùng, giữ `mailto:` (08/10/2026).
-- [ ] Ảnh gốc to hơn (≥ 1200×1200, nền trơn). Ảnh hiện tại 460px nên hero hơi mờ trên màn hình retina.
+- [~] Ảnh gốc to hơn: tạm thời dùng bản AI làm nét 1200px, nền xóa phông (mục 9). Ảnh chụp thật từ 1200px trở lên vẫn tốt hơn.
 - [ ] Tên repo hoặc domain riêng (đường dẫn gốc đã tự xử lý trong workflow). Sau đó: canonical, `og:image`, sitemap (`@nuxtjs/seo`).
 - [ ] `/impressum` nếu làm với khách Đức (cần địa chỉ).
 - [ ] Xác nhận "20+ online stores and apps delivered". Có ghi giá ở Services không.
@@ -72,7 +72,7 @@ Theo phản hồi của Khoa sau khi xem bản đầu.
 - **Danh sách dự án đầy đủ theo CV:** 6 dự án nổi bật (`featuredProjects`) và 11 dự án khác (`moreProjects`), tổng 17. Bản CV gộp manomama và Brichbag vào thẻ Shopware.
 - **Trang `/work`:** 6 thẻ so le → danh sách "Team projects and freelance builds" (công ty, năm, loại, mô tả, stack) → khối "And much more": tên các store, plugin Shopware, ghi chú phần lớn việc cho khách là NDA, nút "Ask about work like yours".
 - **Trang chủ:** 3 thẻ dự án xếp dọc (Shopware, kế toán, GLS Bank), bấm vào nhảy tới đúng thẻ ở `/work#<slug>`. Dưới là dòng "Plus 14 more projects… See all projects". Số 14 tính từ dữ liệu.
-- **Node.js:** Khoa đang chuyển dần sang full-stack PHP + Node. Đã sửa câu giới thiệu ở hero, thẻ vai trò ("PHP · Node.js · Vue"), dịch vụ thứ hai thành "PHP and Node.js back ends", mô tả trang Services, đoạn About, meta description.
+- **Node.js:** Khoa đang chuyển dần sang full-stack PHP + Node. Đã sửa câu giới thiệu ở hero, thẻ vai trò (lúc đầu "PHP · Node.js · Vue", sau đổi thành chữ to "Full-stack engineer"), dịch vụ thứ hai thành "PHP and Node.js back ends", mô tả trang Services, đoạn About, meta description.
 - **Tương phản mới đo:** nhãn loại dự án 5.92 (đêm) / 4.84 (ngày) sau khi giảm nền từ 16% xuống 10%. Lần đo đầu ở 16% chỉ đạt 4.44.
 
 Còn mở thêm: nếu có ảnh chụp thật của các store công khai (van Laack, Egret…), có thể thay hình vẽ cho các dự án đó.
@@ -116,3 +116,32 @@ Sau khi chạy Lighthouse (mở thêm Chrome), tab của agent-browser có thể
 ### Đã thử và bỏ
 
 `features.inlineStyles: true` (nhét CSS vào HTML): Lighthouse không khá hơn, mà mỗi trang nặng thêm khoảng 23 KB. Một file CSS dùng chung được cache tốt hơn cho site nhiều trang.
+
+## 9. Vòng 4 (08/10/2026): giới thiệu chung hơn
+
+- Câu giới thiệu ở hero và meta description: "Vue front ends" đổi thành "JavaScript front ends", vì Khoa làm cả Vue lẫn React.
+- Thẻ cạnh ảnh chỉ còn "Full-stack engineer", chữ Fraunces to hơn (`clamp(1.25rem, 2.2vw, 1.5rem)`), bỏ dòng stack "PHP · Node.js · Vue".
+- **Ảnh chân dung (chọn phương án B, 08/10/2026):** làm từ `design/avatar/source/cv-000.png` (460px).
+  1. Real-ESRGAN (`realesrgan-x4plus`, bản ncnn chạy trên máy) phóng 4× lên 1840px.
+  2. Trộn 65% bản AI với 35% bản Lanczos, thêm chút hạt, để da không bị "vẽ".
+  3. Tách người bằng Apple Vision (`VNGenerateForegroundInstanceMaskRequest`, script Swift nhỏ).
+  4. Làm mờ nền bằng normalized blur (chỉ làm mờ phần nền rồi chia cho mặt nạ đã làm mờ, nên tóc không loang ra nền). Chữ "&Shift" không còn đọc được.
+  5. Xuất 1200×1200: bản gốc lưu ở `design/avatar/source/khoa-1200-bokeh.jpg`, bản dùng trên site là `public/images/khoa.jpg`.
+
+  Hero và About giờ có thêm bản 2× cho màn hình retina. Favicon và `apple-touch-icon` làm lại từ ảnh mới. Các phương án khác (A chỉ làm nét, C nền hoàng hôn, D nền sáng ấm) xem trong báo cáo.
+- Vẫn nên có ảnh chụp mới từ 1200px trở lên: AI chỉ làm nét được đến mức này.
+- **Tối ưu ảnh chân dung** (theo skill `performance`: đo trước, sửa, đo lại cùng điều kiện):
+  - `KhoaPhoto` tự dựng `<picture>`: nguồn AVIF q50 trước, `<img>` WebP q75 dự phòng. Không dùng `<NuxtPicture>` vì nó chỉ cho một mức chất lượng chung cho mọi định dạng. URL nào tạo qua `useImage().getSizes()` cũng đi qua `$img`, nên vẫn được sinh sẵn lúc `nuxt generate`.
+  - Ảnh hero dùng `sizes="300px 900:420px"`, ảnh About dùng `sizes="320:92vw 640:600px 900:470px"`.
+    - Bẫy: trong cú pháp `sizes` của `@nuxt/image`, key là điểm bắt đầu (mobile-first). `900:300px 2560:420px` sẽ ra `(max-width: 2559px) 300px`, tức sai.
+    - Giá trị `vw` không có key bị tính theo màn hình rộng 1px.
+  - Chỉ ảnh `priority` mới được preload, kèm `type="image/avif"` và `fetchpriority="high"`. Logo ở header chỉ để `eager`, không preload nữa để khỏi tranh băng thông với ảnh hero. `@nuxt/image` chỉ thêm `fetchpriority` vào preload khi truyền `{ fetchPriority: 'high' }`, còn `true` thì không.
+  - Kết quả đo, mỗi lần mở trình duyệt mới:
+    | Thiết bị | Trước | Sau |
+    |---|---|---|
+    | Điện thoại @3× | 920px WebP, 23.6 KB | 840px AVIF, 12.5 KB |
+    | Điện thoại @2× | 920px WebP, 23.6 KB | 600px AVIF, 8.8 KB |
+    | Desktop @1× | 460px WebP, 10.0 KB | 420px AVIF, 5.9 KB |
+  - Lighthouse Home mobile: ảnh tải về từ 25.3 KB xuống 10.1 KB, hiệu năng 93 lên 94. Mọi mục về ảnh (image delivery, responsive images, LCP discovery) đều đạt.
+  - Một lần đo About desktop ra 80 vì TBT nhảy lên 470 ms khi máy đang bận. Ba lần đo lại đều 100.
+
