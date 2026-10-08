@@ -145,3 +145,14 @@ Sau khi chạy Lighthouse (mở thêm Chrome), tab của agent-browser có thể
   - Lighthouse Home mobile: ảnh tải về từ 25.3 KB xuống 10.1 KB, hiệu năng 93 lên 94. Mọi mục về ảnh (image delivery, responsive images, LCP discovery) đều đạt.
   - Một lần đo About desktop ra 80 vì TBT nhảy lên 470 ms khi máy đang bận. Ba lần đo lại đều 100.
 
+## 10. Deploy (08/10/2026)
+
+- Repo `pbtkhoa/pbtkhoa.github.io` có sẵn (rỗng, tạo cùng ngày). Bật Pages với nguồn GitHub Actions qua `gh api`, thêm remote `origin`, rồi push `main`. Build 35 s, deploy 17 s.
+- Trước khi push, chạy thử đúng các bước của workflow trong container Linux x64 (`node:24`, OrbStack) trên bản `git archive`: `npm ci`, lint, `nuxt generate` đều qua. Lockfile tạo trên Mac vẫn có đủ gói native cho Linux (rollup, tailwind oxide, lightningcss, sharp, esbuild).
+- Kiểm tra site thật:
+  - Chrome (agent-browser): 7 trang có tiêu đề đúng, không ảnh hỏng, không `style=`, chuyển trang và link CV đều đúng.
+  - WebKit và Firefox (Playwright): ảnh AVIF giải mã được, chọn đúng cỡ, phông tải đủ, không lỗi console.
+  - Ảnh `/_ipx/...` nằm dưới đường dẫn có `&`. GitHub trả `image/jpeg` cho chúng vì đuôi file là `.jpg`, nhưng không gửi `nosniff`, nên cả ba trình duyệt vẫn nhận đúng định dạng.
+- Trang 404 ghi `[NUXT_E1005]` ra console. Đây là lỗi 404 bắt được lúc app khởi động, khi router không tìm thấy trang, rồi trang "wandered off" hiện ra. Hành vi đúng, các trang thật không có.
+- Workflow nâng lên `checkout@v7`, `setup-node@v7`, `configure-pages@v6`, `upload-pages-artifact@v5`, `deploy-pages@v5` (chạy Node 24), vì GitHub báo Node 20 đã cũ. Đã kiểm tra input và output: `base_path` và `path` vẫn còn.
+

@@ -17,7 +17,7 @@
   - Repo `pbtkhoa/pbtkhoa.github.io` → trang ở `https://pbtkhoa.github.io/`, `baseURL` là `/`. **Khuyên dùng.**
   - Repo `pbtkhoa/pbtkhoa-github` → trang ở `https://pbtkhoa.github.io/pbtkhoa-github/`. Khi đó đặt biến `NUXT_APP_BASE_URL=/pbtkhoa-github/` trong bước `nuxt generate` của workflow.
   - Domain riêng: thêm file `public/CNAME` và để `baseURL` là `/`.
-- Chưa tạo repo trên GitHub và chưa push. Theo quy tắc của thư mục, mọi lần push đều phải hỏi trước.
+- **Đã deploy 08/10/2026:** repo `pbtkhoa/pbtkhoa.github.io` (remote `origin`), Pages nguồn GitHub Actions, trang ở https://pbtkhoa.github.io/. Workflow lấy `base_path` từ `configure-pages` nên không cần đặt `NUXT_APP_BASE_URL` bằng tay. Theo quy tắc của thư mục, mọi lần push vẫn phải hỏi trước.
 
 ## 3. Lệnh
 

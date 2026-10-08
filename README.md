@@ -1,6 +1,6 @@
 # pbtkhoa-github
 
-Personal portfolio of Phạm Bá Tuấn Khoa. Nuxt 4, static output, deployed to GitHub Pages.
+Personal portfolio of Phạm Bá Tuấn Khoa. Nuxt 4, static output, deployed to GitHub Pages at https://pbtkhoa.github.io/.
 
 ```bash
 npm install

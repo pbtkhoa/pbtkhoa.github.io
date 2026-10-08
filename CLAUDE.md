@@ -8,7 +8,7 @@ Personal portfolio of Phạm Bá Tuấn Khoa (full-stack engineer, Vietnam), pub
 - Tailwind CSS v4 through `@tailwindcss/vite`; entry `app/assets/css/main.css`.
 - **Styling is Tailwind utilities only** (Khoa, 08/10/2026). No `<style>` blocks in components, no inline `style` attributes or `:style` bindings, no `element.style` in scripts, no custom CSS classes. `main.css` holds only Tailwind setup: `@import`, `@custom-variant`, `@theme` tokens (colours, fonts, radii, animations) and the day-theme token overrides. Repeated class lists live as constants in `app/utils/ui.ts` or in small components.
 - `@nuxt/fonts` self-hosts fonts at build time, `@nuxt/image` for images, `@nuxt/eslint` for lint.
-- Deploy: `.github/workflows/deploy.yml` (GitHub Actions → Pages). Set `NUXT_APP_BASE_URL` when the repo is not `pbtkhoa.github.io`.
+- Deploy: `.github/workflows/deploy.yml` (GitHub Actions → Pages) on every push to `main`. Live at https://pbtkhoa.github.io/ (repo `pbtkhoa/pbtkhoa.github.io`, remote `origin`). The workflow reads the base path from `actions/configure-pages`.
 
 ## Where the thinking lives
 
