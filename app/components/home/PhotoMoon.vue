@@ -6,72 +6,21 @@ defineProps<{
 </script>
 
 <template>
-  <div class="moon">
+  <div class="relative order-first aspect-square w-[min(300px,74vw)] justify-self-center lg:order-none lg:w-[min(420px,100%)]">
+    <div
+      class="absolute -inset-[18%] rounded-full bg-radial/srgb from-amber/45 to-transparent to-62%"
+      aria-hidden="true"
+    />
     <KhoaPhoto
       :size="460"
       densities="x1"
       alt="Photo of Khoa smiling"
-      class="moon-photo"
+      class="relative size-full rounded-full border-8 border-white/85 object-cover shadow-[0_30px_80px_-20px_#0008]"
       priority
     />
-    <p class="moon-badge">
+    <p class="absolute bottom-[10%] left-[-4%] m-0 grid rounded-tile bg-card px-4 py-2.5 text-[0.85rem] text-fg shadow-[0_16px_40px_-12px_#0007]">
       <span>{{ label }}</span>
-      <strong class="moon-stack">{{ stack }}</strong>
+      <strong class="font-display text-[1.15rem] font-semibold">{{ stack }}</strong>
     </p>
   </div>
 </template>
-
-<style scoped>
-.moon {
-  position: relative;
-  justify-self: center;
-  order: -1;
-  width: min(300px, 74vw);
-  aspect-ratio: 1;
-}
-
-.moon::before {
-  content: "";
-  position: absolute;
-  inset: -18%;
-  border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--color-amber) 45%, transparent), transparent 62%);
-}
-
-.moon-photo {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 8px solid #ffffffd9;
-  box-shadow: 0 30px 80px -20px #0008;
-}
-
-.moon-badge {
-  position: absolute;
-  left: -4%;
-  bottom: 10%;
-  display: grid;
-  margin: 0;
-  padding: 10px 16px;
-  border-radius: var(--radius-tile);
-  background: var(--color-card);
-  color: var(--color-fg);
-  font-size: 0.85rem;
-  box-shadow: 0 16px 40px -12px #0007;
-}
-
-.moon-stack {
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 600;
-}
-
-@media (min-width: 900px) {
-  .moon {
-    order: 0;
-    width: min(420px, 80vw);
-  }
-}
-</style>

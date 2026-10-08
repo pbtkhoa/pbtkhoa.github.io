@@ -36,14 +36,10 @@ onBeforeUnmount(() => clearTimeout(resetTimer))
 </script>
 
 <template>
-  <div class="copy-email">
-    <button
-      type="button"
-      class="btn"
-      @click="copy"
-    >
+  <div>
+    <AppButton @click="copy">
       {{ labels[state] }}
-    </button>
+    </AppButton>
     <span
       class="sr-only"
       aria-live="polite"

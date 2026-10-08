@@ -5,81 +5,22 @@ defineProps<{ steps: ProcessStep[] }>()
 </script>
 
 <template>
-  <ol class="process">
+  <ol class="m-0 grid list-none grid-cols-1 gap-7 p-0 lg:grid-cols-4 lg:gap-4.5">
     <li
       v-for="(step, index) in steps"
       :key="step.title"
-      class="step"
+      class="relative pt-14 lg:not-last:after:absolute lg:not-last:after:top-5 lg:not-last:after:right-[-10px] lg:not-last:after:left-13 lg:not-last:after:border-t-2 lg:not-last:after:border-dashed lg:not-last:after:border-line"
     >
       <span
-        class="step-number"
+        class="absolute top-0 left-0 grid size-10 place-items-center rounded-full bg-amber font-bold text-amber-ink"
         aria-hidden="true"
       >{{ index + 1 }}</span>
-      <h3 class="step-title">
+      <h3 class="m-0 font-display text-[1.25rem] font-semibold">
         {{ step.title }}
       </h3>
-      <p class="step-text">
+      <p class="mt-1.5 mb-0 text-[0.95rem] text-muted">
         {{ step.text }}
       </p>
     </li>
   </ol>
 </template>
-
-<style scoped>
-.process {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 28px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.step {
-  position: relative;
-  padding-top: 56px;
-}
-
-.step-number {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--color-amber);
-  color: var(--color-amber-ink);
-  font-weight: 700;
-}
-
-.step-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-
-.step-text {
-  margin: 6px 0 0;
-  color: var(--color-muted);
-  font-size: 0.95rem;
-}
-
-@media (min-width: 900px) {
-  .process {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-  }
-
-  .step:not(:last-child)::after {
-    content: "";
-    position: absolute;
-    top: 20px;
-    left: 52px;
-    right: -10px;
-    border-top: 2px dashed var(--color-line);
-  }
-}
-</style>

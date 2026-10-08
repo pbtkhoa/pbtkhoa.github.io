@@ -10,9 +10,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   app: {
     baseURL,
-    pageTransition: { name: 'page', mode: 'out-in' },
+    pageTransition: {
+      name: 'page',
+      mode: 'out-in',
+      enterActiveClass: 'motion-safe:transition-opacity motion-safe:duration-350',
+      enterFromClass: 'opacity-40',
+    },
     head: {
-      htmlAttrs: { lang: 'en' },
+      htmlAttrs: { lang: 'en', class: 'scheme-dark light:scheme-light motion-safe:scroll-smooth' },
+      bodyAttrs: { class: 'm-0 overflow-x-clip bg-bg font-sans text-base/[1.65] text-fg antialiased selection:bg-amber/35' },
       meta: [
         { name: 'description', content: 'Full-stack software engineer in Vietnam building Shopware stores, PHP and Node.js back ends and Vue front ends for teams around the world.' },
         { name: 'author', content: 'Phạm Bá Tuấn Khoa' },
@@ -30,11 +36,6 @@ export default defineNuxtConfig({
   },
   components: [{ path: '~/components', pathPrefix: false }],
   css: ['~/assets/css/main.css'],
-  runtimeConfig: {
-    public: {
-      formEndpoint: '',
-    },
-  },
   compatibilityDate: '2025-07-15',
   nitro: {
     preset: 'github_pages',
@@ -54,12 +55,11 @@ export default defineNuxtConfig({
     families: [
       {
         name: 'Fraunces',
-        provider: 'google',
         weights: [400, 600, 700],
-        global: true,
+        fallbacks: ['Georgia'],
         providerOptions: { google: { experimental: { variableAxis: { opsz: [['9', '144']] } } } },
       },
-      { name: 'Plus Jakarta Sans', provider: 'google', weights: [400, 500, 600, 700], global: true },
+      { name: 'Plus Jakarta Sans', weights: [400, 500, 600, 700], fallbacks: ['Arial'] },
     ],
   },
   image: {

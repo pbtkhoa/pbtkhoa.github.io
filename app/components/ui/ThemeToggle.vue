@@ -7,7 +7,8 @@ const label = computed(() => (theme.value === 'light' ? 'Switch to night theme' 
 <template>
   <button
     type="button"
-    class="icon-btn"
+    class="grid size-10 cursor-pointer place-items-center rounded-full border border-line bg-card text-fg hover:border-amber motion-safe:transition-colors"
+    :class="focusRing"
     :aria-label="label"
     :title="label"
     @click="toggle"

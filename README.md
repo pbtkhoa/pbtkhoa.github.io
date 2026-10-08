@@ -10,4 +10,4 @@ npm run generate
 
 Content lives in `app/data/site.ts`. Planning notes are in `planning/`, the confirmed mockup in `design/mockup/`.
 
-The contact form posts to `NUXT_PUBLIC_FORM_ENDPOINT` when it is set at build time (the deploy workflow reads the `FORM_ENDPOINT` Actions variable). Without it, the form opens the visitor's email app with the message filled in.
+The contact form has no backend: it checks the fields, then opens the visitor's email app with the message filled in. The deploy workflow reads the Pages base path from `actions/configure-pages`, so the site works at `pbtkhoa.github.io/`, at `pbtkhoa.github.io/<repo>/` or on a custom domain without changes.

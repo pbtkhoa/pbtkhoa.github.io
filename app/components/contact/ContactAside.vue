@@ -7,120 +7,57 @@ const mailto = `mailto:${site.email}`
 
 <template>
   <aside
-    class="contact-aside"
+    class="grid gap-3.5"
     aria-label="Other ways to reach me"
   >
-    <div class="hello">
-      <p class="hello-text">
+    <div class="grid grid-cols-[minmax(0,1fr)_112px] items-center gap-4 overflow-hidden rounded-panel bg-linear-160/srgb from-sky-2 to-sky-3 p-6 text-hero-fg">
+      <p class="m-0 font-display text-[1.4rem] leading-[1.2] font-semibold">
         Xin chào! Say hi any time.
       </p>
       <KhoaPhoto
         :size="112"
         alt="Photo of Khoa"
-        class="hello-photo"
+        class="size-28 rounded-full border-4 border-white/85 object-cover"
       />
     </div>
-    <div class="card">
-      <p class="kicker aside-kicker">
+    <div :class="cardClass">
+      <p :class="kickerClass">
         Email
       </p>
       <a
         :href="mailto"
-        class="mail"
+        class="rounded-md font-display text-[1.3rem] text-inherit no-underline [overflow-wrap:anywhere] hover:text-amber"
+        :class="focusRing"
       >{{ site.email }}</a>
       <CopyEmail
         :email="site.email"
-        class="aside-action"
+        class="self-start"
       />
     </div>
-    <div class="card">
-      <p class="kicker aside-kicker">
+    <div :class="cardClass">
+      <p :class="kickerClass">
         Elsewhere
       </p>
-      <p class="aside-links">
+      <p class="m-0 flex flex-wrap gap-2 text-muted">
         <a
           :href="site.github"
-          class="text-link"
+          :class="textLinkClass"
+          class="text-fg"
         >GitHub</a>
         <span aria-hidden="true">·</span>
         <a
           :href="site.linkedin"
-          class="text-link"
+          :class="textLinkClass"
+          class="text-fg"
         >LinkedIn</a>
         <span aria-hidden="true">·</span>
         <a
           :href="cvUrl"
-          class="text-link"
+          :class="textLinkClass"
+          class="text-fg"
           download
         >CV (PDF)</a>
       </p>
     </div>
   </aside>
 </template>
-
-<style scoped>
-.contact-aside {
-  display: grid;
-  gap: 14px;
-}
-
-.hello {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 112px;
-  align-items: center;
-  gap: 16px;
-  overflow: hidden;
-  padding: 24px;
-  border-radius: var(--radius-panel);
-  background: linear-gradient(160deg, var(--color-sky-2), var(--color-sky-3));
-  color: var(--color-hero-fg);
-}
-
-.hello-text {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.4rem;
-  line-height: 1.2;
-}
-
-.hello-photo {
-  width: 112px;
-  height: 112px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 4px solid #ffffffd9;
-}
-
-.aside-kicker {
-  margin: 0;
-}
-
-.mail {
-  color: inherit;
-  font-family: var(--font-display);
-  font-size: 1.3rem;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-}
-
-.mail:hover {
-  color: var(--color-amber);
-}
-
-.aside-action {
-  align-self: flex-start;
-}
-
-.aside-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-  color: var(--color-muted);
-}
-
-.aside-links a {
-  color: var(--color-fg);
-}
-</style>

@@ -5,38 +5,61 @@ interface Point {
 }
 
 const COUNT = 5
+const RADIUS = 3
 
+const canvas = useTemplateRef<HTMLCanvasElement>('canvas')
 const active = shallowRef(false)
 const awake = shallowRef(false)
-const dots = useTemplateRef<HTMLElement[]>('dots')
 
-const positions: Point[] = []
+const points: Point[] = Array.from({ length: COUNT }, () => ({ x: 0, y: 0 }))
 const pointer: Point = { x: 0, y: 0 }
+let context: CanvasRenderingContext2D | null = null
+let color = '#f4a93a'
 let frame = 0
+let themeObserver: MutationObserver | undefined
+
+function readColor() {
+  color = getComputedStyle(document.documentElement).getPropertyValue('--color-amber').trim() || color
+}
+
+function resize() {
+  const element = canvas.value
+  if (!element || !context) return
+  const ratio = window.devicePixelRatio || 1
+  element.width = Math.round(innerWidth * ratio)
+  element.height = Math.round(innerHeight * ratio)
+  context.setTransform(ratio, 0, 0, ratio, 0, 0)
+}
 
 function onPointerMove(event: PointerEvent) {
   pointer.x = event.clientX
   pointer.y = event.clientY
   if (awake.value) return
-  positions.forEach((position) => {
-    position.x = pointer.x
-    position.y = pointer.y
+  points.forEach((point) => {
+    point.x = pointer.x
+    point.y = pointer.y
   })
   awake.value = true
 }
 
-function tick(time: number) {
-  dots.value?.forEach((dot, index) => {
-    const position = positions[index]
-    if (!position) return
-    const targetX = pointer.x + Math.cos(time / 700 + index * 1.3) * (24 + index * 9)
-    const targetY = pointer.y + Math.sin(time / 900 + index * 1.7) * (20 + index * 7)
-    const ease = 0.04 + index * 0.01
-    position.x += (targetX - position.x) * ease
-    position.y += (targetY - position.y) * ease
-    dot.style.transform = `translate3d(${position.x}px, ${position.y}px, 0)`
-  })
-  frame = requestAnimationFrame(tick)
+function draw(time: number) {
+  if (context) {
+    context.clearRect(0, 0, innerWidth, innerHeight)
+    context.fillStyle = color
+    context.shadowColor = color
+    context.shadowBlur = 12
+    points.forEach((point, index) => {
+      const targetX = pointer.x + Math.cos(time / 700 + index * 1.3) * (24 + index * 9)
+      const targetY = pointer.y + Math.sin(time / 900 + index * 1.7) * (20 + index * 7)
+      const ease = 0.04 + index * 0.01
+      point.x += (targetX - point.x) * ease
+      point.y += (targetY - point.y) * ease
+      context?.beginPath()
+      context?.arc(point.x, point.y, RADIUS, 0, Math.PI * 2)
+      context?.fill()
+    })
+  }
+  frame = requestAnimationFrame(draw)
 }
 
 onMounted(async () => {
@@ -44,57 +67,32 @@ onMounted(async () => {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
   if (!finePointer || reducedMotion) return
 
-  for (let index = 0; index < COUNT; index++) positions.push({ x: 0, y: 0 })
   active.value = true
   await nextTick()
+  context = canvas.value?.getContext('2d') ?? null
+  readColor()
+  resize()
+  themeObserver = new MutationObserver(readColor)
+  themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+  addEventListener('resize', resize, { passive: true })
   addEventListener('pointermove', onPointerMove, { passive: true })
-  frame = requestAnimationFrame(tick)
+  frame = requestAnimationFrame(draw)
 })
 
 onBeforeUnmount(() => {
   cancelAnimationFrame(frame)
+  themeObserver?.disconnect()
+  removeEventListener('resize', resize)
   removeEventListener('pointermove', onPointerMove)
 })
 </script>
 
 <template>
-  <div
+  <canvas
     v-if="active"
-    class="fireflies"
-    :class="{ 'is-awake': awake }"
+    ref="canvas"
+    class="pointer-events-none fixed inset-0 z-30 size-full transition-opacity duration-600"
+    :class="awake ? 'opacity-85' : 'opacity-0'"
     aria-hidden="true"
-  >
-    <i
-      v-for="index in COUNT"
-      ref="dots"
-      :key="index"
-      class="firefly"
-    />
-  </div>
+  />
 </template>
-
-<style scoped>
-.fireflies {
-  opacity: 0;
-  transition: opacity 0.6s;
-}
-
-.fireflies.is-awake {
-  opacity: 1;
-}
-
-.firefly {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 30;
-  width: 6px;
-  height: 6px;
-  margin: -3px 0 0 -3px;
-  border-radius: 50%;
-  background: var(--color-amber);
-  box-shadow: 0 0 12px 3px color-mix(in srgb, var(--color-amber) 70%, transparent);
-  opacity: 0.85;
-  pointer-events: none;
-}
-</style>

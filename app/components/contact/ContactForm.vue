@@ -2,32 +2,22 @@
 import { site } from '~/data/site'
 import type { ContactField } from '~/composables/useContactForm'
 
-const { fields, errors, status, submit } = useContactForm({ recipient: site.email })
+const { fields, errors, drafted, submit } = useContactForm({ recipient: site.email })
 
 const emailInput = useTemplateRef<HTMLInputElement>('emailInput')
 const messageInput = useTemplateRef<HTMLTextAreaElement>('messageInput')
 
-const sending = computed(() => status.value === 'sending')
 
-const notice = computed(() => {
-  switch (status.value) {
-    case 'sent':
-      return { tone: 'ok', text: `Message sent. I'll reply within one working day.` }
-    case 'drafted':
-      return { tone: 'info', text: `Your email app should open with the message ready to send. If it doesn't, write to ${site.email}.` }
-    case 'failed':
-      return { tone: 'error', text: `The message didn't go through. Please write to ${site.email} instead.` }
-    default:
-      return undefined
-  }
-})
+function controlClass(field: ContactField): string[] {
+  return [fieldControlClass, errors.value[field] ? 'border-error' : 'border-line']
+}
 
 function describedBy(field: ContactField): string | undefined {
   return errors.value[field] ? `contact-${field}-error` : undefined
 }
 
-async function onSubmit() {
-  const invalid = await submit()
+function onSubmit() {
+  const invalid = submit()
   if (invalid === 'email') emailInput.value?.focus()
   if (invalid === 'message') messageInput.value?.focus()
 }
@@ -35,11 +25,11 @@ async function onSubmit() {
 
 <template>
   <form
-    class="card contact-form"
+    class="flex flex-col gap-4 rounded-card border border-line bg-card p-6.5 text-fg"
     novalidate
     @submit.prevent="onSubmit"
   >
-    <div class="field-row">
+    <div class="grid grid-cols-1 gap-3.5 lg:grid-cols-2">
       <FormField
         id="contact-name"
         label="Your name"
@@ -47,7 +37,7 @@ async function onSubmit() {
         <input
           id="contact-name"
           v-model="fields.name"
-          class="field-control"
+          :class="controlClass('name')"
           name="name"
           autocomplete="name"
         >
@@ -61,7 +51,7 @@ async function onSubmit() {
           id="contact-email"
           ref="emailInput"
           v-model="fields.email"
-          class="field-control"
+          :class="controlClass('email')"
           type="email"
           name="email"
           autocomplete="email"
@@ -81,7 +71,8 @@ async function onSubmit() {
         id="contact-message"
         ref="messageInput"
         v-model="fields.message"
-        class="field-control"
+        class="min-h-35 resize-y"
+        :class="controlClass('message')"
         name="message"
         rows="5"
         required
@@ -90,80 +81,33 @@ async function onSubmit() {
       />
     </FormField>
 
-    <button
-      class="btn btn-amber submit"
-      type="submit"
-      :disabled="sending"
-    >
-      {{ sending ? 'Sending…' : 'Send message' }}
-    </button>
+    <div class="flex flex-wrap items-center gap-x-4 gap-y-2.5">
+      <AppButton
+        variant="amber"
+        type="submit"
+        aria-describedby="contact-submit-hint"
+      >
+        Open in email app
+      </AppButton>
+      <p
+        id="contact-submit-hint"
+        class="m-0 flex-[1_1_220px] text-[0.88rem] text-muted"
+      >
+        Your email app opens with this message filled in, ready to send.
+      </p>
+    </div>
 
     <div
-      class="notice-region"
+      class="empty:hidden"
       role="status"
       aria-live="polite"
     >
       <p
-        v-if="notice"
-        class="notice"
-        :class="`notice-${notice.tone}`"
+        v-if="drafted"
+        class="m-0 rounded-tile border border-amber/40 bg-[color-mix(in_srgb,var(--color-amber)_14%,var(--color-card))] p-4.5"
       >
-        {{ notice.text }}
+        If your email app didn't open, write to <strong class="select-all [overflow-wrap:anywhere]">{{ site.email }}</strong>. {{ site.replyPromise }}
       </p>
     </div>
   </form>
 </template>
-
-<style scoped>
-.contact-form {
-  gap: 16px;
-}
-
-.field-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 14px;
-}
-
-.submit {
-  align-self: flex-start;
-}
-
-.submit:disabled {
-  opacity: 0.7;
-  cursor: progress;
-  transform: none;
-}
-
-.notice-region:empty {
-  display: none;
-}
-
-.notice {
-  margin: 0;
-  padding: 18px;
-  border-radius: var(--radius-tile);
-  border: 1px solid;
-}
-
-.notice-ok {
-  background: color-mix(in srgb, var(--color-ok) 18%, var(--color-card));
-  border-color: color-mix(in srgb, var(--color-ok) 40%, transparent);
-}
-
-.notice-info {
-  background: color-mix(in srgb, var(--color-amber) 14%, var(--color-card));
-  border-color: color-mix(in srgb, var(--color-amber) 40%, transparent);
-}
-
-.notice-error {
-  background: color-mix(in srgb, var(--color-error) 14%, var(--color-card));
-  border-color: color-mix(in srgb, var(--color-error) 50%, transparent);
-}
-
-@media (min-width: 900px) {
-  .field-row {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  }
-}
-</style>

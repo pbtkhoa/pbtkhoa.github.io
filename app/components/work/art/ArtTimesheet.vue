@@ -1,24 +1,24 @@
 <script setup lang="ts">
 const tickets = [
-  { status: 'f-ok', width: 44 },
-  { status: 'f-accent', width: 36 },
-  { status: 'f-violet', width: 48 },
-  { status: 'f-accent', width: 30 },
-  { status: 'f-down', width: 40 },
-  { status: 'f-ok', width: 34 },
+  { status: 'fill-ok', width: 44 },
+  { status: 'fill-amber', width: 36 },
+  { status: 'fill-iris', width: 48 },
+  { status: 'fill-amber', width: 30 },
+  { status: 'fill-sakura', width: 40 },
+  { status: 'fill-ok', width: 34 },
 ]
 const days = [0, 1, 2, 3, 4]
 const entries = [
-  { row: 0, start: 0.1, span: 1.6, tone: 'f-violet' },
-  { row: 0, start: 2.2, span: 1.1, tone: 'f-accent' },
-  { row: 1, start: 0.6, span: 2.1, tone: 'f-accent' },
-  { row: 2, start: 1.2, span: 1.4, tone: 'f-ok' },
-  { row: 2, start: 3.1, span: 1.6, tone: 'f-violet' },
-  { row: 3, start: 0.2, span: 1.0, tone: 'f-down' },
-  { row: 3, start: 2.6, span: 1.5, tone: 'f-accent' },
-  { row: 4, start: 1.6, span: 2.4, tone: 'f-violet' },
-  { row: 5, start: 0.4, span: 1.3, tone: 'f-ok' },
-  { row: 5, start: 3.0, span: 0.9, tone: 'f-accent' },
+  { row: 0, start: 0.1, span: 1.6, tone: 'fill-iris' },
+  { row: 0, start: 2.2, span: 1.1, tone: 'fill-amber' },
+  { row: 1, start: 0.6, span: 2.1, tone: 'fill-amber' },
+  { row: 2, start: 1.2, span: 1.4, tone: 'fill-ok' },
+  { row: 2, start: 3.1, span: 1.6, tone: 'fill-iris' },
+  { row: 3, start: 0.2, span: 1.0, tone: 'fill-sakura' },
+  { row: 3, start: 2.6, span: 1.5, tone: 'fill-amber' },
+  { row: 4, start: 1.6, span: 2.4, tone: 'fill-iris' },
+  { row: 5, start: 0.4, span: 1.3, tone: 'fill-ok' },
+  { row: 5, start: 3.0, span: 0.9, tone: 'fill-amber' },
 ]
 const dayWidth = 38
 </script>
@@ -27,19 +27,21 @@ const dayWidth = 38
   <svg
     viewBox="0 0 320 180"
     preserveAspectRatio="xMidYMid meet"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
     <rect
-      class="f-bg"
+      class="fill-bg"
       width="320"
       height="180"
     />
     <rect
-      class="f-panel"
+      class="fill-bg-2"
       width="106"
       height="180"
     />
     <rect
-      class="f-card s-line"
+      class="fill-card stroke-line"
       x="10"
       y="10"
       width="86"
@@ -47,17 +49,17 @@ const dayWidth = 38
       rx="7"
     />
     <circle
-      class="f-accent"
+      class="fill-amber"
       cx="25"
       cy="23"
       r="8"
     />
     <path
-      class="f-on-accent"
+      class="fill-amber-ink"
       d="M22.5 19v8l6-4z"
     />
     <rect
-      class="f-strong"
+      class="fill-fg/80"
       x="38"
       y="19"
       width="14"
@@ -65,7 +67,7 @@ const dayWidth = 38
       rx="2"
     />
     <rect
-      class="f-strong"
+      class="fill-fg/80"
       x="56"
       y="19"
       width="14"
@@ -73,7 +75,7 @@ const dayWidth = 38
       rx="2"
     />
     <rect
-      class="f-strong"
+      class="fill-fg/80"
       x="74"
       y="19"
       width="14"
@@ -91,7 +93,7 @@ const dayWidth = 38
         r="3"
       />
       <rect
-        class="f-accent-soft"
+        class="fill-amber/28"
         x="24"
         :y="49 + index * 21"
         width="16"
@@ -99,7 +101,7 @@ const dayWidth = 38
         rx="2"
       />
       <rect
-        class="f-muted"
+        class="fill-muted/55"
         x="44"
         :y="50 + index * 21"
         :width="ticket.width"
@@ -110,7 +112,7 @@ const dayWidth = 38
     <rect
       v-for="day in days"
       :key="`label-${day}`"
-      class="f-muted"
+      class="fill-muted/55"
       :x="124 + day * dayWidth"
       y="12"
       width="18"
@@ -120,7 +122,7 @@ const dayWidth = 38
     <line
       v-for="day in [0, 1, 2, 3, 4, 5]"
       :key="`grid-${day}`"
-      class="s-line"
+      class="stroke-line"
       :x1="118 + day * dayWidth"
       y1="24"
       :x2="118 + day * dayWidth"
@@ -137,14 +139,14 @@ const dayWidth = 38
       rx="4"
     />
     <line
-      class="s-accent"
+      class="fill-none stroke-amber stroke-[1.8]"
       x1="244"
       y1="22"
       x2="244"
       y2="172"
     />
     <circle
-      class="f-accent"
+      class="fill-amber"
       cx="244"
       cy="22"
       r="3"

@@ -16,19 +16,21 @@ const rows = [
   <svg
     viewBox="0 0 320 180"
     preserveAspectRatio="xMidYMid meet"
+    stroke-linecap="round"
+    stroke-linejoin="round"
   >
     <rect
-      class="f-bg"
+      class="fill-bg"
       width="320"
       height="180"
     />
     <rect
-      class="f-panel"
+      class="fill-bg-2"
       width="62"
       height="180"
     />
     <rect
-      class="f-accent"
+      class="fill-amber"
       x="12"
       y="12"
       width="26"
@@ -36,7 +38,7 @@ const rows = [
       rx="3.5"
     />
     <rect
-      class="f-accent-soft"
+      class="fill-amber/28"
       x="6"
       y="45"
       width="50"
@@ -46,7 +48,7 @@ const rows = [
     <rect
       v-for="item in menu"
       :key="item"
-      :class="item === 1 ? 'f-accent' : 'f-muted'"
+      :class="item === 1 ? 'fill-amber' : 'fill-muted/55'"
       x="12"
       :y="34 + item * 16"
       width="36"
@@ -58,7 +60,7 @@ const rows = [
       :key="x"
     >
       <rect
-        class="f-card s-line"
+        class="fill-card stroke-line"
         :x="x"
         y="12"
         width="74"
@@ -66,7 +68,7 @@ const rows = [
         rx="6"
       />
       <rect
-        class="f-muted"
+        class="fill-muted/55"
         :x="x + 8"
         y="20"
         width="30"
@@ -74,7 +76,7 @@ const rows = [
         rx="2"
       />
       <rect
-        class="f-strong"
+        class="fill-fg/80"
         :x="x + 8"
         y="30"
         :width="34 + index * 6"
@@ -82,7 +84,7 @@ const rows = [
         rx="3"
       />
       <rect
-        :class="index === 1 ? 'f-down' : 'f-ok'"
+        :class="index === 1 ? 'fill-sakura' : 'fill-ok'"
         :x="x + 56"
         y="31"
         width="12"
@@ -91,7 +93,7 @@ const rows = [
       />
     </g>
     <rect
-      class="f-card s-line"
+      class="fill-card stroke-line"
       x="74"
       y="60"
       width="152"
@@ -99,7 +101,7 @@ const rows = [
       rx="6"
     />
     <rect
-      class="f-muted"
+      class="fill-muted/55"
       x="84"
       y="69"
       width="44"
@@ -107,7 +109,7 @@ const rows = [
       rx="2"
     />
     <line
-      class="s-line"
+      class="stroke-line"
       x1="84"
       y1="158"
       x2="216"
@@ -116,7 +118,7 @@ const rows = [
     <rect
       v-for="(height, index) in bars"
       :key="index"
-      :class="index === bars.length - 1 ? 'f-accent' : 'f-violet'"
+      :class="index === bars.length - 1 ? 'fill-amber' : 'fill-iris'"
       :x="88 + index * 16"
       :y="158 - height"
       width="9"
@@ -124,7 +126,7 @@ const rows = [
       rx="2"
     />
     <rect
-      class="f-card s-line"
+      class="fill-card stroke-line"
       x="234"
       y="60"
       width="74"
@@ -136,13 +138,13 @@ const rows = [
       :key="index"
     >
       <circle
-        :class="row.up ? 'f-ok' : 'f-down'"
+        :class="row.up ? 'fill-ok' : 'fill-sakura'"
         cx="243"
         :cy="74 + index * 16"
         r="2.5"
       />
       <rect
-        class="f-muted"
+        class="fill-muted/55"
         x="249"
         :y="72 + index * 16"
         width="20"
@@ -150,7 +152,7 @@ const rows = [
         rx="2"
       />
       <rect
-        class="f-strong"
+        class="fill-fg/80"
         :x="300 - row.amount * 0.7"
         :y="72 + index * 16"
         :width="row.amount * 0.7"

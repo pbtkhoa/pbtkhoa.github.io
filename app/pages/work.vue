@@ -24,6 +24,7 @@ useSeoMeta({
           :id="project.slug"
           :key="project.slug"
           :project="project"
+          :heading-level="2"
         />
       </div>
     </PageBand>

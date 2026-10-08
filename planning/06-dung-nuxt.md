@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-work-update.html](../artifact/lantern-hour-work-update.html) (vòng 2; báo cáo vòng đầu ở commit 281cc94).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-check.html](../artifact/lantern-hour-check.html) (vòng 3; báo cáo các vòng trước ở commit 281cc94 và e0f78a9).
 
 ## 1. Cấu trúc
 
@@ -19,10 +19,8 @@
 - **Phông:** `@nuxt/fonts` tự host. Fraunces phải lấy cả trục `opsz` (9..144) như mockup. Thiếu trục này H1 ở hero rớt xuống 4 dòng thay vì 3.
 - **Ảnh:** gốc là `public/images/khoa.jpg` (xuất từ `design/avatar/source/cv-000.png`, chất lượng 92). `NuxtImg` sinh WebP lúc build: 36, 72, 96, 112, 192, 224, 460px.
 - **Favicon:** ảnh tròn 48/32/16 trong `favicon.ico`, `apple-touch-icon.png` 180px vuông.
-- **Form liên hệ:** đọc `NUXT_PUBLIC_FORM_ENDPOINT` lúc build.
-  - Có giá trị: gửi POST JSON kèm `Accept: application/json` (hợp với Formspree). Thành công thì hiện "Message sent…" và xóa form. Lỗi thì báo và chỉ sang email.
-  - Để trống: mở ứng dụng email bằng `mailto:` với nội dung đã điền sẵn, và hiện ghi chú. Đây là bản đang chạy.
-  - Workflow deploy lấy biến này từ Actions variable `FORM_ENDPOINT` của repo.
+- **Form liên hệ không có backend** (chốt 08/10/2026, Khoa chọn không dùng Formspree hay Web3Forms). Form kiểm tra ô rồi mở ứng dụng email của khách bằng `mailto:` với nội dung điền sẵn. Nút ghi "Open in email app", có một dòng giải thích bên cạnh. Sau khi bấm, form hiện địa chỉ email để ai không có ứng dụng email vẫn viết được. Đã xóa biến `NUXT_PUBLIC_FORM_ENDPOINT` và nhánh gửi qua dịch vụ.
+- **Đường dẫn gốc khi deploy:** workflow lấy `base_path` từ `actions/configure-pages` và đặt `NUXT_APP_BASE_URL`, nên repo tên gì hay dùng domain riêng đều không phải sửa.
 - **CV:** `public/pham-ba-tuan-khoa-cv.pdf` chép từ `~/Documents/PHAM_BA_TUAN_KHOA_CV_2026.pdf`. Nút "Download CV" ở About và Contact trỏ vào đây.
 - **Trang `/privacy`:** viết theo đúng những gì site làm: GitHub Pages, phông tự host, không cookie, không analytics, theme lưu trong trình duyệt. Chưa nêu tên dịch vụ nhận form vì chưa chọn.
 - **Không làm `/impressum`:** cần địa chỉ bưu điện. Footer chỉ có GitHub, LinkedIn, Privacy.
@@ -58,9 +56,9 @@
 ## 6. Còn mở
 
 - [x] **CV công khai có số điện thoại:** Khoa chọn giữ nguyên (08/10/2026). Số điện thoại không xuất hiện trên các trang, chỉ nằm trong file CV tải về.
-- [ ] Chọn dịch vụ nhận form, đặt `FORM_ENDPOINT` trong Settings → Variables của repo, và ghi tên dịch vụ vào `/privacy`.
+- [x] Dịch vụ nhận form: không dùng, giữ `mailto:` (08/10/2026).
 - [ ] Ảnh gốc to hơn (≥ 1200×1200, nền trơn). Ảnh hiện tại 460px nên hero hơi mờ trên màn hình retina.
-- [ ] Tên repo hoặc domain riêng. Sau đó: `NUXT_APP_BASE_URL` (nếu cần), canonical, `og:image`, sitemap (`@nuxtjs/seo`).
+- [ ] Tên repo hoặc domain riêng (đường dẫn gốc đã tự xử lý trong workflow). Sau đó: canonical, `og:image`, sitemap (`@nuxtjs/seo`).
 - [ ] `/impressum` nếu làm với khách Đức (cần địa chỉ).
 - [ ] Xác nhận "20+ online stores and apps delivered". Có ghi giá ở Services không.
 - [ ] Giai đoạn 2: `/work/<slug>` cho từng case study. Blog để sau.
@@ -78,3 +76,43 @@ Theo phản hồi của Khoa sau khi xem bản đầu.
 - **Tương phản mới đo:** nhãn loại dự án 5.92 (đêm) / 4.84 (ngày) sau khi giảm nền từ 16% xuống 10%. Lần đo đầu ở 16% chỉ đạt 4.44.
 
 Còn mở thêm: nếu có ảnh chụp thật của các store công khai (van Laack, Egret…), có thể thay hình vẽ cho các dự án đó.
+
+## 8. Vòng 3 (08/10/2026): kiểm tra kỹ và chuyển hết style sang Tailwind
+
+### Đã kiểm tra
+
+| Hạng mục | Cách làm | Kết quả |
+|---|---|---|
+| Hydration | `nuxt dev`, mở 7 trang × 2 theme, đọc cảnh báo Vue | Không có cảnh báo (sau khi sửa lỗi announcer, xem dưới) |
+| Truy cập | axe-core 4.10 (WCAG 2.2 AA + best practice), 7 trang × 2 theme, 1440 và 390px | 0 vi phạm |
+| Lighthouse | 12.6, Home/Work/Contact, mobile và desktop | A11y 100, Best practices 100, SEO 100. Hiệu năng desktop 100, mobile 93 (4G chậm giả lập, LCP 2.6 s). CLS mobile 0 |
+| Bề rộng | 320, 375, 768, 899, 900, 1024, 1920px × 6 trang | Không cuộn ngang, header 68px, menu một hàng từ 900px |
+| Link | Quét mọi `href`/`src` trong HTML đã build, kiểm tra anchor | 50 link nội bộ 200, anchor đủ. GitHub, LinkedIn, GitHub Privacy đều 200 |
+| Đường dẫn con | Build với `NUXT_APP_BASE_URL=/pbtkhoa-github/`, chạy dưới thư mục con | 0 request lỗi, ảnh, phông, CV, favicon và chuyển trang đều đúng |
+| Tương phản phần trên gradient | Lấy màu pixel thật sau nút | Nút "See my work": 4.87 (đêm) / 13.18 (ngày) |
+| Giao diện sau khi đổi sang Tailwind | So pixel 24 ảnh trước/sau (6 trang × 2 theme × 2 bề rộng) | 16 ảnh giống hệt. 8 ảnh còn lại lệch dưới 600 pixel: dấu ✦ của dải tên khách và ba chấm cửa sổ, lệch 1–2px |
+
+### Lỗi tìm ra và đã sửa
+
+- **Ảnh tròn ở 900px** rộng hơn cột và lấn sang lề phải: đổi `min(420px, 80vw)` thành `min(420px, 100%)`.
+- **Thứ tự tiêu đề** ở Services và Work nhảy từ H1 xuống H3 (axe báo): thẻ có `headingLevel`, thẻ ngay dưới H1 dùng H2.
+- **Phông dự phòng không có số đo thật** (`local("serif")`, `size-adjust: 100%`): khi đặt `provider: 'google'`, `@nuxt/fonts` lấy fallback của Google và bỏ qua cấu hình. Bỏ `provider`, đặt `fallbacks: ['Georgia']` / `['Arial']`, bỏ `global: true` để module tự chèn tên fallback vào biến `--font-*` của Tailwind. CLS mobile từ 0.017 xuống 0.
+- **Nút form ghi "Send message"** trong khi chỉ mở ứng dụng email: đổi thành "Open in email app" và thêm một dòng giải thích.
+- **`NuxtRouteAnnouncer` có inline style**: thay bằng `useRouteAnnouncer()` và một thẻ `sr-only`. Chữ chỉ điền sau khi mount, vì điền lúc render sẽ lệch với HTML từ server (Lighthouse báo "Hydration completed but contains mismatches").
+
+### Bẫy khi chỉ dùng Tailwind
+
+- Tailwind v4 không tự quét `nuxt.config.ts`. Các class của `<html>`, `<body>` và page transition khai báo ở đó, nên cần `@source "../../../nuxt.config.ts";` trong `main.css`.
+- Gradient của Tailwind v4 pha màu trong OKLab, còn CSS cũ pha trong sRGB. Tím → hổ phách khác hẳn nhau, và số đo tương phản trước đây đều tính theo sRGB. Dùng `bg-linear-*/srgb`. Riêng `bg-radial-[…]` không nhận `/srgb`, để mặc định (chỉ chuyển sang trong suốt nên không khác).
+- `[&_p]:` chạm tới cả `<p>` bên trong component con. CSS scoped trước đây thì không. Dùng `[&>p]:` cho chữ của chính trang.
+- Không truyền class đổi `display` hay đổi cùng thuộc tính (`hidden`, `gap-*`, `py-*`…) vào component đã có class đó (`AppButton`, `cardClass`). Thứ tự trong CSS quyết định bên thắng. Bọc bằng một thẻ ngoài, hoặc viết class riêng.
+- Tailwind không có class cho `stroke-linecap`: đặt thành thuộc tính SVG ở thẻ `<svg>` gốc.
+- Đom đóm vẽ bằng `<canvas>` thay vì đổi `element.style`. Màu đọc từ `--color-amber`, đổi theo `data-theme` qua `MutationObserver`.
+
+### Lưu ý khi test bằng agent-browser
+
+Sau khi chạy Lighthouse (mở thêm Chrome), tab của agent-browser có thể bị đánh dấu `visibilityState = hidden`. Khi đó `requestAnimationFrame` ngừng chạy, page transition kẹt ở `page-leave-active`, nhìn như chuyển trang hỏng. Đóng và mở lại trình duyệt là hết. Site không lỗi.
+
+### Đã thử và bỏ
+
+`features.inlineStyles: true` (nhét CSS vào HTML): Lighthouse không khá hơn, mà mỗi trang nặng thêm khoảng 23 KB. Một file CSS dùng chung được cache tốt hơn cho site nhiều trang.

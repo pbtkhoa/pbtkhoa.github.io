@@ -4,27 +4,11 @@ withDefaults(defineProps<{ alt?: boolean }>(), { alt: false })
 
 <template>
   <section
-    class="band"
-    :class="{ 'band-alt': alt }"
+    class="py-16 lg:py-22"
+    :class="{ 'bg-bg-2': alt }"
   >
-    <div class="wrap">
+    <div :class="wrapClass">
       <slot />
     </div>
   </section>
 </template>
-
-<style scoped>
-.band {
-  padding-block: 64px;
-}
-
-.band-alt {
-  background: var(--color-bg-2);
-}
-
-@media (min-width: 900px) {
-  .band {
-    padding-block: 88px;
-  }
-}
-</style>

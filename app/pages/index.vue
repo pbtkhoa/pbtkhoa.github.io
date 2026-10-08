@@ -40,12 +40,9 @@ useHead({
         title="Three ways I can help"
       >
         <template #action>
-          <NuxtLink
-            to="/services"
-            class="btn"
-          >
+          <AppButton to="/services">
             All services
-          </NuxtLink>
+          </AppButton>
         </template>
       </SectionHead>
       <div class="grid gap-4.5 lg:grid-cols-3">
@@ -64,12 +61,9 @@ useHead({
         title="Recent projects"
       >
         <template #action>
-          <NuxtLink
-            to="/work"
-            class="btn"
-          >
+          <AppButton to="/work">
             All projects
-          </NuxtLink>
+          </AppButton>
         </template>
       </SectionHead>
       <div class="grid gap-4.5 lg:grid-cols-3">
@@ -81,11 +75,12 @@ useHead({
           layout="stack"
         />
       </div>
-      <p class="mt-7 text-muted">
+      <p class="mt-7 mb-0 text-muted">
         Plus {{ remainingProjects }} more projects on the work page, and many more stores and plugins under NDA.
         <NuxtLink
           to="/work"
-          class="text-link font-semibold text-fg"
+          class="font-semibold text-fg"
+          :class="textLinkClass"
         >
           See all projects
         </NuxtLink>

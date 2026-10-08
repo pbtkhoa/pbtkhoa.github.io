@@ -3,58 +3,66 @@ defineProps<{
   stores: string[]
   extensions: string[]
 }>()
+
+const chipClass = 'rounded-full border border-line bg-bg-2 px-3.5 py-1.75 font-display text-[1.05rem]'
+const moreChipClass = 'inline-flex items-center rounded-full border border-dashed border-line px-3.5 py-1.75 text-[0.9rem] font-semibold text-amber'
 </script>
 
 <template>
-  <div class="much-more">
-    <div class="much-copy">
-      <p class="kicker much-kicker">
+  <div class="relative grid grid-cols-1 gap-8 overflow-hidden rounded-[32px] border border-line bg-card p-[clamp(24px,4vw,44px)] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-12">
+    <div
+      class="pointer-events-none absolute inset-0 bg-radial-[circle_at_100%_0%] from-amber/14 to-transparent to-55%"
+      aria-hidden="true"
+    />
+    <div class="relative">
+      <p :class="kickerClass">
         Beyond this page
       </p>
-      <h2 class="heading-display">
+      <h2 :class="displayHeadingClass">
         And much more
       </h2>
-      <p class="much-text">
+      <p class="mt-3.5 mb-0 max-w-[52ch] text-muted">
         Most of my client work runs under NDA, so it isn't listed here: more Shopware stores and plugins, integrations with payment, shipping and ERP systems, and web and mobile apps I've built as a freelancer since 2017.
       </p>
-      <NuxtLink
+      <AppButton
         to="/contact"
-        class="btn btn-amber much-action"
+        variant="amber"
+        class="mt-5.5"
       >
         Ask about work like yours
-      </NuxtLink>
+      </AppButton>
     </div>
-    <div class="much-lists">
-      <div class="much-group">
-        <h3 class="much-heading">
+    <div class="relative grid content-start gap-6">
+      <div>
+        <h3 class="mt-0 mb-2.5 text-[0.95rem] font-semibold">
           Shopware stores
         </h3>
-        <ul class="much-chips">
+        <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
           <li
             v-for="store in stores"
             :key="store"
-            class="much-chip"
+            :class="chipClass"
           >
             {{ store }}
           </li>
-          <li class="much-chip much-chip-more">
+          <li :class="moreChipClass">
             and many more
           </li>
         </ul>
       </div>
-      <div class="much-group">
-        <h3 class="much-heading">
+      <div>
+        <h3 class="mt-0 mb-2.5 text-[0.95rem] font-semibold">
           Shopware plugins and apps
         </h3>
-        <ul class="much-chips">
+        <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
           <li
             v-for="extension in extensions"
             :key="extension"
-            class="much-chip"
+            :class="chipClass"
           >
             {{ extension }}
           </li>
-          <li class="much-chip much-chip-more">
+          <li :class="moreChipClass">
             and many more
           </li>
         </ul>
@@ -62,79 +70,3 @@ defineProps<{
     </div>
   </div>
 </template>
-
-<style scoped>
-.much-more {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 32px;
-  padding: clamp(24px, 4vw, 44px);
-  border-radius: 32px;
-  border: 1px solid var(--color-line);
-  background:
-    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--color-amber) 14%, transparent), transparent 55%),
-    var(--color-card);
-}
-
-.much-kicker {
-  margin: 0;
-}
-
-.much-text {
-  max-width: 52ch;
-  margin: 14px 0 0;
-  color: var(--color-muted);
-}
-
-.much-action {
-  margin-top: 22px;
-}
-
-.much-lists {
-  display: grid;
-  gap: 24px;
-  align-content: start;
-}
-
-.much-heading {
-  margin: 0 0 10px;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.much-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.much-chip {
-  padding: 7px 14px;
-  border-radius: 999px;
-  border: 1px solid var(--color-line);
-  background: var(--color-bg-2);
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-}
-
-.much-chip-more {
-  border-style: dashed;
-  background: transparent;
-  color: var(--color-amber);
-  font-family: var(--font-sans);
-  font-size: 0.9rem;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-}
-
-@media (min-width: 900px) {
-  .much-more {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-    gap: 48px;
-  }
-}
-</style>

@@ -23,12 +23,14 @@ jobs:
         with:
           node-version: 24
           cache: npm
+      - id: pages
+        uses: actions/configure-pages@v5
       - run: npm ci
       - run: npm run lint
       - run: npx nuxt generate
         env:
           NITRO_PRESET: github_pages
-          NUXT_PUBLIC_FORM_ENDPOINT: ${{ vars.FORM_ENDPOINT }}
+          NUXT_APP_BASE_URL: ${{ steps.pages.outputs.base_path }}/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./.output/public

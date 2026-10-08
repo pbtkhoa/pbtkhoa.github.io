@@ -11,20 +11,20 @@ withDefaults(defineProps<{
 </script>
 
 <template>
-  <div class="section-head">
+  <div class="mb-9 flex flex-wrap items-end justify-between gap-5">
     <div>
-      <p class="kicker section-kicker">
+      <p :class="kickerClass">
         {{ kicker }}
       </p>
       <component
         :is="`h${level}`"
-        class="heading-display"
+        :class="displayHeadingClass"
       >
         {{ title }}
       </component>
       <p
         v-if="text"
-        class="section-text"
+        class="mt-2.5 mb-0 max-w-[48ch] text-muted"
       >
         {{ text }}
       </p>
@@ -32,24 +32,3 @@ withDefaults(defineProps<{
     <slot name="action" />
   </div>
 </template>
-
-<style scoped>
-.section-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-bottom: 36px;
-}
-
-.section-kicker {
-  margin: 0;
-}
-
-.section-text {
-  color: var(--color-muted);
-  max-width: 48ch;
-  margin: 10px 0 0;
-}
-</style>

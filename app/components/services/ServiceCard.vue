@@ -6,12 +6,15 @@ const props = withDefaults(defineProps<{
   service: Service
   to?: string
   detailed?: boolean
+  headingLevel?: 2 | 3
 }>(), {
   to: undefined,
   detailed: false,
+  headingLevel: 3,
 })
 
 const anchorId = computed(() => (props.detailed ? props.service.key : undefined))
+const interactiveClass = computed(() => (props.to ? `${liftOnHover} ${focusRing}` : ''))
 </script>
 
 <template>
@@ -19,69 +22,37 @@ const anchorId = computed(() => (props.detailed ? props.service.key : undefined)
     :is="to ? NuxtLink : 'article'"
     :id="anchorId"
     :to="to"
-    class="card"
-    :class="{ 'card-link': to }"
+    class="scroll-mt-24"
+    :class="[cardClass, interactiveClass]"
   >
     <span
-      class="lantern"
+      class="grid size-11.5 place-items-center rounded-field bg-amber/20 font-display text-[1.2rem] font-bold text-amber"
       aria-hidden="true"
     >{{ service.mark }}</span>
-    <h3 class="heading-card">
+    <component
+      :is="`h${headingLevel}`"
+      :class="cardHeadingClass"
+    >
       {{ service.title }}
-    </h3>
-    <p class="service-blurb">
+    </component>
+    <p class="m-0 text-muted">
       {{ service.blurb }}
     </p>
     <ul
       v-if="detailed"
-      class="service-points"
+      class="mt-1.5 mb-0 grid list-none gap-1.5 p-0"
     >
       <li
         v-for="point in service.points"
         :key="point"
-        class="service-point"
+        class="flex gap-2.5 text-[0.95rem]"
       >
+        <span
+          class="text-amber"
+          aria-hidden="true"
+        >✦</span>
         {{ point }}
       </li>
     </ul>
   </component>
 </template>
-
-<style scoped>
-.lantern {
-  display: grid;
-  place-items: center;
-  width: 46px;
-  height: 46px;
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--color-amber) 20%, transparent);
-  color: var(--color-amber);
-  font-family: var(--font-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.service-blurb {
-  margin: 0;
-  color: var(--color-muted);
-}
-
-.service-points {
-  display: grid;
-  gap: 6px;
-  margin: 6px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.service-point {
-  display: flex;
-  gap: 10px;
-  font-size: 0.95rem;
-}
-
-.service-point::before {
-  content: "✦";
-  color: var(--color-amber);
-}
-</style>

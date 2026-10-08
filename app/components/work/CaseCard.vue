@@ -6,52 +6,66 @@ const props = withDefaults(defineProps<{
   project: Project
   to?: string
   layout?: 'row' | 'stack'
+  headingLevel?: 2 | 3
 }>(), {
   to: undefined,
   layout: 'row',
+  headingLevel: 3,
 })
 
-const showHighlight = computed(() => Boolean(props.project.highlight) && props.layout === 'row')
+const isRow = computed(() => props.layout === 'row')
+const showHighlight = computed(() => Boolean(props.project.highlight) && isRow.value)
 
-const classes = computed(() => ({
-  'case-link': Boolean(props.to),
-  'case-stack': props.layout === 'stack',
-}))
+const rootClass = computed(() => [
+  isRow.value ? 'lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:grid-rows-[auto] lg:even:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]' : '',
+  props.to ? `${liftOnHover} ${focusRing}` : '',
+])
 </script>
 
 <template>
   <component
     :is="to ? NuxtLink : 'article'"
     :to="to"
-    class="case"
-    :class="classes"
+    class="group grid scroll-mt-24 grid-cols-1 grid-rows-[auto_1fr] overflow-hidden rounded-panel border border-line bg-card text-fg no-underline"
+    :class="rootClass"
   >
     <ProjectArt
       :kind="project.art"
       :tone="project.tone"
-      class="case-art"
+      :class="isRow ? 'lg:group-even:order-2' : ''"
     />
-    <div class="case-body">
-      <p class="case-meta">
-        {{ project.org }} · <span class="case-years">{{ project.years }}</span>
+    <div
+      class="flex flex-col gap-2.5 p-6"
+      :class="isRow ? 'lg:justify-center lg:p-8.5' : ''"
+    >
+      <p class="m-0 text-[0.9rem] font-semibold text-amber">
+        {{ project.org }} · <span class="whitespace-nowrap">{{ project.years }}</span>
       </p>
-      <h3 class="case-title">
+      <component
+        :is="`h${headingLevel}`"
+        class="m-0 font-display leading-[1.15] font-semibold text-balance"
+        :class="isRow ? 'text-[clamp(1.4rem,2.4vw,1.8rem)]' : 'text-[1.35rem]'"
+      >
         {{ project.title }}
-      </h3>
-      <p class="case-summary">
+      </component>
+      <p class="m-0 text-muted">
         {{ project.summary }}
       </p>
       <p
         v-if="showHighlight"
-        class="case-highlight"
+        class="m-0 border-l-2 border-amber pl-3 text-[0.92rem]"
       >
         {{ project.highlight }}
       </p>
-      <ul class="case-tags">
+      <ul
+        class="mb-0 flex list-none flex-wrap gap-1.5 p-0 pt-2"
+        :class="isRow ? 'mt-auto lg:mt-1.5' : 'mt-auto'"
+      >
         <li
           v-for="tag in project.tags"
           :key="tag"
-          class="case-tag"
+          :class="pillTagClass"
+          class="bg-bg-2"
         >
           {{ tag }}
         </li>
@@ -59,112 +73,3 @@ const classes = computed(() => ({
     </div>
   </component>
 </template>
-
-<style scoped>
-.case {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: auto 1fr;
-  overflow: hidden;
-  border-radius: var(--radius-panel);
-  border: 1px solid var(--color-line);
-  background: var(--color-card);
-  color: var(--color-fg);
-  text-decoration: none;
-}
-
-.case-link {
-  transition: transform 0.25s, border-color 0.25s;
-}
-
-.case-link:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-amber);
-}
-
-.case-body {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 24px;
-}
-
-.case-meta {
-  margin: 0;
-  color: var(--color-amber);
-  font-weight: 600;
-  font-size: 0.9rem;
-}
-
-.case-years {
-  white-space: nowrap;
-}
-
-.case-title {
-  margin: 0;
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
-  line-height: 1.15;
-  text-wrap: balance;
-}
-
-.case-stack .case-title {
-  font-size: 1.35rem;
-}
-
-.case-summary {
-  margin: 0;
-  color: var(--color-muted);
-}
-
-.case-highlight {
-  margin: 0;
-  padding-left: 12px;
-  border-left: 2px solid var(--color-amber);
-  font-size: 0.92rem;
-}
-
-.case-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: auto 0 0;
-  padding: 8px 0 0;
-  list-style: none;
-}
-
-.case-tag {
-  padding: 4px 10px;
-  border-radius: 999px;
-  border: 1px solid var(--color-line);
-  background: var(--color-bg-2);
-  color: var(--color-muted);
-  font-size: 0.78rem;
-  font-weight: 600;
-}
-
-@media (min-width: 900px) {
-  .case:not(.case-stack) {
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
-    grid-template-rows: auto;
-  }
-
-  .case:not(.case-stack) .case-body {
-    justify-content: center;
-    padding: 34px;
-  }
-
-  .case:not(.case-stack) .case-tags {
-    margin-top: 6px;
-  }
-
-  .case:not(.case-stack):nth-child(even) {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
-  }
-
-  .case:not(.case-stack):nth-child(even) .case-art {
-    order: 2;
-  }
-}
-</style>

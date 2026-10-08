@@ -6,8 +6,6 @@ export interface ContactFields {
 
 export type ContactField = keyof ContactFields
 
-export type ContactStatus = 'idle' | 'sending' | 'sent' | 'drafted' | 'failed'
-
 interface UseContactFormOptions {
   recipient: string
 }
@@ -22,7 +20,6 @@ const ERROR_TEXT: Partial<Record<ContactField, string>> = {
 
 export function useContactForm(options: UseContactFormOptions) {
   const { recipient } = options
-  const { public: { formEndpoint } } = useRuntimeConfig()
 
   const fields = reactive<ContactFields>({
     name: '',
@@ -30,7 +27,7 @@ export function useContactForm(options: UseContactFormOptions) {
     message: '',
   })
   const attempted = shallowRef(false)
-  const status = shallowRef<ContactStatus>('idle')
+  const drafted = shallowRef(false)
 
   const problems = computed(() => {
     const found: Partial<Record<ContactField, string>> = {}
@@ -55,50 +52,21 @@ export function useContactForm(options: UseContactFormOptions) {
     return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
 
-  function reset() {
-    fields.name = ''
-    fields.email = ''
-    fields.message = ''
-    attempted.value = false
-  }
-
-  async function submit(): Promise<ContactField | undefined> {
+  function submit(): ContactField | undefined {
     attempted.value = true
     if (firstInvalid.value) {
-      status.value = 'idle'
+      drafted.value = false
       return firstInvalid.value
     }
-
-    if (!formEndpoint) {
-      window.location.href = mailtoLink()
-      status.value = 'drafted'
-      return undefined
-    }
-
-    status.value = 'sending'
-    try {
-      await $fetch(formEndpoint, {
-        method: 'POST',
-        headers: { Accept: 'application/json' },
-        body: {
-          name: fields.name.trim(),
-          email: fields.email.trim(),
-          message: fields.message.trim(),
-        },
-      })
-      status.value = 'sent'
-      reset()
-    }
-    catch {
-      status.value = 'failed'
-    }
+    window.location.href = mailtoLink()
+    drafted.value = true
     return undefined
   }
 
   return {
     fields,
     errors,
-    status: readonly(status),
+    drafted: readonly(drafted),
     submit,
   }
 }

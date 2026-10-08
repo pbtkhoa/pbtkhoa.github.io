@@ -21,6 +21,7 @@ useSeoMeta({
           v-for="service in services"
           :key="service.key"
           :service="service"
+          :heading-level="2"
           detailed
         />
       </div>

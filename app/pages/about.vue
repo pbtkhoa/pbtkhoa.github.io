@@ -12,27 +12,27 @@ useSeoMeta({
 <template>
   <div>
     <PageBand>
-      <div class="about">
-        <figure class="portrait">
+      <div class="grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] lg:gap-14">
+        <figure class="m-0 overflow-hidden rounded-panel border border-line lg:sticky lg:top-24">
           <KhoaPhoto
             :size="460"
             densities="x1"
             alt="Photo of Khoa"
-            class="portrait-photo"
+            class="aspect-square w-full object-cover"
           />
-          <figcaption class="portrait-caption">
+          <figcaption class="bg-card px-4.5 py-3.5 text-[0.9rem] text-muted">
             {{ site.name }}, full-stack software engineer.
           </figcaption>
         </figure>
 
         <div>
-          <p class="kicker about-kicker">
+          <p :class="kickerClass">
             About
           </p>
-          <h1 class="heading-display">
+          <h1 :class="displayHeadingClass">
             I'm a full-stack engineer who likes the boring parts done right.
           </h1>
-          <div class="prose">
+          <div class="mt-5 text-[1.08rem] text-muted [&>p]:mt-0 [&>p]:mb-4.5 [&_strong]:text-fg">
             <p>
               I started with WordPress and Symfony in 2016. Since then I've led a team at Rikkeisoft, built React Native apps at NFQ, and spent the last five years on <strong>Shopware 6 and Laravel</strong> for companies in Germany and Austria.
             </p>
@@ -40,20 +40,20 @@ useSeoMeta({
               I like taking a feature from the database to the deploy. On the back end I work in <strong>PHP and, more and more, Node.js</strong>, and I've done a lot of upgrades of older systems to current PHP, Symfony and Laravel versions. I studied Electronics and Telecommunications at Hue University.
             </p>
           </div>
-          <div class="about-actions">
-            <a
+          <div class="mt-2 flex flex-wrap gap-3">
+            <AppButton
               :href="cvUrl"
-              class="btn btn-amber"
+              variant="amber"
               download
-            >Download CV (PDF)</a>
-            <a
-              :href="site.github"
-              class="btn"
-            >GitHub</a>
-            <a
-              :href="site.linkedin"
-              class="btn"
-            >LinkedIn</a>
+            >
+              Download CV (PDF)
+            </AppButton>
+            <AppButton :href="site.github">
+              GitHub
+            </AppButton>
+            <AppButton :href="site.linkedin">
+              LinkedIn
+            </AppButton>
           </div>
           <h2 class="sr-only">
             Experience
@@ -64,69 +64,3 @@ useSeoMeta({
     </PageBand>
   </div>
 </template>
-
-<style scoped>
-.about {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: start;
-  gap: 40px;
-}
-
-.portrait {
-  margin: 0;
-  overflow: hidden;
-  border-radius: var(--radius-panel);
-  border: 1px solid var(--color-line);
-}
-
-.portrait-photo {
-  width: 100%;
-  aspect-ratio: 1;
-  object-fit: cover;
-}
-
-.portrait-caption {
-  padding: 14px 18px;
-  background: var(--color-card);
-  color: var(--color-muted);
-  font-size: 0.9rem;
-}
-
-.about-kicker {
-  margin: 0;
-}
-
-.prose {
-  margin-top: 20px;
-}
-
-.prose p {
-  margin: 0 0 18px;
-  color: var(--color-muted);
-  font-size: 1.08rem;
-}
-
-.prose strong {
-  color: var(--color-fg);
-}
-
-.about-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
-}
-
-@media (min-width: 900px) {
-  .about {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-    gap: 56px;
-  }
-
-  .portrait {
-    position: sticky;
-    top: 96px;
-  }
-}
-</style>

@@ -5,24 +5,27 @@ const year = useState('footer-year', () => new Date().getFullYear())
 </script>
 
 <template>
-  <footer class="site-footer">
-    <div class="wrap footer-bar">
+  <footer class="border-t border-line py-8 text-[0.9rem] text-muted">
+    <div
+      class="flex flex-wrap justify-between gap-3.5"
+      :class="wrapClass"
+    >
       <span>© {{ year }} {{ site.name }}</span>
       <nav
-        class="footer-nav"
+        class="flex flex-wrap gap-4.5"
         aria-label="Footer"
       >
         <a
           :href="site.github"
-          class="text-link"
+          :class="textLinkClass"
         >GitHub</a>
         <a
           :href="site.linkedin"
-          class="text-link"
+          :class="textLinkClass"
         >LinkedIn</a>
         <NuxtLink
           to="/privacy"
-          class="text-link"
+          :class="textLinkClass"
         >
           Privacy
         </NuxtLink>
@@ -30,25 +33,3 @@ const year = useState('footer-year', () => new Date().getFullYear())
     </div>
   </footer>
 </template>
-
-<style scoped>
-.site-footer {
-  border-top: 1px solid var(--color-line);
-  padding-block: 32px;
-  color: var(--color-muted);
-  font-size: 0.9rem;
-}
-
-.footer-bar {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 14px;
-}
-
-.footer-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 18px;
-}
-</style>
