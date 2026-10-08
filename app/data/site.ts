@@ -28,7 +28,7 @@ export interface Engagement {
   featured?: boolean
 }
 
-export type ProjectTone = 'dusk' | 'ocean' | 'ember' | 'forest' | 'blossom' | 'night' | 'meadow'
+export type ProjectTone = 'dusk' | 'violet' | 'ember' | 'vorwerk' | 'blossom' | 'night' | 'meadow'
 
 export type ProjectArt = 'store' | 'ledger' | 'signin' | 'leads' | 'timesheet' | 'trading' | 'pos'
 
@@ -41,6 +41,7 @@ export interface Project {
   years: string
   summary: string
   highlight?: string
+  highlightLink?: { text: string, href: string }
   link?: { label: string, href: string }
   tags: string[]
   tone: ProjectTone
@@ -164,8 +165,9 @@ export const featuredProjects: Project[] = [
     years: '2021 – 2023',
     summary: 'A bookkeeping platform with double-entry ledger, invoicing, bank reconciliation, payroll and reporting. I worked across all modules, wrote Python Lambdas and added OpenAI and Twilio SMS.',
     highlight: 'Project: cybooks',
+    highlightLink: { text: 'cybooks', href: 'https://app.cybooks.com.cy/' },
     tags: ['Laravel', 'Vue 3', 'AWS', 'OpenAI', 'Stripe'],
-    tone: 'ocean',
+    tone: 'violet',
     art: 'ledger',
   },
   {
@@ -185,7 +187,7 @@ export const featuredProjects: Project[] = [
     years: '2023 – now',
     summary: 'A lead management page on Drupal 11 for Vorwerk Austria: lead assignment, reminders, CSV import and SAP export.',
     tags: ['Drupal 11', 'PHP', 'SAP export'],
-    tone: 'forest',
+    tone: 'vorwerk',
     art: 'leads',
   },
   {

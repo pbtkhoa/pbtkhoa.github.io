@@ -1,14 +1,20 @@
 <script setup lang="ts">
-const menu = [0, 1, 2, 3, 4, 5]
-const kpis = [74, 154, 234]
-const bars = [30, 44, 38, 56, 48, 64, 58, 76]
-const rows = [
-  { amount: 30, up: true },
-  { amount: 22, up: false },
-  { amount: 34, up: true },
-  { amount: 18, up: true },
-  { amount: 26, up: false },
-  { amount: 30, up: true },
+const navItems = [31, 42, 53, 64, 75, 86, 97, 108]
+const kpis = [
+  { x: 72, note: 'fill-[#667085]' },
+  { x: 132, note: 'fill-[#667085]' },
+  { x: 192, note: 'fill-[#d92d20]' },
+  { x: 252, note: 'fill-[#17b26a]' },
+]
+const todoRows = [124, 136, 148, 160]
+const reviewRows = [142, 151, 160]
+const cashflow = [
+  { x: 244, cashIn: 30, cashOut: 33 },
+  { x: 255, cashIn: 12, cashOut: 18 },
+  { x: 266, cashIn: 16, cashOut: 22 },
+  { x: 277, cashIn: 11, cashOut: 10 },
+  { x: 288, cashIn: 14, cashOut: 20 },
+  { x: 299, cashIn: 5, cashOut: 3 },
 ]
 </script>
 
@@ -20,145 +26,602 @@ const rows = [
     stroke-linejoin="round"
   >
     <rect
-      class="fill-bg"
+      class="fill-[#f9fafb]"
       width="320"
       height="180"
     />
     <rect
-      class="fill-bg-2"
-      width="62"
+      class="fill-[#101828]"
+      width="64"
       height="180"
     />
+    <text
+      class="fill-white"
+      x="7"
+      y="16"
+      font-family="Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
+      font-size="11"
+      font-weight="700"
+      letter-spacing="-0.2"
+    >cybooks</text>
     <rect
-      class="fill-amber"
-      x="12"
-      y="12"
-      width="26"
-      height="7"
-      rx="3.5"
+      class="fill-[#1d2939]"
+      x="4"
+      y="26"
+      width="56"
+      height="10"
+      rx="2.5"
+    />
+    <g
+      v-for="(y, index) in navItems"
+      :key="y"
+    >
+      <rect
+        class="fill-none stroke-white/60 stroke-[0.8]"
+        x="8"
+        :y="y - 2.5"
+        width="5"
+        height="5"
+        rx="1"
+      />
+      <rect
+        :class="index === 0 ? 'fill-white' : 'fill-white/70'"
+        x="17"
+        :y="y - 1.5"
+        :width="[18, 14, 13, 20, 13, 22, 20, 16][index]"
+        height="3"
+        rx="1.5"
+      />
+    </g>
+    <rect
+      class="fill-white"
+      x="50"
+      y="39.5"
+      width="8"
+      height="5"
+      rx="2.5"
     />
     <rect
-      class="fill-amber/28"
-      x="6"
-      y="45"
-      width="50"
-      height="14"
+      class="fill-[#1d2939]"
+      x="5"
+      y="136"
+      width="54"
+      height="38"
       rx="4"
     />
-    <rect
-      v-for="item in menu"
-      :key="item"
-      :class="item === 1 ? 'fill-amber' : 'fill-muted/55'"
-      x="12"
-      :y="34 + item * 16"
-      width="36"
-      height="4"
-      rx="2"
-    />
-    <g
-      v-for="(x, index) in kpis"
-      :key="x"
-    >
-      <rect
-        class="fill-card stroke-line"
-        :x="x"
-        y="12"
-        width="74"
-        height="40"
-        rx="6"
-      />
-      <rect
-        class="fill-muted/55"
-        :x="x + 8"
-        y="20"
-        width="30"
-        height="4"
-        rx="2"
-      />
-      <rect
-        class="fill-fg/80"
-        :x="x + 8"
-        y="30"
-        :width="34 + index * 6"
-        height="9"
-        rx="3"
-      />
-      <rect
-        :class="index === 1 ? 'fill-sakura' : 'fill-ok'"
-        :x="x + 56"
-        y="31"
-        width="12"
-        height="6"
-        rx="3"
-      />
-    </g>
-    <rect
-      class="fill-card stroke-line"
-      x="74"
-      y="60"
-      width="152"
-      height="110"
-      rx="6"
+    <circle
+      class="fill-[#98a2b3]"
+      cx="13"
+      cy="145"
+      r="5"
     />
     <rect
-      class="fill-muted/55"
-      x="84"
-      y="69"
+      class="fill-white"
+      x="9"
+      y="155"
+      width="34"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-white/50"
+      x="9"
+      y="162"
       width="44"
-      height="4"
-      rx="2"
+      height="2.5"
+      rx="1.25"
+    />
+    <rect
+      class="fill-white"
+      y="0"
+      x="64"
+      width="256"
+      height="18"
     />
     <line
-      class="stroke-line"
-      x1="84"
-      y1="158"
-      x2="216"
-      y2="158"
+      class="stroke-[#eaecf0]"
+      x1="64"
+      y1="18"
+      x2="320"
+      y2="18"
     />
     <rect
-      v-for="(height, index) in bars"
-      :key="index"
-      :class="index === bars.length - 1 ? 'fill-amber' : 'fill-iris'"
-      :x="88 + index * 16"
-      :y="158 - height"
-      width="9"
-      :height="height"
+      class="fill-[#f9f5ff]"
+      x="70"
+      y="4.5"
+      width="44"
+      height="9"
       rx="2"
     />
     <rect
-      class="fill-card stroke-line"
-      x="234"
-      y="60"
-      width="74"
-      height="110"
-      rx="6"
+      class="fill-[#6941c6]"
+      x="73"
+      y="7.5"
+      width="22"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#e9d7fe]"
+      x="98"
+      y="7.5"
+      width="12"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#7f56d9]"
+      x="98"
+      y="7.5"
+      width="4"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-white stroke-[#d0d5dd] stroke-[0.6]"
+      x="150"
+      y="4"
+      width="84"
+      height="10"
+      rx="2.5"
+    />
+    <rect
+      class="fill-[#98a2b3]"
+      x="155"
+      y="7.75"
+      width="18"
+      height="2.5"
+      rx="1.25"
+    />
+    <rect
+      class="fill-white stroke-[#d0d5dd] stroke-[0.6]"
+      x="206"
+      y="5.5"
+      width="25"
+      height="7"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#344054]"
+      x="209"
+      y="8"
+      width="18"
+      height="2"
+      rx="1"
+    />
+    <circle
+      v-for="cx in [268, 281, 294]"
+      :key="cx"
+      class="fill-[#f2f4f7]"
+      :cx="cx"
+      cy="9"
+      r="4.5"
+    />
+    <rect
+      class="fill-[#7f56d9]"
+      x="303"
+      y="4"
+      width="11"
+      height="10"
+      rx="2.5"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="72"
+      y="23"
+      width="66"
+      height="4.5"
+      rx="2"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="72"
+      y="30.5"
+      width="54"
+      height="2.5"
+      rx="1.25"
+    />
+    <rect
+      class="fill-white stroke-[#eaecf0] stroke-[0.6]"
+      x="72"
+      y="38"
+      width="240"
+      height="26"
+      rx="3"
     />
     <g
-      v-for="(row, index) in rows"
-      :key="index"
+      v-for="kpi in kpis"
+      :key="kpi.x"
     >
-      <circle
-        :class="row.up ? 'fill-ok' : 'fill-sakura'"
-        cx="243"
-        :cy="74 + index * 16"
-        r="2.5"
+      <line
+        v-if="kpi.x > 72"
+        class="stroke-[#eaecf0] stroke-[0.6]"
+        :x1="kpi.x"
+        y1="38"
+        :x2="kpi.x"
+        y2="64"
       />
       <rect
-        class="fill-muted/55"
-        x="249"
-        :y="72 + index * 16"
-        width="20"
-        height="4"
-        rx="2"
+        class="fill-[#667085]"
+        :x="kpi.x + 6"
+        y="43"
+        width="22"
+        height="2"
+        rx="1"
       />
       <rect
-        class="fill-fg/80"
-        :x="300 - row.amount * 0.7"
-        :y="72 + index * 16"
-        :width="row.amount * 0.7"
-        height="4"
-        rx="2"
+        class="fill-[#101828]"
+        :x="kpi.x + 6"
+        y="48"
+        width="32"
+        height="5"
+        rx="1.5"
+      />
+      <rect
+        :class="kpi.note"
+        :x="kpi.x + 6"
+        y="57"
+        width="26"
+        height="2"
+        rx="1"
       />
     </g>
+    <rect
+      class="fill-white stroke-[#eaecf0] stroke-[0.6]"
+      x="72"
+      y="70"
+      width="76"
+      height="104"
+      rx="3"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="78"
+      y="76"
+      width="30"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#7f56d9]"
+      x="132"
+      y="76"
+      width="11"
+      height="3"
+      rx="1.5"
+    />
+    <circle
+      class="fill-none stroke-[#eaecf0] stroke-[2.4]"
+      cx="87"
+      cy="96"
+      r="7"
+    />
+    <path
+      class="fill-none stroke-[#7f56d9] stroke-[2.4]"
+      d="M87 89a7 7 0 0 1 6.7 9.1"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="98"
+      y="92"
+      width="32"
+      height="4"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="98"
+      y="99"
+      width="40"
+      height="2.5"
+      rx="1.25"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="78"
+      y="110"
+      width="18"
+      height="2"
+      rx="1"
+    />
+    <circle
+      class="fill-white stroke-[#7f56d9] stroke-[1.2]"
+      cx="81"
+      cy="119"
+      r="2.6"
+    />
+    <circle
+      class="fill-[#7f56d9]"
+      cx="81"
+      cy="119"
+      r="1.2"
+    />
+    <rect
+      class="fill-[#344054]"
+      x="87"
+      y="117.5"
+      width="22"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#7f56d9]"
+      x="112"
+      y="114"
+      width="32"
+      height="10"
+      rx="2"
+    />
+    <rect
+      class="fill-white"
+      x="116"
+      y="117.75"
+      width="24"
+      height="2.5"
+      rx="1.25"
+    />
+    <g
+      v-for="y in todoRows"
+      :key="y"
+    >
+      <line
+        class="stroke-[#eaecf0] stroke-[0.6]"
+        x1="78"
+        :y1="y + 3"
+        x2="142"
+        :y2="y + 3"
+      />
+      <circle
+        class="fill-none stroke-[#d0d5dd] stroke-[0.8]"
+        cx="81"
+        :cy="y + 9"
+        r="2.6"
+      />
+      <rect
+        class="fill-[#344054]"
+        x="87"
+        :y="y + 7"
+        width="36"
+        height="2.5"
+        rx="1.25"
+      />
+    </g>
+    <rect
+      class="fill-white stroke-[#eaecf0] stroke-[0.6]"
+      x="152"
+      y="70"
+      width="78"
+      height="104"
+      rx="3"
+    />
+    <path
+      class="fill-[#7f56d9]"
+      d="M159 74.5l1 2.2 2.2 1-2.2 1-1 2.2-1-2.2-2.2-1 2.2-1z"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="164"
+      y="76.5"
+      width="34"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#f4ebff]"
+      x="201"
+      y="75"
+      width="10"
+      height="6"
+      rx="3"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="158"
+      y="85"
+      width="44"
+      height="2.5"
+      rx="1.25"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="158"
+      y="94"
+      width="22"
+      height="2"
+      rx="1"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="158"
+      y="100"
+      width="38"
+      height="3.5"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="204"
+      y="100"
+      width="20"
+      height="3.5"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#ecfdf3]"
+      x="196"
+      y="111"
+      width="28"
+      height="6"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#17b26a]"
+      x="199"
+      y="113"
+      width="22"
+      height="2"
+      rx="1"
+    />
+    <rect
+      class="fill-[#344054]"
+      x="158"
+      y="112"
+      width="32"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#7f56d9]"
+      x="158"
+      y="122"
+      width="26"
+      height="10"
+      rx="2"
+    />
+    <rect
+      class="fill-white"
+      x="162"
+      y="125.75"
+      width="18"
+      height="2.5"
+      rx="1.25"
+    />
+    <rect
+      class="fill-white stroke-[#d0d5dd] stroke-[0.6]"
+      x="187"
+      y="122"
+      width="14"
+      height="10"
+      rx="2"
+    />
+    <rect
+      class="fill-[#344054]"
+      x="190"
+      y="125.75"
+      width="8"
+      height="2.5"
+      rx="1.25"
+    />
+    <g
+      v-for="y in reviewRows"
+      :key="y"
+    >
+      <rect
+        class="fill-[#475467]"
+        x="158"
+        :y="y"
+        width="42"
+        height="2.5"
+        rx="1.25"
+      />
+      <rect
+        class="fill-[#475467]"
+        x="214"
+        :y="y"
+        width="10"
+        height="2.5"
+        rx="1.25"
+      />
+    </g>
+    <rect
+      class="fill-white stroke-[#eaecf0] stroke-[0.6]"
+      x="234"
+      y="70"
+      width="78"
+      height="104"
+      rx="3"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="240"
+      y="76"
+      width="26"
+      height="3"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="240"
+      y="83"
+      width="20"
+      height="2"
+      rx="1"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="240"
+      y="92"
+      width="28"
+      height="4"
+      rx="1.5"
+    />
+    <rect
+      class="fill-[#101828]"
+      x="274"
+      y="92"
+      width="28"
+      height="4"
+      rx="1.5"
+    />
+    <line
+      class="stroke-[#eaecf0] stroke-[0.6]"
+      x1="240"
+      y1="150"
+      x2="306"
+      y2="150"
+    />
+    <g
+      v-for="bar in cashflow"
+      :key="bar.x"
+    >
+      <rect
+        class="fill-[#7f56d9]"
+        :x="bar.x"
+        :y="150 - bar.cashIn * 1.3"
+        width="4"
+        :height="bar.cashIn * 1.3"
+        rx="0.8"
+      />
+      <rect
+        class="fill-[#d6bbfb]"
+        :x="bar.x + 4.5"
+        :y="150 - bar.cashOut * 1.3"
+        width="4"
+        :height="bar.cashOut * 1.3"
+        rx="0.8"
+      />
+    </g>
+    <rect
+      class="fill-[#7f56d9]"
+      x="240"
+      y="159"
+      width="4"
+      height="4"
+      rx="1"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="246"
+      y="160"
+      width="14"
+      height="2"
+      rx="1"
+    />
+    <rect
+      class="fill-[#d6bbfb]"
+      x="264"
+      y="159"
+      width="4"
+      height="4"
+      rx="1"
+    />
+    <rect
+      class="fill-[#667085]"
+      x="270"
+      y="160"
+      width="14"
+      height="2"
+      rx="1"
+    />
   </svg>
 </template>

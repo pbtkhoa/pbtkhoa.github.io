@@ -19,9 +19,9 @@ const scenes = {
 
 const tones: Record<ProjectTone, string> = {
   dusk: 'from-[#4a3f8c] to-[#c97a8e]',
-  ocean: 'from-[#24305e] to-[#4a6fb8]',
+  violet: 'from-[#101828] to-[#7f56d9]',
   ember: 'from-[#5b3a6e] to-[#f4a93a]',
-  forest: 'from-[#2f5e57] to-[#9cc3a4]',
+  vorwerk: 'from-[#113c2b] to-[#009a3d]',
   blossom: 'from-[#3a2a52] to-[#f2b5c4]',
   night: 'from-[#1c2140] to-[#6b6fb0]',
   meadow: 'from-[#1d3a12] to-[#8bc34a]',

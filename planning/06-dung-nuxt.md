@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-posbill.html](../artifact/lantern-hour-posbill.html) (vòng 4; báo cáo các vòng trước ở commit 281cc94, e0f78a9 và bde577c).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-brand-art.html](../artifact/lantern-hour-brand-art.html) (vòng 5; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c và 93fd4b1).
 
 ## 1. Cấu trúc
 
@@ -218,3 +218,43 @@ Quy tắc từ nay: nói "since <năm>", không ghi số năm kinh nghiệm.
   - axe trên `/work`: 0 vi phạm.
   - Trang chủ vẫn ghi "Plus 14 more projects".
 
+## 16. Link cybooks (08/10/2026)
+
+- Chữ "cybooks" trong dòng "Project: cybooks" giờ là link tới https://app.cybooks.com.cy/ (Khoa gửi). Dữ liệu có thêm trường `highlightLink: { text, href }`; `CaseCard` tìm đúng đoạn chữ đó trong `highlight` để biến thành link. Chỉ hiện ở `/work`, nơi thẻ không phải là link.
+- Kiểm tra link: `curl` không có user agent nhận 403. Có user agent của trình duyệt thật thì nhận 200. Chrome headless của agent-browser cũng bị 403. Tức là server chặn bot và trình duyệt tự động, còn người dùng thật vào được.
+
+
+## 17. Vẽ lại ba hình theo sản phẩm thật (08/10/2026)
+
+Khoa gửi ảnh chụp ba sản phẩm và muốn hình trên thẻ giống chúng. Cả ba hình dùng màu cố định của sản phẩm, không đổi theo theme, giống `ArtPos`.
+
+- **cybooks (`ArtLedger`)**, vẽ theo ảnh dashboard. Màu lấy từ CSS của app.cybooks.com.cy, cần user agent trình duyệt mới tải được:
+  - Sidebar `#101828`, mục đang chọn `#1d2939`, chữ "cybooks" màu trắng.
+  - Tím chủ đạo `#7f56d9`, tím nhạt `#f4ebff` / `#d6bbfb`.
+  - Xanh thành công `#17b26a`, đỏ `#d92d20`, viền `#d0d5dd`.
+  - Bố cục: thanh trên có thanh tiến độ và ô tìm kiếm, ô KPI bốn cột, thẻ to-do có vòng tiến độ, thẻ review, biểu đồ dòng tiền.
+  - Nền thẻ là tone `violet` (`#101828` sang `#7f56d9`).
+- **Lead management cho Thermomix (`ArtLeads`)**, vẽ theo ảnh Kobold LAM. Màu lấy từ CSS theme thermomix của trang:
+  - Xanh Vorwerk `#009a3d`, xanh đậm `#113c2b`.
+  - Nút cam dùng gradient `#ed8707` sang `#de3d10`; đây là chỗ duy nhất dùng `<linearGradient>`.
+  - Khung bên trái `#f2f2f2`, tiêu đề `#1a1a1a`, nút Apply `#828282`.
+  - Bố cục: khung tài khoản và danh sách LEADS bên trái, ô chào mừng có nút cam; bên phải là ba ô lọc và bảng lead.
+  - Nền thẻ là tone `vorwerk` (`#113c2b` sang `#009a3d`).
+- **Ticketing và chấm công (`ArtTimesheet`)**, vẽ theo ảnh bảng kanban "Effort Report":
+  - Ảnh không được lưu thành file, nên màu được ước lượng bằng mắt từ ảnh, theo bảng màu Bootstrap mà giao diện đang dùng:
+    - Nền sidebar `#f8f9fa`, nền chính `#f3f6fb`, chữ `#212529`, chữ phụ `#6c757d`.
+    - Logo đồng hồ xanh lá, chuông `#28a745`, nút lọc `#343a40`.
+  - Ba cột: tiêu đề Todo màu đen, In Progress màu `#1a56db`, Done màu `#28a745`.
+  - Mỗi ticket có mã, tên, ô tích xanh `#2563eb`, mũi tên ưu tiên (đỏ, cam, xanh), ngôi sao và dấu ba chấm.
+  - Ảnh gốc chỉ có ticket ở cột Todo. Theo yêu cầu, thêm ticket mẫu: In Progress 3 cái, Done 4 cái (đều đã tích).
+  - Nền thẻ giữ tone `night`.
+- Bỏ tone `ocean` và `forest` vì không còn dùng.
+- Kiểm tra:
+  - Chiều cao thẻ trên desktop: 366, 341, 336, 336, 336, 356, 336px.
+  - Không cuộn ngang ở 390px.
+  - axe trên `/work` và trang chủ: 0 vi phạm. Console không có lỗi.
+
+## 18. Đoạn giới thiệu ở About (08/10/2026)
+
+- Câu cũ "On the back end I work in PHP and, more and more, Node.js" đọc lạ. Khoa muốn liệt kê đủ công nghệ và mảng đã làm. Câu mới: "I work with **PHP, Node.js, Laravel, Symfony, Vue, React, Python and AWS**, building infrastructure, mobile apps, e-commerce stores and more."
+- Bỏ câu "I studied Electronics and Telecommunications at Hue University." theo ý Khoa. Thông tin học vấn vẫn còn trong CV.

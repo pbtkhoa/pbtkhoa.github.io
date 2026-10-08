@@ -17,6 +17,18 @@ const isRow = computed(() => props.layout === 'row')
 const showHighlight = computed(() => Boolean(props.project.highlight) && isRow.value)
 const showLink = computed(() => Boolean(props.project.link) && !props.to)
 
+const highlightParts = computed(() => {
+  const { highlight, highlightLink } = props.project
+  if (!highlight || !highlightLink || props.to) return undefined
+  const index = highlight.indexOf(highlightLink.text)
+  if (index < 0) return undefined
+  return {
+    before: highlight.slice(0, index),
+    after: highlight.slice(index + highlightLink.text.length),
+    link: highlightLink,
+  }
+})
+
 const rootClass = computed(() => [
   isRow.value ? 'lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:grid-rows-[auto] lg:even:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]' : '',
   props.to ? `${liftOnHover} ${focusRing}` : '',
@@ -56,7 +68,16 @@ const rootClass = computed(() => [
         v-if="showHighlight"
         class="m-0 border-l-2 border-amber pl-3 text-[0.92rem]"
       >
-        {{ project.highlight }}
+        <template v-if="highlightParts">
+          {{ highlightParts.before }}<a
+            :href="highlightParts.link.href"
+            class="font-semibold"
+            :class="textLinkClass"
+          >{{ highlightParts.link.text }}<span aria-hidden="true"> ↗</span></a>{{ highlightParts.after }}
+        </template>
+        <template v-else>
+          {{ project.highlight }}
+        </template>
       </p>
       <a
         v-if="showLink && project.link"
