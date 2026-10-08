@@ -31,7 +31,7 @@ Cần tránh: chữ gõ từng ký tự ở hero, preloader, 3D nặng, ảnh st
 | Trạng thái | Open to remote roles and freelance work |
 | Dự án tiêu biểu | (1) Shopware 6 stores & plugins: Egret, Biomex, van Laack, Cityschuh, Roto-store, Kraft; Checkout.com, Sprinque, blog plugin, Shopware Node.js SDK. (2) Accounting SaaS đa tenant (Laravel, Vue 3, AWS, OpenAI, Stripe). (3) Solio: GLS Bank SSO + mở tài khoản doanh nghiệp, Vorwerk Austria (Thermomix) lead tool trên Drupal 11, công cụ ticket/time-tracking với Jira + GitLab. (4) Crypto trading platform ở Rikkeisoft (team 13). |
 | Kinh nghiệm | Solio (03/2023–nay) · Shape & Shift (12/2021–02/2023) · NFQ (09/2019–11/2021) · Rikkeisoft, Team Lead (07/2017–08/2019) · Junoteam (09/2016–06/2017) · Freelance (2017–nay, song song) |
-| Stack | Backend, Frontend & Mobile, Platforms, Database, DevOps, Testing, Integrations, AI/LLM như CV |
+| Stack | Backend, Frontend & Mobile, Platforms, Database & Search, DevOps, Testing, Integrations, AI/LLM như CV. Elasticsearch (tự viết index, mapping, query) cho Shopware ở Shape & Shift, Solio, freelance và cho Drupal ở Solio; thêm vào CV ngày 08/10/2026 |
 | Học vấn | ĐH Khoa học Huế, Điện tử viễn thông (2013–2017) · Hue Aptech PHP (2016) |
 | Liên hệ | pbtkhoa@gmail.com · github.com/pbtkhoa · linkedin.com/in/pbtkhoa |
 

@@ -108,7 +108,7 @@ export const services: Service[] = [
     mark: 'S6',
     title: 'Shopware 6 development',
     blurb: 'Plugins, apps and themes, complete store setups, version upgrades and integrations with payment, shipping and ERP systems.',
-    points: ['Custom plugins and apps', 'Storefront themes in Twig and Vue', 'Upgrades to the latest Shopware 6', 'Payment, shipping and ERP integrations'],
+    points: ['Custom plugins and apps', 'Storefront themes in Twig and Vue', 'Elasticsearch search with custom indexes and queries', 'Upgrades to the latest Shopware 6', 'Payment, shipping and ERP integrations'],
   },
   {
     key: 'apps',
@@ -154,7 +154,7 @@ export const featuredProjects: Project[] = [
     years: '2021 – now',
     summary: 'Complete online stores, from backend to storefront, and the extensions behind them: Checkout.com payments, the Sprinque B2B-credit app, a blog plugin and a Node.js SDK for Shopware.',
     highlight: 'Stores: Egret, Biomex, van Laack, Cityschuh, Roto-store, Kraft, manomama, Brichbag and more.',
-    tags: ['Shopware 6', 'Symfony', 'Vue', 'MySQL'],
+    tags: ['Shopware 6', 'Symfony', 'Vue', 'MySQL', 'Elasticsearch'],
     tone: 'storefront',
     art: 'store',
   },
@@ -250,7 +250,7 @@ export const shopwareStores: string[] = ['Egret', 'Biomex', 'van Laack', 'Citysc
 export const shopwareExtensions: string[] = ['Checkout.com payments', 'Sprinque B2B credit', 'Blog', 'Shopware Node.js SDK']
 
 export const career: Role[] = [
-  { years: '2023 – now', role: 'Software Engineer', org: 'Solio', note: 'Drupal, Symfony and Vue for European clients.' },
+  { years: '2023 – now', role: 'Software Engineer', org: 'Solio', note: 'Drupal, Symfony, Vue and Elasticsearch for European clients.' },
   { years: '2021 – 2023', role: 'Software Engineer', org: 'Shape & Shift', note: 'Shopware 6 extensions and a Laravel accounting SaaS.' },
   { years: '2019 – 2021', role: 'Frontend Developer', org: 'NFQ', note: 'React and React Native apps for clients.' },
   { years: '2017 – 2019', role: 'Team Lead', org: 'Rikkeisoft', note: 'Core member on client projects, including real-time features. Promising Employee 2017, Outstanding Employee 2018.' },

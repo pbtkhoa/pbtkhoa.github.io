@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-page-progress.html](../artifact/lantern-hour-page-progress.html) (vòng 8; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1, 2026f8f, f59a90f và 0e9acf7).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-elasticsearch.html](../artifact/lantern-hour-elasticsearch.html) (vòng 9; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1, 2026f8f, f59a90f, 0e9acf7 và 2d3e334).
 
 ## 1. Cấu trúc
 
@@ -293,3 +293,26 @@ Khoa gửi ảnh chụp ba sản phẩm và muốn hình trên thẻ giống ch�
   - Lần tải đầu tiên (gõ URL hoặc F5) không hiện, vì lúc đó trình duyệt có thanh tải riêng.
 - **Bẫy:** bản đầu có `transition-[width]` trên `::-webkit-progress-value`. Giá trị được đổi mỗi khung hình nên transition bị khởi động lại liên tục. Trên WebKit, thanh chỉ vẽ tới 27% khi giá trị đã là 54%. Bỏ transition thì cả ba engine vẽ đúng, vì giá trị vốn đã mượt.
 - Cách thử: một server tĩnh nhỏ trả `/_nuxt/*` và `_payload.json` chậm 2,5 giây khi bật chế độ chậm. Sau đó bấm menu thật bằng agent-browser (Chrome) và Playwright (Firefox, WebKit).
+
+## 21. Thêm Elasticsearch vào CV và site (08/10/2026)
+
+- Khoa bổ sung: đã làm Elasticsearch cho Shopware (ở Shape & Shift, Solio, freelance) và cho Drupal (ở Solio, trong một dự án Shopware, không phải dự án Thermomix). Không chỉ cài sẵn mà tự viết index, mapping và query.
+- **CV** (`~/Documents/PHAM_BA_TUAN_KHOA_CV_2026.html`, in ra PDF):
+  - Skills: mục "Database" đổi thành "Database & Search", thêm Elasticsearch.
+  - Freelance: dòng đầu thành "Build Shopware 6 extensions, themes and custom Elasticsearch indexes and queries."
+  - Solio: thêm "Built Elasticsearch search for Shopware and Drupal with custom indexes and queries."
+  - Shape & Shift: dòng đầu thành "Built Shopware 6 extensions, themes and Elasticsearch search (Symfony, Vue)."
+  - Featured Projects: thêm Elasticsearch vào dòng công nghệ của "E-commerce Plugins & Online Stores" và "Client Projects @ Solio".
+- **Giữ CV 2 trang:**
+  - Trang 1 chỉ còn khoảng 16px trống, ít hơn một dòng (18,5px). Mục "Featured Projects" bị ép sang trang mới, nên chỉ cần thừa một dòng là Junoteam rơi sang trang 2 và CV thành 3 trang (đã gặp).
+  - Cách xử lý: tổng số dòng giữ nguyên. Dòng Solio mới được bù bằng cách gom dòng Lambda ở Shape & Shift lại còn một dòng ("Wrote Python AWS Lambdas, added OpenAI and Twilio SMS, and deployed on Laravel Vapor.", rộng 521px trên tối đa 536px).
+- **Cách in PDF:** dùng Chrome trên máy (`Google Chrome --headless --no-pdf-header-footer --print-to-pdf`).
+  - In lại bản cũ cách này ra PDF giống hệt bản gốc (0 điểm ảnh khác).
+  - Lệnh `pdf` của agent-browser in ra khổ Letter và bỏ qua `@page size: A4`, nên không dùng.
+- **Sao lưu** bản trước khi sửa: `~/Documents/cv-backup-2026-10-08-before-elasticsearch/`.
+- **Site:**
+  - Tag "Elasticsearch" trên thẻ Shopware.
+  - Ý "Elasticsearch search with custom indexes and queries" ở mục Shopware trang Services.
+  - Dòng Solio trên dòng thời gian thành "Drupal, Symfony, Vue and Elasticsearch for European clients."
+  - Thêm Elasticsearch vào đoạn giới thiệu ở About.
+  - `public/pham-ba-tuan-khoa-cv.pdf` thay bằng PDF mới.

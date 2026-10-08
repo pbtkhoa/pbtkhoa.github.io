@@ -38,7 +38,7 @@ useSeoMeta({
               I started with WordPress, Symfony and Laravel in 2016. Since then I've led a team at Rikkeisoft, built React Native apps at NFQ, and in 2021 took on <strong>Shopware 6</strong>, building stores and Laravel apps for companies across Europe.
             </p>
             <p>
-              I like taking a feature from the database to the deploy. I work with <strong>PHP, Node.js, Laravel, Symfony, Vue, React, Python and AWS</strong>, building infrastructure, mobile apps, e-commerce stores and more. I've also upgraded a lot of older systems to current PHP, Symfony and Laravel versions.
+              I like taking a feature from the database to the deploy. I work with <strong>PHP, Node.js, Laravel, Symfony, Vue, React, Python, Elasticsearch and AWS</strong>, building infrastructure, mobile apps, e-commerce stores and more. I've also upgraded a lot of older systems to current PHP, Symfony and Laravel versions.
             </p>
           </div>
           <div class="mt-2 flex flex-wrap gap-3">
