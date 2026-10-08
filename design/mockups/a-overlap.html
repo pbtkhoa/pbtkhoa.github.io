@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khoa Pham · Overlap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --fg: #12151c;
+  --muted: #5b6272;
+  --rule: #dfe2e8;
+  --accent: #2443d6;
+  --accent-soft: #e3e8fd;
+  --overlap: #2443d6;
+  --font: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f121a; --surface: #161a24; --fg: #e9ecf2; --muted: #98a0b3; --rule: #262c3a;
+    --accent: #8ea2ff; --accent-soft: #1e2643; --overlap: #8ea2ff; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f121a; --surface: #161a24; --fg: #e9ecf2; --muted: #98a0b3; --rule: #262c3a;
+  --accent: #8ea2ff; --accent-soft: #1e2643; --overlap: #8ea2ff; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.6 var(--font); -webkit-font-smoothing: antialiased; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-inline: clamp(16px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); }
+.side { position: sticky; top: 0; height: 100dvh; padding-block: 56px 40px; display: flex; flex-direction: column; gap: 22px; overflow-y: auto; }
+.mark { width: 40px; height: 40px; border-radius: 10px; background: var(--fg); color: var(--bg); display: grid; place-items: center; font-weight: 700; letter-spacing: -0.02em; }
+h1 { font-size: clamp(2.2rem, 4vw, 3.1rem); line-height: 1.05; letter-spacing: -0.035em; margin: 0; font-weight: 600; text-wrap: balance; }
+.role { font-size: 1.15rem; font-weight: 500; margin: 8px 0 0; }
+.pitch { color: var(--muted); max-width: 34ch; margin: 0; }
+.status { display: inline-flex; align-items: center; gap: 10px; font-size: .9rem; padding: 6px 12px 6px 10px; border-radius: 999px; background: var(--accent-soft); width: fit-content; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.4s infinite; }
+@keyframes pulse { 0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 60%, transparent); } 70% { box-shadow: 0 0 0 8px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
+.clock { border-top: 1px solid var(--rule); padding-top: 20px; display: grid; gap: 10px; }
+.clock-row { display: grid; grid-template-columns: 74px minmax(0, 1fr) 52px; align-items: center; gap: 10px; font-size: .82rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.clock-row b { color: var(--fg); font-weight: 600; text-align: right; }
+.track { position: relative; height: 10px; border-radius: 5px; background: var(--rule); overflow: hidden; }
+.track span { position: absolute; top: 0; bottom: 0; border-radius: 5px; background: color-mix(in srgb, var(--fg) 35%, transparent); }
+.track .ov { background: var(--overlap); }
+.now { position: absolute; top: -3px; bottom: -3px; width: 2px; background: var(--fg); }
+.clock-note { font-size: .82rem; color: var(--muted); margin: 0; }
+.clock-note strong { color: var(--fg); }
+nav ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 2px; }
+nav a { text-decoration: none; color: var(--muted); display: inline-flex; align-items: center; gap: 12px; font-size: .95rem; }
+nav a::before { content: ""; width: 24px; height: 1px; background: currentColor; transition: width .2s; }
+nav a:hover, nav a.on { color: var(--fg); }
+nav a:hover::before, nav a.on::before { width: 48px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 10px; margin-top: auto; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border-radius: 10px; font-weight: 600; font-size: .95rem; text-decoration: none; border: 1px solid var(--rule); background: var(--surface); cursor: pointer; color: var(--fg); font-family: inherit; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--bg); }
+.btn:hover { border-color: var(--accent); }
+.links { display: flex; gap: 16px; font-size: .9rem; color: var(--muted); }
+.links a { text-decoration: none; }
+.links a:hover { color: var(--accent); }
+main { padding-block: 72px 96px; display: grid; gap: 96px; min-width: 0; }
+section { scroll-margin-top: 48px; }
+h2 { font-size: 1rem; font-weight: 600; margin: 0 0 20px; color: var(--fg); }
+.about p { margin: 0 0 16px; color: var(--muted); max-width: 62ch; }
+.about p strong { color: var(--fg); font-weight: 500; }
+.list { display: grid; gap: 4px; }
+.row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 20px; padding: 18px; margin-inline: -18px; border-radius: 14px; transition: opacity .2s, background .2s; text-decoration: none; }
+.list:hover .row { opacity: .45; }
+.list:hover .row:hover { opacity: 1; background: var(--surface); }
+.when { font-size: .82rem; color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
+.row h3 { margin: 0; font-size: 1.05rem; font-weight: 600; }
+.row h3 em { font-style: normal; color: var(--muted); font-weight: 400; }
+.row p { margin: 6px 0 0; color: var(--muted); font-size: .95rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+.tags span { font-size: .78rem; padding: 3px 10px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-weight: 500; }
+.clients { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 10px; font-size: .9rem; font-weight: 500; color: var(--fg); }
+.stack { display: grid; gap: 14px; }
+.stack div { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 20px; font-size: .95rem; }
+.stack dt { color: var(--muted); }
+.stack dd { margin: 0; }
+.contact { background: var(--surface); border: 1px solid var(--rule); border-radius: 20px; padding: clamp(24px, 4vw, 40px); }
+.contact p { color: var(--muted); margin: 0 0 20px; max-width: 48ch; }
+.mail { font-size: clamp(1.3rem, 3vw, 1.8rem); font-weight: 600; letter-spacing: -0.02em; display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.copied { font-size: .8rem; color: var(--accent); font-weight: 500; }
+.theme { position: fixed; right: 16px; top: calc(16px + env(safe-area-inset-top, 0px)); z-index: 5; }
+footer { font-size: .82rem; color: var(--muted); }
+@media (max-width: 860px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: 0; }
+  .side { position: static; height: auto; padding-block: 56px 8px; }
+  nav { display: none; }
+  .ctas { margin-top: 0; }
+  main { padding-block: 48px 72px; gap: 72px; }
+  .row, .stack div { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) { .dot { animation: none; } html { scroll-behavior: auto; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+<button class="btn theme" id="theme-toggle" type="button" aria-label="Toggle colour theme">Theme</button>
+<div class="wrap">
+  <header class="side">
+    <div class="mark" aria-hidden="true">K</div>
+    <div>
+      <h1>Phạm Bá Tuấn Khoa</h1>
+      <p class="role">Full-stack software engineer</p>
+    </div>
+    <p class="pitch">I build online stores and business web apps for European teams, from the database to the deploy. PHP, Symfony, Laravel, Vue and React since 2016.</p>
+    <span class="status"><span class="dot"></span>Open to remote roles and freelance work</span>
+    <div class="clock" aria-label="Working hours overlap">
+      <div class="clock-row"><span>Vietnam</span><div class="track" id="t-vn"></div><b id="c-vn">--:--</b></div>
+      <div class="clock-row"><span>Berlin</span><div class="track" id="t-eu"></div><b id="c-eu">--:--</b></div>
+      <p class="clock-note">Shared working hours with Central Europe: <strong id="ov">4 h</strong> every weekday.</p>
+    </div>
+    <nav aria-label="Sections">
+      <ul>
+        <li><a href="#about" class="on">About</a></li>
+        <li><a href="#work">Selected work</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#stack">Stack</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="ctas">
+      <a class="btn primary" href="#contact">Get in touch</a>
+      <a class="btn" href="#">Download CV (PDF)</a>
+    </div>
+    <div class="links"><a href="https://github.com/pbtkhoa">GitHub</a><a href="https://linkedin.com/in/pbtkhoa">LinkedIn</a><a href="#contact">Email</a></div>
+  </header>
+
+  <main>
+    <section id="about" class="about">
+      <h2>About</h2>
+      <p>I've worked remotely with teams in Germany and Austria for most of my career. Most of that work is <strong>Shopware 6 e-commerce</strong>: extensions, themes and complete stores, plus the payment, shipping and ERP integrations around them.</p>
+      <p>I also take features end to end on business apps: <strong>a multi-tenant accounting SaaS, single sign-on for a German bank, a lead tool for Thermomix</strong>. I upgrade older systems to current PHP, Symfony and Laravel versions, and I've led a development team.</p>
+    </section>
+
+    <section id="work">
+      <h2>Selected work</h2>
+      <div class="list">
+        <a class="row" href="#">
+          <span class="when">2021 – now</span>
+          <div>
+            <h3>Shopware 6 stores and plugins <em>· Shape &amp; Shift, freelance</em></h3>
+            <p>Storefronts, themes and extensions for fashion, lifestyle and B2B shops. Payment and B2B-credit apps, a blog plugin and a Node.js SDK for Shopware.</p>
+            <div class="clients"><span>Egret</span><span>Biomex</span><span>van Laack</span><span>Cityschuh</span><span>Roto-store</span><span>Kraft</span></div>
+            <div class="tags"><span>Symfony</span><span>Vue</span><span>MySQL</span><span>Checkout.com</span><span>Sprinque</span></div>
+          </div>
+        </a>
+        <a class="row" href="#">
+          <span class="when">2021 – 2023</span>
+          <div>
+            <h3>Accounting SaaS platform <em>· Shape &amp; Shift</em></h3>
+            <p>Multi-tenant bookkeeping: double-entry ledger, invoicing, bank reconciliation, payroll and reporting. Python Lambdas, OpenAI and Twilio SMS on Laravel Vapor.</p>
+            <div class="tags"><span>Laravel</span><span>Vue 3</span><span>AWS</span><span>OpenAI</span><span>Stripe</span></div>
+          </div>
+        </a>
+        <a class="row" href="#">
+          <span class="when">2023 – now</span>
+          <div>
+            <h3>Banking and enterprise apps <em>· Solio</em></h3>
+            <p>GLS Bank single sign-on and business account opening with Postident checks. Lead management for Vorwerk Austria (Thermomix) with SAP export. A Jira and GitLab time-tracking tool.</p>
+            <div class="tags"><span>Symfony</span><span>Drupal 11</span><span>OAuth2</span><span>LDAP</span><span>API Platform</span></div>
+          </div>
+        </a>
+        <a class="row" href="#">
+          <span class="when">2017 – 2019</span>
+          <div>
+            <h3>Crypto trading platform <em>· Rikkeisoft</em></h3>
+            <p>Microservice trading system built by a team of 13, where I was team lead and core developer.</p>
+            <div class="tags"><span>Laravel</span><span>Node.js</span><span>Socket.IO</span><span>Docker</span></div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Experience</h2>
+      <div class="list">
+        <div class="row"><span class="when">2023 – now</span><div><h3>Software Engineer <em>· Solio</em></h3><p>Drupal 11, Symfony and Shopware work for Austrian and German clients.</p></div></div>
+        <div class="row"><span class="when">2021 – 2023</span><div><h3>Software Engineer <em>· Shape &amp; Shift</em></h3><p>Shopware 6 extensions and a Laravel + Vue 3 accounting SaaS.</p></div></div>
+        <div class="row"><span class="when">2019 – 2021</span><div><h3>Frontend Developer <em>· NFQ</em></h3><p>React and React Native apps, including the Posbill point of sale.</p></div></div>
+        <div class="row"><span class="when">2017 – 2019</span><div><h3>Team Lead <em>· Rikkeisoft</em></h3><p>Led client projects and set up the team's Git workflow. Outstanding Employee 2018.</p></div></div>
+        <div class="row"><span class="when">2017 – now</span><div><h3>Freelance engineer</h3><p>Stores, plugins, web and mobile apps for clients alongside full-time work.</p></div></div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <h2>Stack</h2>
+      <dl class="stack">
+        <div><dt>Backend</dt><dd>PHP, Symfony, Laravel, Node.js, Python</dd></div>
+        <div><dt>Frontend</dt><dd>Vue 3, TypeScript, React, React Native, Tailwind CSS</dd></div>
+        <div><dt>Platforms</dt><dd>Shopware 6, Drupal, WordPress</dd></div>
+        <div><dt>Data</dt><dd>MySQL, PostgreSQL, MongoDB, Redis</dd></div>
+        <div><dt>Ops</dt><dd>Docker, CI/CD, AWS (Lambda, S3, SES, SNS, Textract), Laravel Vapor</dd></div>
+        <div><dt>Testing</dt><dd>PHPUnit, Pest, Cypress, Playwright</dd></div>
+      </dl>
+    </section>
+
+    <section id="contact" class="contact">
+      <h2>Contact</h2>
+      <p>Hiring for a remote role, or need a Shopware or Laravel developer for a project? Email me and I'll reply within one working day.</p>
+      <div class="mail"><span id="mail">pbtkhoa@gmail.com</span><button class="btn" id="copy" type="button">Copy</button><span class="copied" id="copied" hidden>Copied</span></div>
+    </section>
+
+    <footer>Built with Nuxt, hosted on GitHub Pages.</footer>
+  </main>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+toggle.addEventListener('click', () => {
+  const root = document.documentElement;
+  const dark = root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  root.dataset.theme = dark ? 'light' : 'dark';
+});
+document.getElementById('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText('pbtkhoa@gmail.com'); } catch { getSelection().selectAllChildren(document.getElementById('mail')); }
+  const c = document.getElementById('copied'); c.hidden = false; setTimeout(() => { c.hidden = true; }, 1600);
+});
+const VN_START = 9, VN_END = 18, EU_START = 9, EU_END = 18;
+const offsetOf = (tz) => {
+  const d = new Date();
+  const local = new Date(d.toLocaleString('en-US', { timeZone: tz }));
+  const utc = new Date(d.toLocaleString('en-US', { timeZone: 'UTC' }));
+  return Math.round((local - utc) / 36e5);
+};
+const fmt = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz }).format(new Date());
+const paint = () => {
+  const vn = offsetOf('Asia/Ho_Chi_Minh'), eu = offsetOf('Europe/Berlin');
+  const shift = vn - eu;
+  const euInVn = [EU_START + shift, EU_END + shift];
+  const ovStart = Math.max(VN_START, euInVn[0]), ovEnd = Math.min(VN_END, euInVn[1]);
+  const hours = Math.max(0, ovEnd - ovStart);
+  const pct = (h) => `${(h / 24) * 100}%`;
+  const now = new Date();
+  const vnNow = (now.getUTCHours() + vn + 24) % 24 + now.getUTCMinutes() / 60;
+  const bar = (from, to) => `<span style="left:${pct(from)};width:${pct(to - from)}"></span>`;
+  const ov = hours ? `<span class="ov" style="left:${pct(ovStart)};width:${pct(hours)}"></span>` : '';
+  const needle = `<i class="now" style="left:${pct(vnNow)}"></i>`;
+  document.getElementById('t-vn').innerHTML = bar(VN_START, VN_END) + ov + needle;
+  document.getElementById('t-eu').innerHTML = bar(euInVn[0], euInVn[1]) + ov + needle;
+  document.getElementById('c-vn').textContent = fmt('Asia/Ho_Chi_Minh');
+  document.getElementById('c-eu').textContent = fmt('Europe/Berlin');
+  document.getElementById('ov').textContent = `${hours} h`;
+};
+paint();
+setInterval(paint, 30000);
+</script>
+</body>
+</html>

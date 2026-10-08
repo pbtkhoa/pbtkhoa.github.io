@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khoa · Sticker Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap">
+<script src="content.js"></script>
+<style>
+:root {
+  --paper: #f6f6fa;
+  --tile: #ffffff;
+  --lilac: #e4e1ff;
+  --ink: #15152b;
+  --muted: #55556e;
+  --line: #15152b;
+  --soft-line: #dcdbe8;
+  --cobalt: #2b4bff;
+  --cobalt-ink: #ffffff;
+  --sun: #ffd23f;
+  --pink: #ff6b8b;
+  --shadow: #15152b;
+  --display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --body: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --paper: #11111f; --tile: #1b1b30; --lilac: #2a2650; --ink: #f2f1fa; --muted: #aeadc6; --line: #3a3a5c; --soft-line: #2c2c48; --cobalt: #7088ff; --cobalt-ink: #0d0f2a; --sun: #ffd23f; --pink: #ff8aa3; --shadow: #000000; color-scheme: dark; }
+}
+:root[data-theme="dark"] { --paper: #11111f; --tile: #1b1b30; --lilac: #2a2650; --ink: #f2f1fa; --muted: #aeadc6; --line: #3a3a5c; --soft-line: #2c2c48; --cobalt: #7088ff; --cobalt-ink: #0d0f2a; --sun: #ffd23f; --pink: #ff8aa3; --shadow: #000000; color-scheme: dark; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; background-image: radial-gradient(color-mix(in srgb, var(--ink) 10%, transparent) 1px, transparent 1px); background-size: 22px 22px; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 8px; }
+.wrap { max-width: 1180px; margin: 0 auto; padding-inline: 16px; }
+.nav { position: sticky; top: calc(12px + env(safe-area-inset-top, 0px)); z-index: 20; margin-top: 12px; }
+.nav .bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; background: var(--tile); border: 2px solid var(--line); border-radius: 20px; padding: 8px 8px 8px 14px; box-shadow: 4px 4px 0 var(--shadow); }
+.brand { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: 1.15rem; text-decoration: none; }
+.brand img { width: 34px; height: 34px; border-radius: 10px; object-fit: cover; }
+.links { display: flex; gap: 2px; }
+.links a { text-decoration: none; font-weight: 500; padding: 8px 14px; border-radius: 12px; color: var(--muted); }
+.links a:hover { color: var(--ink); background: var(--lilac); }
+.links a.on { background: var(--ink); color: var(--paper); }
+.end { display: flex; gap: 8px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 14px; font: inherit; font-weight: 700; text-decoration: none; border: 2px solid var(--line); background: var(--tile); color: var(--ink); cursor: pointer; box-shadow: 3px 3px 0 var(--shadow); transition: transform .12s, box-shadow .12s; }
+.btn:hover { transform: translate(-2px, -2px); box-shadow: 5px 5px 0 var(--shadow); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--shadow); }
+.btn.blue { background: var(--cobalt); color: var(--cobalt-ink); }
+.btn.sun { background: var(--sun); color: #15152b; }
+.icon { width: 44px; justify-content: center; padding: 0; }
+.menu { display: none; }
+main { padding-block: 28px 80px; }
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); grid-auto-rows: minmax(120px, auto); gap: 14px; }
+.tile { background: var(--tile); border: 2px solid var(--line); border-radius: 26px; padding: 24px; position: relative; overflow: hidden; min-width: 0; }
+.t-hero { grid-column: span 8; grid-row: span 3; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; padding: 34px; }
+.t-hero h1 { font-family: var(--display); font-weight: 800; font-size: clamp(2.5rem, 5.6vw, 4.6rem); line-height: .98; letter-spacing: -0.035em; margin: 0; text-wrap: balance; }
+.t-hero h1 mark { background: var(--sun); color: #15152b; padding: 0 .12em; border-radius: .18em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
+.t-hero p { font-size: 1.12rem; color: var(--muted); max-width: 50ch; margin: 16px 0 0; }
+.t-hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+.status { display: inline-flex; gap: 8px; align-items: center; font-weight: 700; font-size: .9rem; background: var(--lilac); border-radius: 999px; padding: 6px 12px; width: fit-content; }
+.status i { width: 9px; height: 9px; border-radius: 50%; background: #20b26b; }
+.t-avatar { grid-column: span 4; grid-row: span 3; background: var(--cobalt); padding: 0; display: grid; place-items: end center; }
+.t-avatar img.face { width: 100%; height: 100%; object-fit: cover; }
+.sticker { position: absolute; font-family: var(--display); font-weight: 800; border: 2px solid var(--line); border-radius: 14px; padding: 6px 12px; box-shadow: 3px 3px 0 var(--shadow); transition: transform .25s cubic-bezier(.3, 1.6, .5, 1); color: #15152b; white-space: nowrap; }
+.sticker:hover { transform: rotate(0deg) scale(1.08) !important; }
+.s1 { top: 18px; left: 18px; background: var(--sun); transform: rotate(-8deg); }
+.s2 { bottom: 22px; right: 16px; background: var(--pink); transform: rotate(6deg); }
+.t-time { grid-column: span 3; display: grid; gap: 4px; align-content: space-between; }
+.t-time .clock { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.t-time b { font-family: var(--display); font-size: 2rem; line-height: 1; font-variant-numeric: tabular-nums; display: block; }
+.t-time small { color: var(--muted); font-weight: 500; }
+.label { font-size: .85rem; font-weight: 700; color: var(--muted); }
+.t-stat { grid-column: span 3; background: var(--sun); color: #15152b; display: grid; align-content: space-between; }
+.t-stat b { font-family: var(--display); font-size: 3.2rem; line-height: 1; }
+.t-stat .label { color: #15152b; }
+.t-now { grid-column: span 6; background: var(--lilac); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: center; }
+.t-now h3 { font-family: var(--display); font-size: 1.5rem; margin: 4px 0 0; line-height: 1.15; }
+.t-now p { margin: 6px 0 0; color: var(--muted); }
+.t-stack { grid-column: span 12; padding: 0; display: grid; }
+.ticker { display: flex; gap: 12px; width: max-content; padding: 18px 12px; animation: run 36s linear infinite; }
+.ticker span { font-family: var(--display); font-weight: 700; font-size: 1.15rem; padding: 8px 16px; border-radius: 12px; border: 2px solid var(--line); background: var(--paper); }
+.ticker span:nth-child(4n+1) { background: var(--sun); color: #15152b; }
+.ticker span:nth-child(4n+3) { background: var(--pink); color: #15152b; }
+@keyframes run { to { transform: translateX(-50%); } }
+h2 { font-family: var(--display); font-weight: 800; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.02; letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+.sec { margin-top: 72px; }
+.sec-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+.sec-head p { color: var(--muted); margin: 8px 0 0; max-width: 52ch; }
+.svc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.svc .tile { display: flex; flex-direction: column; gap: 10px; transition: transform .2s, box-shadow .2s; }
+.svc .tile:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--shadow); }
+.svc h3 { font-family: var(--display); font-size: 1.3rem; margin: 0; line-height: 1.15; }
+.svc p { margin: 0; color: var(--muted); font-size: .96rem; }
+.svc ul { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 6px; font-size: .93rem; }
+.svc li::before { content: "✓ "; color: var(--cobalt); font-weight: 700; }
+.chip-ico { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; font-family: var(--display); font-weight: 800; font-size: 1.2rem; border: 2px solid var(--line); color: #15152b; }
+.c1 { background: var(--sun); } .c2 { background: var(--pink); } .c3 { background: #9fe3c4; } .c4 { background: #b9c4ff; }
+.work { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+.work .tile { grid-column: span 2; display: flex; flex-direction: column; gap: 10px; text-decoration: none; transition: transform .2s, box-shadow .2s; padding: 0; }
+.work .tile.big { grid-column: span 4; }
+.work .tile:hover { transform: translate(-3px, -3px) rotate(-.4deg); box-shadow: 6px 6px 0 var(--shadow); }
+.work .shot { aspect-ratio: 16/9; border-bottom: 2px solid var(--line); display: grid; place-items: center; position: relative; }
+.work .big .shot { aspect-ratio: 21/9; }
+.work .shot b { font-family: var(--display); font-weight: 800; font-size: clamp(1.4rem, 3vw, 2.4rem); color: #15152b; letter-spacing: -0.03em; text-align: center; padding: 12px; }
+.work .txt { padding: 4px 22px 22px; display: grid; gap: 6px; }
+.work .org { font-size: .85rem; font-weight: 700; color: var(--cobalt); }
+.work h3 { font-family: var(--display); font-size: 1.3rem; margin: 0; line-height: 1.15; }
+.work p { margin: 0; color: var(--muted); font-size: .95rem; }
+.bg-a { background: var(--sun); } .bg-b { background: #b9c4ff; } .bg-c { background: var(--pink); } .bg-d { background: #9fe3c4; } .bg-e { background: #ffc59e; } .bg-f { background: #e4e1ff; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span { font-size: .78rem; font-weight: 700; border: 1.5px solid var(--soft-line); border-radius: 8px; padding: 2px 8px; }
+.filters { display: flex; gap: 8px; flex-wrap: wrap; }
+.filters button { font: inherit; font-weight: 700; padding: 8px 14px; border-radius: 12px; border: 2px solid var(--line); background: var(--tile); color: var(--ink); cursor: pointer; }
+.filters button.on { background: var(--ink); color: var(--paper); }
+.process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.process .tile b { font-family: var(--display); font-size: 2.6rem; line-height: 1; color: var(--cobalt); }
+.process .tile h3 { font-family: var(--display); margin: 8px 0 4px; font-size: 1.25rem; }
+.process .tile p { margin: 0; color: var(--muted); font-size: .95rem; }
+.plans { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; align-items: start; }
+.plans .tile { display: grid; gap: 10px; }
+.plans .hot { background: var(--cobalt); color: var(--cobalt-ink); box-shadow: 6px 6px 0 var(--shadow); }
+.plans .hot p { color: inherit; opacity: .9; }
+.plans h3 { font-family: var(--display); font-size: 1.5rem; margin: 0; }
+.plans p { margin: 0; color: var(--muted); }
+.plans .tagline { font-weight: 700; }
+.about { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 14px; }
+.about .pic { padding: 0; background: var(--sun); }
+.about .pic img { width: 100%; height: 100%; object-fit: cover; }
+.about .story h2 { margin-bottom: 14px; }
+.about .story p { color: var(--muted); font-size: 1.05rem; margin: 0 0 14px; }
+.tl { display: grid; gap: 10px; margin-top: 14px; }
+.tl .row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 14px; padding: 14px 16px; border: 2px solid var(--line); border-radius: 16px; background: var(--paper); transition: transform .2s; }
+.tl .row:hover { transform: rotate(-.6deg) scale(1.01); background: var(--lilac); }
+.tl .yr { font-family: var(--display); font-weight: 700; font-variant-numeric: tabular-nums; }
+.tl span { color: var(--muted); font-size: .95rem; }
+.contact { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 14px; align-items: start; }
+.postcard { background: var(--tile); border: 2px solid var(--line); border-radius: 26px; padding: 30px; box-shadow: 6px 6px 0 var(--shadow); display: grid; gap: 14px; position: relative; }
+.stamp { position: absolute; top: 20px; right: 20px; width: 78px; height: 92px; border: 2px dashed var(--line); border-radius: 8px; background: var(--cobalt); overflow: hidden; transform: rotate(4deg); }
+.stamp img { width: 100%; height: 100%; object-fit: cover; }
+.postcard > .field:first-of-type { padding-right: 100px; }
+.field { display: grid; gap: 6px; }
+.field label { font-weight: 700; font-size: .92rem; }
+.field input, .field select, .field textarea { font: inherit; color: var(--ink); background: var(--paper); border: 2px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 3px solid var(--cobalt); outline-offset: 1px; }
+.field.bad input, .field.bad textarea { border-color: #d6224b; background: color-mix(in srgb, #d6224b 8%, var(--paper)); }
+.err { color: #c21d45; font-size: .86rem; font-weight: 700; }
+:root[data-theme="dark"] .err { color: #ff8aa3; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .err { color: #ff8aa3; } }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips label { cursor: pointer; }
+.chips input { position: absolute; opacity: 0; }
+.chips span { display: inline-block; padding: 8px 14px; border: 2px solid var(--line); border-radius: 12px; font-weight: 700; font-size: .92rem; }
+.chips input:checked + span { background: var(--sun); color: #15152b; }
+.chips input:focus-visible + span { outline: 3px solid var(--cobalt); outline-offset: 2px; }
+.done { background: #c9f2dc; color: #0f3d26; border: 2px solid var(--line); border-radius: 16px; padding: 14px 16px; font-weight: 700; }
+.side { display: grid; gap: 14px; }
+.wave-tile { background: var(--pink); padding: 20px 20px 0; display: grid; grid-template-columns: minmax(0, 1fr) 150px; align-items: end; color: #15152b; }
+.wave-tile h3 { font-family: var(--display); font-size: 1.7rem; margin: 0 0 22px; line-height: 1.05; }
+.wave-tile img { filter: drop-shadow(3px 0 0 #fff) drop-shadow(-3px 0 0 #fff) drop-shadow(0 -3px 0 #fff); }
+.mail { font-family: var(--display); font-weight: 800; font-size: 1.35rem; word-break: break-all; }
+.faq details { border: 2px solid var(--line); border-radius: 16px; padding: 14px 18px; background: var(--tile); }
+.faq details + details { margin-top: 10px; }
+.faq summary { cursor: pointer; font-weight: 700; }
+.faq p { color: var(--muted); margin: 8px 0 0; }
+footer { margin-top: 64px; }
+footer .tile { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 18px 22px; }
+footer nav { display: flex; gap: 16px; flex-wrap: wrap; font-weight: 500; }
+@media (max-width: 960px) {
+  .links { display: none; }
+  .menu { display: inline-flex; }
+  .links.open { display: grid; position: absolute; top: 70px; left: 16px; right: 16px; background: var(--tile); border: 2px solid var(--line); border-radius: 20px; padding: 10px; box-shadow: 4px 4px 0 var(--shadow); }
+  .end .blue { display: none; }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .t-hero, .t-avatar, .t-now, .t-stack { grid-column: span 2; }
+  .t-hero { grid-row: auto; padding: 24px; }
+  .t-avatar { grid-row: auto; aspect-ratio: 1; }
+  .t-time, .t-stat { grid-column: span 1; }
+  .t-time .clock { grid-template-columns: 1fr; }
+  .svc, .process { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work { grid-template-columns: minmax(0, 1fr); }
+  .work .tile, .work .tile.big { grid-column: auto; }
+  .plans, .about, .contact { grid-template-columns: minmax(0, 1fr); }
+  .about .pic { aspect-ratio: 4/3; }
+}
+@media (max-width: 560px) { .svc, .process, .row2 { grid-template-columns: minmax(0, 1fr); } .t-now { grid-template-columns: minmax(0, 1fr); } .tl .row { grid-template-columns: minmax(0, 1fr); gap: 2px; } .stamp { width: 58px; height: 70px; } }
+@media (prefers-reduced-motion: reduce) { .ticker { animation: none; } * { transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="nav">
+    <div class="bar">
+      <a class="brand" href="#home"><img src="../avatar/preview/v4-flat@3x.webp" alt="">khoa.dev</a>
+      <nav class="links" id="links" aria-label="Main">
+        <a href="#home" data-link="home">Home</a><a href="#services" data-link="services">Services</a><a href="#work" data-link="work">Work</a><a href="#about" data-link="about">About</a><a href="#contact" data-link="contact">Contact</a>
+      </nav>
+      <div class="end">
+        <button class="btn icon" id="theme" type="button" aria-label="Switch light and dark">◐</button>
+        <button class="btn icon menu" id="menu" type="button" aria-label="Open menu" aria-expanded="false">≡</button>
+        <a class="btn blue" href="#contact">Hire me</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div data-page="home">
+      <div class="bento">
+        <div class="tile t-hero">
+          <div>
+            <span class="status"><i></i><span id="status"></span></span>
+            <h1 style="margin-top:18px">Shopware, Laravel and Vue, <mark>built properly</mark> for European teams.</h1>
+            <p id="pitch"></p>
+          </div>
+          <div class="ctas"><a class="btn blue" href="#contact">Start a project</a><a class="btn" href="#work">See my work</a><a class="btn" href="#">CV (PDF)</a></div>
+        </div>
+        <div class="tile t-avatar">
+          <img class="face" src="../avatar/preview/v4-flat@3x.webp" alt="Illustrated portrait of Khoa on a cobalt background">
+          <span class="sticker s1">Hi, I'm Khoa 👋</span>
+          <span class="sticker s2">10 yrs PHP</span>
+        </div>
+        <div class="tile t-time">
+          <span class="label">Right now</span>
+          <div class="clock"><div><b id="vn">--:--</b><small>Vietnam</small></div><div><b id="eu">--:--</b><small>Berlin</small></div></div>
+          <span class="label">3–4 h overlap every weekday</span>
+        </div>
+        <div class="tile t-stat"><span class="label">Freelancing since</span><b>2017</b><span class="label">alongside every job</span></div>
+        <div class="tile t-now">
+          <div><span class="label">Currently at Solio</span><h3>GLS Bank sign-on and a Thermomix lead tool</h3><p>Symfony, Drupal 11 and Shopware for Austrian and German clients.</p></div>
+          <a class="btn sun" href="#work">Case studies</a>
+        </div>
+        <div class="tile t-stack" aria-label="Tech stack"><div class="ticker" id="ticker"></div></div>
+      </div>
+
+      <section class="sec">
+        <div class="sec-head"><div><h2>What I can do for you</h2><p>Four services, from a single plugin to a full-time seat on your team.</p></div><a class="btn" href="#services">Services and process</a></div>
+        <div class="svc" id="home-svc"></div>
+      </section>
+      <section class="sec">
+        <div class="sec-head"><div><h2>Selected work</h2></div><a class="btn" href="#work">All projects</a></div>
+        <div class="work" id="home-work"></div>
+      </section>
+    </div>
+
+    <div data-page="services" hidden>
+      <div class="sec-head" style="margin-top:20px"><div><h2>Services</h2><p>Engineering for e-commerce and business web apps. I work in English, on your tools, during your morning.</p></div></div>
+      <div class="svc" id="svc"></div>
+      <section class="sec"><div class="sec-head"><div><h2>How a project runs</h2></div></div><div class="process" id="process"></div></section>
+      <section class="sec"><div class="sec-head"><div><h2>Ways to work together</h2><p>Prices depend on scope. I send a written estimate after the first call.</p></div></div>
+        <div class="plans">
+          <div class="tile"><span class="chip-ico c1">1</span><h3>Project</h3><p class="tagline">Fixed scope, fixed estimate</p><p>A plugin, theme, integration or upgrade with a clear finish line.</p><a class="btn" href="#contact">Ask for a quote</a></div>
+          <div class="tile hot"><span class="chip-ico c4">∞</span><h3>Retainer</h3><p class="tagline">A set number of hours each month</p><p>Features, fixes and upgrades on a steady schedule. Cancel any month.</p><a class="btn sun" href="#contact">Book a call</a></div>
+          <div class="tile"><span class="chip-ico c2">★</span><h3>Full-time remote</h3><p class="tagline">Employment or long contract</p><p>I join your team as a full-time engineer through your review process.</p><a class="btn" href="#contact">Talk about a role</a></div>
+        </div>
+      </section>
+      <section class="sec faq"><div class="sec-head"><div><h2>FAQ</h2></div></div><div id="faq"></div></section>
+    </div>
+
+    <div data-page="work" hidden>
+      <div class="sec-head" style="margin-top:20px"><div><h2>Work</h2><p>Projects from ten years of agency, product and freelance work.</p></div>
+        <div class="filters" id="filters"><button class="on" data-f="all" type="button">All</button><button data-f="E-commerce" type="button">E-commerce</button><button data-f="SaaS" type="button">SaaS and apps</button><button data-f="Mobile" type="button">Mobile</button></div>
+      </div>
+      <div class="work" id="all-work"></div>
+    </div>
+
+    <div data-page="about" hidden>
+      <div class="about" style="margin-top:20px">
+        <div class="tile pic"><img src="../avatar/preview/v2-desk@3x.webp" alt="Illustration of Khoa coding at his desk"></div>
+        <div class="tile story">
+          <h2>Hi again. Here's the longer version.</h2>
+          <p>I'm Khoa, a full-stack engineer from Vietnam. I started with WordPress and Symfony in 2016, led a team at Rikkeisoft, built React Native apps at NFQ, and have spent the last five years on Shopware 6 and Laravel for companies in Germany and Austria.</p>
+          <p>I like the boring parts done right: clean upgrades, good tests and deploys nobody notices.</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap"><a class="btn blue" href="#">Download CV</a><a class="btn" href="https://github.com/pbtkhoa">GitHub</a><a class="btn" href="https://linkedin.com/in/pbtkhoa">LinkedIn</a></div>
+          <div class="tl" id="tl"></div>
+        </div>
+      </div>
+    </div>
+
+    <div data-page="contact" hidden>
+      <div class="sec-head" style="margin-top:20px"><div><h2>Send me a postcard</h2><p>Or an email. I reply within one working day, usually during your morning.</p></div></div>
+      <div class="contact">
+        <form class="postcard" id="form" novalidate>
+          <div class="stamp"><img src="../avatar/preview/v4-flat@3x.webp" alt=""></div>
+          <div class="field"><span style="font-weight:700">I need help with</span>
+            <div class="chips" role="group" aria-label="Project type">
+              <label><input type="radio" name="kind" checked><span>Shopware</span></label>
+              <label><input type="radio" name="kind"><span>Laravel / Symfony</span></label>
+              <label><input type="radio" name="kind"><span>Vue / React</span></label>
+              <label><input type="radio" name="kind"><span>A full-time role</span></label>
+            </div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="f-name">Name</label><input id="f-name" autocomplete="name"></div>
+            <div class="field" id="w-email"><label for="f-email">Email</label><input id="f-email" type="email" autocomplete="email"><span class="err" id="e-email" hidden>Enter an email like name@company.com.</span></div>
+          </div>
+          <div class="field" id="w-msg"><label for="f-msg">Message</label><textarea id="f-msg" rows="5"></textarea><span class="err" id="e-msg" hidden>Write a sentence or two about the project.</span></div>
+          <button class="btn blue" type="submit" style="justify-self:start">Send postcard</button>
+          <div class="done" id="ok" hidden>Postcard sent. I'll reply within one working day.</div>
+        </form>
+        <div class="side">
+          <div class="tile wave-tile"><h3>Xin chào! Nice to meet you.</h3><img src="../avatar/preview/v3-wave-cut.png" alt="Illustrated Khoa waving"></div>
+          <div class="tile"><span class="label">Email</span><div class="mail">pbtkhoa@gmail.com</div><button class="btn" id="copy" type="button" style="margin-top:12px">Copy email</button></div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer><div class="tile"><span>© 2026 Phạm Bá Tuấn Khoa</span><nav><a href="https://github.com/pbtkhoa">GitHub</a><a href="https://linkedin.com/in/pbtkhoa">LinkedIn</a><a href="#">Impressum</a><a href="#">Privacy</a></nav></div></footer>
+</div>
+<script>
+const S = window.SITE;
+const $ = (id) => document.getElementById(id);
+$('status').textContent = S.status;
+$('pitch').textContent = S.pitch;
+$('ticker').innerHTML = [...S.stack, ...S.stack].map(t => `<span>${t}</span>`).join('');
+const ico = ['c1', 'c2', 'c3', 'c4'], letter = ['S6', 'L', 'V', 'R'];
+const svc = (s, i, full) => `<div class="tile"><span class="chip-ico ${ico[i]}">${letter[i]}</span><h3>${s.title}</h3><p>${s.blurb}</p>${full ? `<ul>${s.points.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}</div>`;
+$('home-svc').innerHTML = S.services.map((s, i) => svc(s, i, false)).join('');
+$('svc').innerHTML = S.services.map((s, i) => svc(s, i, true)).join('');
+$('process').innerHTML = S.process.map((p, i) => `<div class="tile"><b>${i + 1}</b><h3>${p.title}</h3><p>${p.text}</p></div>`).join('');
+$('faq').innerHTML = S.faq.map((f, i) => `<details ${i ? '' : 'open'}><summary>${f.q}</summary><p>${f.a}</p></details>`).join('');
+const cat = { shopware: 'E-commerce', accounting: 'SaaS', banking: 'SaaS', thermomix: 'SaaS', crypto: 'SaaS', posbill: 'Mobile' };
+const card = (w, big) => `<a class="tile ${big ? 'big' : ''}" href="#work" data-cat="${cat[w.slug]}"><div class="shot bg-${w.tone}"><b>${w.title}</b></div><div class="txt"><span class="org">${w.org} · ${w.years}</span><h3>${w.title}</h3><p>${w.summary}</p><div class="tags">${w.tags.map(t => `<span>${t}</span>`).join('')}</div></div></a>`;
+$('home-work').innerHTML = S.work.slice(0, 3).map((w, i) => card(w, i === 0)).join('');
+$('all-work').innerHTML = S.work.map((w, i) => card(w, i === 0 || i === 5)).join('');
+$('filters').addEventListener('click', (e) => {
+  const f = e.target.dataset.f; if (!f) return;
+  $('filters').querySelectorAll('button').forEach(b => b.classList.toggle('on', b === e.target));
+  $('all-work').querySelectorAll('.tile').forEach(t => { t.hidden = f !== 'all' && t.dataset.cat !== f; });
+});
+$('tl').innerHTML = S.experience.map(e => `<div class="row"><span class="yr">${e.years}</span><div><b>${e.role}, ${e.org}</b><br><span>${e.note}</span></div></div>`).join('');
+const route = () => {
+  const id = location.hash.slice(1) || 'home';
+  const page = document.querySelector(`[data-page="${id}"]`) ? id : 'home';
+  document.querySelectorAll('[data-page]').forEach(p => { p.hidden = p.dataset.page !== page; });
+  document.querySelectorAll('[data-link]').forEach(a => a.classList.toggle('on', a.dataset.link === page));
+  $('links').classList.remove('open');
+  window.scrollTo(0, 0);
+};
+addEventListener('hashchange', route); route();
+$('menu').addEventListener('click', () => { const o = $('links').classList.toggle('open'); $('menu').setAttribute('aria-expanded', o); });
+$('theme').addEventListener('click', () => {
+  const r = document.documentElement;
+  const dark = r.dataset.theme ? r.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+  r.dataset.theme = dark ? 'light' : 'dark';
+});
+const fmt = (tz) => new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: tz }).format(new Date());
+const tick = () => { $('vn').textContent = fmt('Asia/Ho_Chi_Minh'); $('eu').textContent = fmt('Europe/Berlin'); };
+tick(); setInterval(tick, 30000);
+$('copy').addEventListener('click', async (e) => { try { await navigator.clipboard.writeText(S.email); e.target.textContent = 'Copied'; } catch { e.target.textContent = S.email; } });
+$('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const badEmail = !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test($('f-email').value.trim());
+  const badMsg = $('f-msg').value.trim().length < 10;
+  $('e-email').hidden = !badEmail; $('w-email').classList.toggle('bad', badEmail);
+  $('e-msg').hidden = !badMsg; $('w-msg').classList.toggle('bad', badMsg);
+  $('ok').hidden = badEmail || badMsg;
+});
+</script>
+</body>
+</html>

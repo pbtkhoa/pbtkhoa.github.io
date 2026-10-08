@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Khoa Phạm Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<script src="content.js"></script>
+<style>
+:root {
+  --bg: #161a33;
+  --bg-2: #1e2347;
+  --card: #232850;
+  --fg: #f3f2f8;
+  --muted: #b3b1cc;
+  --line: #343a6b;
+  --violet: #4a3f8c;
+  --amber: #f4a93a;
+  --amber-ink: #241603;
+  --sakura: #f2b5c4;
+  --sky-1: #1c2140;
+  --sky-2: #4a3f8c;
+  --sky-3: #c97a8e;
+  --hill: #12152b;
+  --hero-fg: #ffffff;
+  --hero-muted: #e9e5f7;
+  --glass: #ffffff1a;
+  --glass-line: #ffffff40;
+  --display: "Fraunces", Georgia, serif;
+  --ui: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) { --bg: #f3f2f8; --bg-2: #e9e6f5; --card: #ffffff; --fg: #1c2140; --muted: #57557a; --line: #d9d5ec; --violet: #4a3f8c; --amber: #9a5800; --amber-ink: #ffffff; --sakura: #c2566f; --sky-1: #9cc3ec; --sky-2: #f7d9b5; --sky-3: #f2b5c4; --hill: #6b8f71; --hero-fg: #1c2140; --hero-muted: #3d3a5c; --glass: #ffffff8c; --glass-line: #1c214030; color-scheme: light; }
+}
+:root[data-theme="light"] { --bg: #f3f2f8; --bg-2: #e9e6f5; --card: #ffffff; --fg: #1c2140; --muted: #57557a; --line: #d9d5ec; --violet: #4a3f8c; --amber: #9a5800; --amber-ink: #ffffff; --sakura: #c2566f; --sky-1: #9cc3ec; --sky-2: #f7d9b5; --sky-3: #f2b5c4; --hill: #6b8f71; --hero-fg: #1c2140; --hero-muted: #3d3a5c; --glass: #ffffff8c; --glass-line: #1c214030; color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--fg); font: 16px/1.65 var(--ui); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-inline: clamp(16px, 4vw, 40px); }
+header.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; backdrop-filter: blur(12px); background: color-mix(in srgb, var(--bg) 72%, transparent); border-bottom: 1px solid color-mix(in srgb, var(--line) 60%, transparent); }
+.nav .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 68px; }
+.brand { display: flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--display); font-weight: 600; font-size: 1.2rem; }
+.brand img { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--amber); object-fit: cover; }
+.links { display: flex; gap: 4px; }
+.links a { text-decoration: none; color: var(--muted); padding: 8px 14px; border-radius: 999px; font-weight: 500; font-size: .95rem; }
+.links a:hover { color: var(--fg); }
+.links a.on { color: var(--fg); background: var(--card); }
+.nav-end { display: flex; gap: 8px; align-items: center; }
+.icon-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); background: var(--card); color: var(--fg); display: grid; place-items: center; cursor: pointer; font: inherit; }
+.btn { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1px solid var(--line); background: var(--card); color: var(--fg); cursor: pointer; font: inherit; font-weight: 600; transition: transform .2s; }
+.btn:hover { transform: translateY(-2px); }
+.btn.amber { background: var(--amber); color: var(--amber-ink); border-color: var(--amber); box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--amber) 70%, transparent); }
+.menu-btn { display: none; }
+
+.sky { position: relative; overflow: hidden; background: linear-gradient(180deg, var(--sky-1) 0%, var(--sky-2) 62%, var(--sky-3) 100%); }
+.sky::after { content: ""; position: absolute; left: -5%; right: -5%; bottom: -1px; height: 120px; background: var(--hill); clip-path: path('M0 80 C 200 20, 380 20, 560 60 S 920 110, 1100 50 S 1500 20, 1800 70 L 1800 140 L 0 140 Z'); }
+.stars { position: absolute; inset: 0; background-image: radial-gradient(1.5px 1.5px at 12% 18%, #fff9, transparent), radial-gradient(1px 1px at 28% 42%, #fff8, transparent), radial-gradient(1.5px 1.5px at 66% 14%, #fffa, transparent), radial-gradient(1px 1px at 82% 36%, #fff7, transparent), radial-gradient(1px 1px at 48% 8%, #fff8, transparent), radial-gradient(1.5px 1.5px at 92% 12%, #fff9, transparent); }
+:root[data-theme="light"] .stars { opacity: 0; }
+@media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .stars { opacity: 0; } }
+.hero { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: 40px; padding-block: 72px 140px; }
+.hero h1 { font-family: var(--display); font-weight: 600; font-size: clamp(2.4rem, 5vw, 3.9rem); line-height: 1.04; letter-spacing: -0.02em; margin: 16px 0 0; color: var(--hero-fg); text-wrap: balance; }
+.hero p.lede { color: var(--hero-muted); font-size: 1.15rem; max-width: 46ch; margin: 20px 0 0; }
+.hero .ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+.hero .btn:not(.amber) { background: var(--glass); color: var(--hero-fg); border-color: var(--glass-line); }
+.pill { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px; border-radius: 999px; background: var(--glass); color: var(--hero-fg); font-size: .9rem; font-weight: 500; border: 1px solid var(--glass-line); }
+.pill .dot { width: 8px; height: 8px; border-radius: 50%; background: #7ee08a; box-shadow: 0 0 0 4px #7ee08a33; }
+.moon { position: relative; justify-self: center; width: min(420px, 80vw); aspect-ratio: 1; }
+.moon::before { content: ""; position: absolute; inset: -18%; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--amber) 45%, transparent), transparent 62%); }
+.moon img { position: relative; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 8px solid #ffffffd9; box-shadow: 0 30px 80px -20px #0008; }
+.moon .badge { position: absolute; left: -4%; bottom: 10%; background: var(--card); color: var(--fg); border-radius: 18px; padding: 10px 16px; font-size: .85rem; box-shadow: 0 16px 40px -12px #0007; display: grid; gap: 0; }
+.moon .badge b { font-family: var(--display); font-size: 1.15rem; }
+
+section.band { padding-block: 88px; }
+section.band.alt { background: var(--bg-2); }
+.kicker { color: var(--amber); font-weight: 600; font-size: .95rem; }
+h2 { font-family: var(--display); font-weight: 600; font-size: clamp(2rem, 4vw, 3rem); line-height: 1.08; margin: 6px 0 0; letter-spacing: -0.015em; text-wrap: balance; }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 20px; flex-wrap: wrap; margin-bottom: 36px; }
+.head p { color: var(--muted); max-width: 48ch; margin: 10px 0 0; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: -64px; position: relative; z-index: 2; }
+.stat { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 22px; }
+.stat b { font-family: var(--display); font-size: 2.2rem; display: block; line-height: 1; font-variant-numeric: tabular-nums; }
+.stat span { color: var(--muted); font-size: .9rem; }
+.marquee { overflow: hidden; border-block: 1px solid var(--line); padding-block: 18px; margin-top: 64px; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquee .track { display: flex; gap: 48px; width: max-content; animation: slide 40s linear infinite; font-family: var(--display); font-size: 1.5rem; color: var(--muted); }
+.marquee .track span::after { content: "✦"; color: var(--amber); margin-left: 48px; font-size: 1rem; vertical-align: middle; }
+@keyframes slide { to { transform: translateX(-50%); } }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 26px; display: flex; flex-direction: column; gap: 10px; transition: transform .25s, border-color .25s; text-decoration: none; }
+.card:hover { transform: translateY(-4px); border-color: var(--amber); }
+.card h3 { font-family: var(--display); font-weight: 600; font-size: 1.4rem; margin: 0; line-height: 1.2; }
+.card p { margin: 0; color: var(--muted); }
+.lantern { width: 46px; height: 46px; border-radius: 14px; background: color-mix(in srgb, var(--amber) 20%, transparent); color: var(--amber); display: grid; place-items: center; font-family: var(--display); font-weight: 700; font-size: 1.2rem; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: auto; padding-top: 8px; }
+.tags span { font-size: .78rem; font-weight: 600; padding: 4px 10px; border-radius: 999px; background: var(--bg-2); color: var(--muted); border: 1px solid var(--line); }
+.case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0; background: var(--card); border: 1px solid var(--line); border-radius: 28px; overflow: hidden; text-decoration: none; }
+.case + .case { margin-top: 18px; }
+.case .art { min-height: 260px; position: relative; display: grid; place-items: center; padding: 28px; }
+.case .art .mock { width: 86%; aspect-ratio: 16/10; border-radius: 12px; background: var(--bg); box-shadow: 0 24px 50px -20px #0009; display: grid; grid-template-rows: 22px 1fr; overflow: hidden; }
+.case .art .mock i { background: var(--bg-2); display: flex; gap: 5px; align-items: center; padding-left: 10px; }
+.case .art .mock i::before { content: ""; width: 34px; height: 8px; border-radius: 4px; background: radial-gradient(circle at 4px 4px, #f26b6b 3px, transparent 4px), radial-gradient(circle at 17px 4px, #f4c04a 3px, transparent 4px), radial-gradient(circle at 30px 4px, #6bd17a 3px, transparent 4px); }
+.case .art .mock u { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; padding: 12px; text-decoration: none; }
+.case .art .mock u b { border-radius: 6px; background: var(--bg-2); }
+.case .art .mock u b:first-child { grid-column: span 3; background: color-mix(in srgb, var(--amber) 30%, var(--bg-2)); }
+.tone-a { background: linear-gradient(135deg, #4a3f8c, #c97a8e); }
+.tone-b { background: linear-gradient(135deg, #24305e, #4a6fb8); }
+.tone-c { background: linear-gradient(135deg, #5b3a6e, #f4a93a); }
+.tone-d { background: linear-gradient(135deg, #2f5e57, #9cc3a4); }
+.tone-e { background: linear-gradient(135deg, #3a2a52, #f2b5c4); }
+.tone-f { background: linear-gradient(135deg, #1c2140, #6b6fb0); }
+.case .body { padding: 34px; display: flex; flex-direction: column; gap: 10px; }
+.case .meta { color: var(--amber); font-weight: 600; font-size: .9rem; }
+.case h3 { font-family: var(--display); font-size: 1.8rem; line-height: 1.15; margin: 0; font-weight: 600; }
+.case p { margin: 0; color: var(--muted); }
+.case:nth-child(even) .art { order: 2; }
+.process { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; counter-reset: s; }
+.step { position: relative; padding-top: 56px; }
+.step::before { counter-increment: s; content: counter(s); position: absolute; top: 0; left: 0; width: 40px; height: 40px; border-radius: 50%; background: var(--amber); color: var(--amber-ink); display: grid; place-items: center; font-weight: 700; }
+.step::after { content: ""; position: absolute; top: 20px; left: 52px; right: -10px; border-top: 2px dashed var(--line); }
+.step:last-child::after { display: none; }
+.step h3 { margin: 0; font-family: var(--display); font-size: 1.25rem; font-weight: 600; }
+.step p { margin: 6px 0 0; color: var(--muted); font-size: .95rem; }
+.cta-band { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 32px; align-items: center; background: linear-gradient(120deg, var(--violet), #c97a8e); border-radius: 32px; padding: 36px 44px; color: #fff; }
+.cta-band img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; border: 4px solid #ffffffd9; }
+.cta-band h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.3rem); }
+.cta-band p { margin: 6px 0 0; color: #f3eefc; }
+.split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 56px; align-items: start; }
+.portrait { border-radius: 28px; overflow: hidden; border: 1px solid var(--line); position: sticky; top: 96px; }
+.portrait img { width: 100%; aspect-ratio: 1; object-fit: cover; }
+.portrait figcaption { padding: 14px 18px; font-size: .9rem; color: var(--muted); background: var(--card); }
+.prose p { color: var(--muted); font-size: 1.08rem; margin: 0 0 18px; }
+.prose p strong { color: var(--fg); }
+.timeline { list-style: none; padding: 0; margin: 28px 0 0; border-left: 2px solid var(--line); }
+.timeline li { position: relative; padding: 0 0 26px 26px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 0 4px color-mix(in srgb, var(--amber) 25%, transparent); }
+.timeline .yr { font-size: .85rem; color: var(--amber); font-weight: 600; font-variant-numeric: tabular-nums; }
+.timeline b { display: block; font-size: 1.05rem; }
+.timeline span { color: var(--muted); font-size: .95rem; }
+.svc { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.svc .card ul { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.svc .card li { display: flex; gap: 10px; color: var(--fg); font-size: .95rem; }
+.svc .card li::before { content: "✦"; color: var(--amber); }
+.models { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.model { border-radius: 24px; padding: 28px; border: 1px solid var(--line); background: var(--card); display: grid; gap: 8px; align-content: start; }
+.model.hot { background: linear-gradient(160deg, var(--violet), #2a2560); color: #fff; border-color: transparent; }
+.model.hot p { color: #ddd8f5; }
+.model h3 { margin: 0; font-family: var(--display); font-size: 1.4rem; font-weight: 600; }
+.model .price { font-family: var(--display); font-size: 1.1rem; color: var(--amber); }
+.model p { margin: 0; color: var(--muted); }
+.faq { display: grid; gap: 10px; }
+.faq details { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 18px 22px; }
+.faq summary { cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.faq summary::after { content: "+"; color: var(--amber); font-size: 1.3rem; line-height: 1; }
+.faq details[open] summary::after { content: "–"; }
+.faq p { color: var(--muted); margin: 10px 0 0; }
+.contact { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+form.card { gap: 16px; }
+form.card:hover { transform: none; }
+.card > .btn, form.card > .btn { align-self: flex-start; }
+.field { display: grid; gap: 6px; align-content: start; }
+.field label { font-weight: 600; font-size: .92rem; }
+.field input, .field select, .field textarea { font: inherit; color: var(--fg); background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: 2px solid var(--amber); outline-offset: 1px; }
+.field .err { color: #ff8a8a; font-size: .85rem; }
+:root[data-theme="light"] .field .err { color: #b3261e; }
+.field.bad input { border-color: #ff8a8a; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ok-box { border-radius: 18px; padding: 18px; background: color-mix(in srgb, #7ee08a 18%, var(--card)); border: 1px solid #7ee08a66; }
+.side-card { display: grid; gap: 14px; }
+.wave { background: linear-gradient(160deg, var(--sky-2), var(--sky-3)); border-radius: 28px; padding: 24px; display: grid; grid-template-columns: minmax(0, 1fr) 112px; align-items: center; gap: 16px; overflow: hidden; color: var(--hero-fg); }
+.wave p { margin: 0; font-family: var(--display); font-weight: 600; font-size: 1.4rem; line-height: 1.2; }
+.wave img { width: 112px; height: 112px; border-radius: 50%; object-fit: cover; border: 4px solid #ffffffd9; }
+.mail { font-family: var(--display); font-size: 1.3rem; word-break: break-all; }
+footer { border-top: 1px solid var(--line); padding-block: 32px; color: var(--muted); font-size: .9rem; }
+footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; }
+footer nav { display: flex; gap: 18px; flex-wrap: wrap; }
+.fly { position: fixed; width: 6px; height: 6px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 12px 3px color-mix(in srgb, var(--amber) 70%, transparent); pointer-events: none; z-index: 30; opacity: .85; }
+[data-page] { animation: fade .35s ease; }
+@keyframes fade { from { opacity: .4; } to { opacity: 1; } }
+@media (max-width: 900px) {
+  .links { display: none; }
+  .menu-btn { display: grid; }
+  .links.open { display: grid; position: absolute; top: 68px; left: 0; right: 0; background: var(--bg); padding: 12px 16px 20px; border-bottom: 1px solid var(--line); }
+  .hero { grid-template-columns: minmax(0, 1fr); padding-block: 40px 120px; text-align: left; }
+  .moon { width: min(300px, 74vw); order: -1; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cards, .models, .svc { grid-template-columns: minmax(0, 1fr); }
+  .case { grid-template-columns: minmax(0, 1fr); }
+  .case:nth-child(even) .art { order: 0; }
+  .process { grid-template-columns: minmax(0, 1fr); }
+  .step::after { display: none; }
+  .cta-band { grid-template-columns: minmax(0, 1fr); padding: 28px; }
+  .cta-band img { display: none; }
+  .split, .contact { grid-template-columns: minmax(0, 1fr); }
+  .portrait { position: static; }
+  .row2 { grid-template-columns: minmax(0, 1fr); }
+  .nav-end .btn { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .marquee .track { animation: none; } .fly { display: none; } * { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#home"><img src="khoa.webp" alt="">Khoa Phạm</a>
+    <nav class="links" id="links" aria-label="Main">
+      <a href="#home" data-link="home">Home</a>
+      <a href="#services" data-link="services">Services</a>
+      <a href="#work" data-link="work">Work</a>
+      <a href="#about" data-link="about">About</a>
+      <a href="#contact" data-link="contact">Contact</a>
+    </nav>
+    <div class="nav-end">
+      <button class="icon-btn" id="theme" type="button" aria-label="Switch day and night">☾</button>
+      <button class="icon-btn menu-btn" id="menu" type="button" aria-label="Open menu" aria-expanded="false">≡</button>
+      <a class="btn amber" href="#contact">Hire me</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div data-page="home">
+    <div class="sky"><div class="stars"></div>
+      <div class="wrap hero">
+        <div>
+          <span class="pill"><span class="dot"></span><span id="status"></span></span>
+          <h1>Hi, I'm Khoa. I build the shops and tools your team runs on.</h1>
+          <p class="lede" id="pitch"></p>
+          <div class="ctas"><a class="btn amber" href="#contact">Start a project</a><a class="btn" href="#work">See my work</a></div>
+        </div>
+        <div class="moon">
+          <img src="khoa.webp" alt="Photo of Khoa smiling">
+          <div class="badge"><span>Full-stack engineer</span><b>PHP · Vue · React</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="wrap"><div class="stats" id="stats"></div></div>
+    <div class="marquee" aria-hidden="true"><div class="track" id="marquee"></div></div>
+    <section class="band"><div class="wrap">
+      <div class="head"><div><div class="kicker">What I do</div><h2>Three ways I can help</h2></div><a class="btn" href="#services">All services</a></div>
+      <div class="cards" id="home-services"></div>
+    </div></section>
+    <section class="band alt"><div class="wrap">
+      <div class="head"><div><div class="kicker">Selected work</div><h2>Recent projects</h2></div><a class="btn" href="#work">All projects</a></div>
+      <div id="home-work"></div>
+    </div></section>
+    <section class="band"><div class="wrap">
+      <div class="cta-band"><img src="khoa.webp" alt=""><div><h2>Have a project for the next quarter?</h2><p>Tell me what you're building. I reply within one working day.</p></div><a class="btn amber" href="#contact">Get in touch</a></div>
+    </div></section>
+  </div>
+
+  <div data-page="services" hidden>
+    <section class="band"><div class="wrap">
+      <div class="head"><div><div class="kicker">Services</div><h2>Engineering for e-commerce and business apps</h2><p>Ten years of PHP and JavaScript for online stores, banks, agencies and SaaS products. Pick one service or combine them.</p></div></div>
+      <div class="svc" id="svc"></div>
+    </div></section>
+    <section class="band alt"><div class="wrap">
+      <div class="head"><div><div class="kicker">How we work</div><h2>From first message to launch</h2></div></div>
+      <div class="process" id="process"></div>
+    </div></section>
+    <section class="band"><div class="wrap">
+      <div class="head"><div><div class="kicker">Ways to work together</div><h2>Choose what fits your team</h2></div></div>
+      <div class="models">
+        <div class="model"><h3>Fixed-scope project</h3><div class="price">Quote after a call</div><p>A plugin, a theme, an integration or an upgrade with a clear finish line.</p></div>
+        <div class="model hot"><h3>Monthly retainer</h3><div class="price">Set hours each month</div><p>A steady block of hours for features, fixes and upgrades. Most of my clients stay on this.</p></div>
+        <div class="model"><h3>Full-time remote</h3><div class="price">Employment or contract</div><p>I join your team as a full-time engineer, on your tools and your review process.</p></div>
+      </div>
+    </div></section>
+    <section class="band alt"><div class="wrap">
+      <div class="head"><div><div class="kicker">FAQ</div><h2>Common questions</h2></div></div>
+      <div class="faq" id="faq"></div>
+    </div></section>
+  </div>
+
+  <div data-page="work" hidden>
+    <section class="band"><div class="wrap">
+      <div class="head"><div><div class="kicker">Work</div><h2>Projects from the last ten years</h2><p>Client names are shown where the work is public. The rest are described without names.</p></div></div>
+      <div id="all-work"></div>
+    </div></section>
+  </div>
+
+  <div data-page="about" hidden>
+    <section class="band"><div class="wrap split">
+      <figure class="portrait" style="margin:0"><img src="khoa.webp" alt="Photo of Khoa"><figcaption>Phạm Bá Tuấn Khoa, full-stack software engineer.</figcaption></figure>
+      <div class="prose">
+        <div class="kicker">About</div>
+        <h2>I'm a full-stack engineer who likes the boring parts done right.</h2>
+        <p style="margin-top:20px">I started with WordPress and Symfony in 2016. Since then I've led a team at Rikkeisoft, built React Native apps at NFQ, and spent the last five years on <strong>Shopware 6 and Laravel</strong> for companies in Germany and Austria.</p>
+        <p>I like taking a feature from the database to the deploy, and I've done a lot of <strong>upgrades of older systems</strong> to current PHP, Symfony and Laravel versions. I studied Electronics and Telecommunications at Hue University.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px"><a class="btn amber" href="#">Download CV (PDF)</a><a class="btn" href="https://github.com/pbtkhoa">GitHub</a><a class="btn" href="https://linkedin.com/in/pbtkhoa">LinkedIn</a></div>
+        <ul class="timeline" id="timeline"></ul>
+      </div>
+    </div></section>
+  </div>
+
+  <div data-page="contact" hidden>
+    <section class="band"><div class="wrap">
+      <div class="head"><div><div class="kicker">Contact</div><h2>Let's talk about your project</h2><p>A few lines are enough. I reply within one working day.</p></div></div>
+      <div class="contact">
+        <form class="card" id="form" novalidate>
+          <div class="row2">
+            <div class="field"><label for="f-name">Your name</label><input id="f-name" autocomplete="name"></div>
+            <div class="field" id="w-email"><label for="f-email">Work email</label><input id="f-email" type="email" autocomplete="email"><span class="err" id="e-email" hidden>Enter an email like name@company.com.</span></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label for="f-type">What do you need?</label><select id="f-type"><option>Shopware project</option><option>Laravel or Symfony app</option><option>Vue or React front end</option><option>Full-time remote role</option></select></div>
+            <div class="field"><label for="f-budget">Budget (USD or EUR)</label><select id="f-budget"><option>Not sure yet</option><option>Under 5k</option><option>5k – 20k</option><option>Over 20k</option><option>Salaried role</option></select></div>
+          </div>
+          <div class="field" id="w-msg"><label for="f-msg">Message</label><textarea id="f-msg" rows="5"></textarea><span class="err" id="e-msg" hidden>Write a sentence or two about the project.</span></div>
+          <button class="btn amber" type="submit">Send message</button>
+          <div class="ok-box" id="ok" hidden>Message sent. I'll reply within one working day.</div>
+        </form>
+        <div class="side-card">
+          <div class="wave"><p>Xin chào! Say hi any time.</p><img src="khoa.webp" alt="Photo of Khoa"></div>
+          <div class="card"><span class="kicker">Email</span><span class="mail">pbtkhoa@gmail.com</span><button class="btn" type="button" id="copy">Copy email</button></div>
+          <div class="card"><span class="kicker">Elsewhere</span><p><a href="https://github.com/pbtkhoa">GitHub</a> · <a href="https://linkedin.com/in/pbtkhoa">LinkedIn</a> · <a href="#">CV (PDF)</a></p></div>
+        </div>
+      </div>
+    </div></section>
+  </div>
+</main>
+
+<footer><div class="wrap"><span>© 2026 Phạm Bá Tuấn Khoa</span><nav><a href="https://github.com/pbtkhoa">GitHub</a><a href="https://linkedin.com/in/pbtkhoa">LinkedIn</a><a href="#">Impressum</a><a href="#">Privacy</a></nav></div></footer>
+
+<script>
+const S = window.SITE;
+const $ = (id) => document.getElementById(id);
+$('status').textContent = S.status;
+$('pitch').textContent = S.pitch;
+$('stats').innerHTML = S.stats.map(s => `<div class="stat"><b>${s.value}</b><span>${s.label}</span></div>`).join('');
+const words = [...S.clients, ...S.clients].map(c => `<span>${c}</span>`).join('');
+$('marquee').innerHTML = words;
+const initials = { shopware: 'S6', apps: 'L', frontend: 'V', team: 'R' };
+const svcCard = (s) => `<a class="card" href="#services"><div class="lantern">${initials[s.key]}</div><h3>${s.title}</h3><p>${s.blurb}</p></a>`;
+$('home-services').innerHTML = S.services.slice(0, 3).map(svcCard).join('');
+$('svc').innerHTML = S.services.map(s => `<div class="card"><div class="lantern">${initials[s.key]}</div><h3>${s.title}</h3><p>${s.blurb}</p><ul>${s.points.map(p => `<li>${p}</li>`).join('')}</ul></div>`).join('');
+$('process').innerHTML = S.process.map(p => `<div class="step"><h3>${p.title}</h3><p>${p.text}</p></div>`).join('');
+$('faq').innerHTML = S.faq.map((f, i) => `<details ${i === 0 ? 'open' : ''}><summary>${f.q}</summary><p>${f.a}</p></details>`).join('');
+const caseHtml = (w) => `<a class="case" href="#work"><div class="art tone-${w.tone}"><div class="mock"><i></i><u><b></b><b></b><b></b><b></b></u></div></div><div class="body"><span class="meta">${w.org} · ${w.years}</span><h3>${w.title}</h3><p>${w.summary}</p><div class="tags">${w.tags.map(t => `<span>${t}</span>`).join('')}</div></div></a>`;
+$('home-work').innerHTML = S.work.slice(0, 2).map(caseHtml).join('');
+$('all-work').innerHTML = S.work.map(caseHtml).join('');
+$('timeline').innerHTML = S.experience.map(e => `<li><span class="yr">${e.years}</span><b>${e.role}, ${e.org}</b><span>${e.note}</span></li>`).join('');
+
+const route = () => {
+  const id = location.hash.slice(1) || 'home';
+  const page = document.querySelector(`[data-page="${id}"]`) ? id : 'home';
+  document.querySelectorAll('[data-page]').forEach(p => { p.hidden = p.dataset.page !== page; });
+  document.querySelectorAll('[data-link]').forEach(a => a.classList.toggle('on', a.dataset.link === page));
+  $('links').classList.remove('open');
+  window.scrollTo(0, 0);
+};
+addEventListener('hashchange', route);
+route();
+$('menu').addEventListener('click', () => { const o = $('links').classList.toggle('open'); $('menu').setAttribute('aria-expanded', o); });
+$('theme').addEventListener('click', () => {
+  const r = document.documentElement;
+  const light = r.dataset.theme ? r.dataset.theme === 'light' : matchMedia('(prefers-color-scheme: light)').matches;
+  r.dataset.theme = light ? 'dark' : 'light';
+  $('theme').textContent = light ? '☾' : '☀';
+});
+$('copy').addEventListener('click', async (e) => { try { await navigator.clipboard.writeText(S.email); e.target.textContent = 'Copied'; } catch { e.target.textContent = S.email; } });
+$('form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  const email = $('f-email').value.trim(), msg = $('f-msg').value.trim();
+  const badEmail = !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email), badMsg = msg.length < 10;
+  $('e-email').hidden = !badEmail; $('w-email').classList.toggle('bad', badEmail);
+  $('e-msg').hidden = !badMsg; $('w-msg').classList.toggle('bad', badMsg);
+  $('ok').hidden = badEmail || badMsg;
+});
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(pointer: fine)').matches) {
+  const flies = Array.from({ length: 5 }, () => { const d = document.createElement('i'); d.className = 'fly'; document.body.append(d); return { d, x: innerWidth / 2, y: innerHeight / 2 }; });
+  let mx = innerWidth / 2, my = innerHeight / 2;
+  addEventListener('pointermove', (e) => { mx = e.clientX; my = e.clientY; });
+  const loop = (t) => {
+    flies.forEach((f, i) => {
+      const tx = mx + Math.cos(t / 700 + i * 1.3) * (24 + i * 9);
+      const ty = my + Math.sin(t / 900 + i * 1.7) * (20 + i * 7);
+      f.x += (tx - f.x) * (0.04 + i * 0.01); f.y += (ty - f.y) * (0.04 + i * 0.01);
+      f.d.style.transform = `translate(${f.x}px, ${f.y}px)`;
+    });
+    requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
