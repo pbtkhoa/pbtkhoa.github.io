@@ -6,7 +6,7 @@
 2. **Bỏ đồng hồ giờ Việt Nam/Berlin** và mọi chi tiết nhắm riêng múi giờ châu Âu, vì site hướng tới khách toàn cầu.
 3. Câu chữ viết cho **khách và nhà tuyển dụng ở mọi nơi**. Phần kinh nghiệm vẫn ghi đúng là đã làm cho công ty Đức và Áo.
 
-Mockup đã chốt: [`design/mockup/index.html`](../design/mockup/index.html), mở thẳng bằng trình duyệt. Ảnh kiểm tra ở `design/mockup/shots/`, báo cáo dựng Nuxt có ảnh ở [artifact/lantern-hour-build.html](../artifact/lantern-hour-build.html). Token màu ở [`design/tokens.css`](../design/tokens.css). Lúc dựng Nuxt sẽ bám theo mockup này.
+Mockup đã chốt: [`design/mockup/index.html`](../design/mockup/index.html), mở thẳng bằng trình duyệt. Ảnh kiểm tra ở `design/mockup/shots/`, báo cáo dựng Nuxt có ảnh ở [artifact/lantern-hour-work-update.html](../artifact/lantern-hour-work-update.html) (vòng 2; báo cáo vòng đầu ở commit 281cc94). Token màu ở [`design/tokens.css`](../design/tokens.css). Lúc dựng Nuxt sẽ bám theo mockup này.
 
 ## 1. Ý tưởng
 
@@ -51,13 +51,13 @@ Thanh menu cố định trên cùng: logo (ảnh tròn + "Khoa Phạm"), 5 link,
 4 thẻ dịch vụ có gạch đầu dòng → quy trình 4 bước (Talk, Scope, Build, Launch and support) → 3 cách hợp tác (dự án, retainer làm nổi, full-time remote) → FAQ dạng mở/đóng.
 
 ### `/work`
-6 dự án dạng thẻ ngang so le. Giai đoạn 2: mỗi thẻ dẫn tới `/work/<slug>` (vấn đề, vai trò, giải pháp, kết quả, stack).
+6 dự án dạng thẻ ngang so le, rồi danh sách 11 dự án khác và khối "And much more" (đổi 08/10/2026, xem [06-dung-nuxt.md](06-dung-nuxt.md) mục 7). Giai đoạn 2: mỗi thẻ dẫn tới `/work/<slug>` (vấn đề, vai trò, giải pháp, kết quả, stack).
 
 ### `/about`
 Ảnh vuông dính bên trái, bên phải là câu chuyện, ba nút (Download CV, GitHub, LinkedIn) và dòng thời gian 6 mốc.
 
 ### `/contact`
-Form bên trái: tên, email, loại việc, ngân sách (USD hoặc EUR), tin nhắn. Bên phải: thẻ "Xin chào! Say hi any time." có ảnh, thẻ email có nút copy, thẻ link GitHub/LinkedIn/CV.
+Form bên trái: tên, email, tin nhắn (bỏ loại việc và ngân sách ngày 08/10/2026). Bên phải: thẻ "Xin chào! Say hi any time." có ảnh, thẻ email có nút copy, thẻ link GitHub/LinkedIn/CV.
 
 - Báo lỗi ngay dưới ô nhập: "Enter an email like name@company.com.", "Write a sentence or two about the project."
 - Gửi xong: "Message sent. I'll reply within one working day."

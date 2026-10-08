@@ -1,0 +1,210 @@
+<script setup lang="ts">
+const passwordDots = [0, 1, 2, 3, 4, 5, 6]
+</script>
+
+<template>
+  <svg
+    viewBox="0 0 320 180"
+    preserveAspectRatio="xMidYMid meet"
+  >
+    <rect
+      class="f-bg"
+      width="320"
+      height="180"
+    />
+    <circle
+      class="f-panel"
+      cx="40"
+      cy="168"
+      r="64"
+    />
+    <circle
+      class="f-panel"
+      cx="300"
+      cy="14"
+      r="46"
+    />
+    <g>
+      <rect
+        class="f-card s-line"
+        x="20"
+        y="54"
+        width="64"
+        height="42"
+        rx="5"
+      />
+      <circle
+        class="f-violet"
+        cx="36"
+        cy="72"
+        r="8"
+      />
+      <rect
+        class="f-muted"
+        x="50"
+        y="66"
+        width="26"
+        height="4"
+        rx="2"
+      />
+      <rect
+        class="f-muted"
+        x="50"
+        y="74"
+        width="18"
+        height="4"
+        rx="2"
+      />
+      <rect
+        class="f-line"
+        x="28"
+        y="86"
+        width="48"
+        height="4"
+        rx="2"
+      />
+      <circle
+        class="f-ok"
+        cx="82"
+        cy="56"
+        r="8"
+      />
+      <path
+        class="s-on-ok"
+        d="M78.5 56l2.5 2.5 4.5-5"
+      />
+    </g>
+    <rect
+      class="f-card s-line"
+      x="104"
+      y="12"
+      width="128"
+      height="158"
+      rx="10"
+    />
+    <circle
+      class="f-accent-soft"
+      cx="168"
+      cy="36"
+      r="13"
+    />
+    <path
+      class="s-accent"
+      d="M163.5 35v-3.5a4.5 4.5 0 0 1 9 0V35"
+    />
+    <rect
+      class="f-accent"
+      x="161"
+      y="35"
+      width="14"
+      height="10"
+      rx="2.5"
+    />
+    <rect
+      class="f-strong"
+      x="138"
+      y="56"
+      width="60"
+      height="6"
+      rx="3"
+    />
+    <rect
+      class="f-bg s-line"
+      x="116"
+      y="72"
+      width="104"
+      height="16"
+      rx="5"
+    />
+    <rect
+      class="f-muted"
+      x="123"
+      y="78"
+      width="46"
+      height="4"
+      rx="2"
+    />
+    <rect
+      class="f-bg s-line"
+      x="116"
+      y="94"
+      width="104"
+      height="16"
+      rx="5"
+    />
+    <circle
+      v-for="dot in passwordDots"
+      :key="dot"
+      class="f-muted"
+      :cx="126 + dot * 7"
+      cy="102"
+      r="2"
+    />
+    <rect
+      class="f-accent"
+      x="116"
+      y="118"
+      width="104"
+      height="16"
+      rx="8"
+    />
+    <line
+      class="s-line"
+      x1="116"
+      y1="144"
+      x2="160"
+      y2="144"
+    />
+    <line
+      class="s-line"
+      x1="176"
+      y1="144"
+      x2="220"
+      y2="144"
+    />
+    <circle
+      class="f-line"
+      cx="168"
+      cy="144"
+      r="2"
+    />
+    <rect
+      class="f-card s-line"
+      x="116"
+      y="150"
+      width="104"
+      height="13"
+      rx="6.5"
+    />
+    <rect
+      class="f-muted"
+      x="146"
+      y="154.5"
+      width="44"
+      height="4"
+      rx="2"
+    />
+    <g>
+      <rect
+        class="f-card s-line"
+        x="246"
+        y="78"
+        width="60"
+        height="52"
+        rx="6"
+      />
+      <path
+        class="s-accent"
+        d="M256 94h12M256 104h20M256 114h14"
+      />
+      <path
+        class="s-accent"
+        d="M284 92l8 8-8 8"
+      />
+      <path
+        class="s-line-strong"
+        d="M232 104h14"
+      />
+    </g>
+  </svg>
+</template>

@@ -14,7 +14,7 @@ export default defineNuxtConfig({
     head: {
       htmlAttrs: { lang: 'en' },
       meta: [
-        { name: 'description', content: 'Full-stack software engineer in Vietnam building Shopware stores, Laravel and Symfony apps and Vue front ends for teams around the world.' },
+        { name: 'description', content: 'Full-stack software engineer in Vietnam building Shopware stores, PHP and Node.js back ends and Vue front ends for teams around the world.' },
         { name: 'author', content: 'Phạm Bá Tuấn Khoa' },
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: 'Khoa Phạm' },

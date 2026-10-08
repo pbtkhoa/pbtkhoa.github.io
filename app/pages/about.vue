@@ -37,7 +37,7 @@ useSeoMeta({
               I started with WordPress and Symfony in 2016. Since then I've led a team at Rikkeisoft, built React Native apps at NFQ, and spent the last five years on <strong>Shopware 6 and Laravel</strong> for companies in Germany and Austria.
             </p>
             <p>
-              I like taking a feature from the database to the deploy, and I've done a lot of <strong>upgrades of older systems</strong> to current PHP, Symfony and Laravel versions. I studied Electronics and Telecommunications at Hue University.
+              I like taking a feature from the database to the deploy. On the back end I work in <strong>PHP and, more and more, Node.js</strong>, and I've done a lot of upgrades of older systems to current PHP, Symfony and Laravel versions. I studied Electronics and Telecommunications at Hue University.
             </p>
           </div>
           <div class="about-actions">

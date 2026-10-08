@@ -55,19 +55,6 @@ withDefaults(defineProps<{
   outline-offset: 1px;
 }
 
-.field :slotted(select.field-control) {
-  appearance: none;
-  padding-right: 40px;
-  background-image:
-    linear-gradient(45deg, transparent 50%, currentColor 50%),
-    linear-gradient(135deg, currentColor 50%, transparent 50%);
-  background-position:
-    calc(100% - 20px) 50%,
-    calc(100% - 15px) 50%;
-  background-size: 5px 5px;
-  background-repeat: no-repeat;
-}
-
 .field :slotted(textarea.field-control) {
   resize: vertical;
   min-height: 140px;

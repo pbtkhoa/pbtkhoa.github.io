@@ -1,8 +1,6 @@
 export interface ContactFields {
   name: string
   email: string
-  need: string
-  budget: string
   message: string
 }
 
@@ -12,8 +10,6 @@ export type ContactStatus = 'idle' | 'sending' | 'sent' | 'drafted' | 'failed'
 
 interface UseContactFormOptions {
   recipient: string
-  needs: string[]
-  budgets: string[]
 }
 
 const EMAIL_PATTERN = /^[^@\s]+@[^@\s]+\.[^@\s]+$/
@@ -25,14 +21,12 @@ const ERROR_TEXT: Partial<Record<ContactField, string>> = {
 }
 
 export function useContactForm(options: UseContactFormOptions) {
-  const { recipient, needs, budgets } = options
+  const { recipient } = options
   const { public: { formEndpoint } } = useRuntimeConfig()
 
   const fields = reactive<ContactFields>({
     name: '',
     email: '',
-    need: needs[0] ?? '',
-    budget: budgets[0] ?? '',
     message: '',
   })
   const attempted = shallowRef(false)
@@ -51,13 +45,12 @@ export function useContactForm(options: UseContactFormOptions) {
 
   function mailtoLink(): string {
     const sender = fields.name.trim() || 'Website visitor'
-    const subject = `${fields.need}: ${sender}`
+    const subject = `Project enquiry from ${sender}`
     const body = [
       fields.message.trim(),
       '',
       `Name: ${sender}`,
       `Email: ${fields.email.trim()}`,
-      `Budget: ${fields.budget}`,
     ].join('\n')
     return `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
@@ -65,8 +58,6 @@ export function useContactForm(options: UseContactFormOptions) {
   function reset() {
     fields.name = ''
     fields.email = ''
-    fields.need = needs[0] ?? ''
-    fields.budget = budgets[0] ?? ''
     fields.message = ''
     attempted.value = false
   }
@@ -92,8 +83,6 @@ export function useContactForm(options: UseContactFormOptions) {
         body: {
           name: fields.name.trim(),
           email: fields.email.trim(),
-          need: fields.need,
-          budget: fields.budget,
           message: fields.message.trim(),
         },
       })

@@ -2,12 +2,21 @@
 import { NuxtLink } from '#components'
 import type { Project } from '~/data/site'
 
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   project: Project
   to?: string
+  layout?: 'row' | 'stack'
 }>(), {
   to: undefined,
+  layout: 'row',
 })
+
+const showHighlight = computed(() => Boolean(props.project.highlight) && props.layout === 'row')
+
+const classes = computed(() => ({
+  'case-link': Boolean(props.to),
+  'case-stack': props.layout === 'stack',
+}))
 </script>
 
 <template>
@@ -15,32 +24,28 @@ withDefaults(defineProps<{
     :is="to ? NuxtLink : 'article'"
     :to="to"
     class="case"
-    :class="{ 'case-link': to }"
+    :class="classes"
   >
-    <div
+    <ProjectArt
+      :kind="project.art"
+      :tone="project.tone"
       class="case-art"
-      :class="`tone-${project.tone}`"
-      aria-hidden="true"
-    >
-      <div class="case-window">
-        <span class="case-window-bar" />
-        <span class="case-window-body">
-          <span class="case-block case-block-wide" />
-          <span class="case-block" />
-          <span class="case-block" />
-          <span class="case-block" />
-        </span>
-      </div>
-    </div>
+    />
     <div class="case-body">
       <p class="case-meta">
-        {{ project.org }} · {{ project.years }}
+        {{ project.org }} · <span class="case-years">{{ project.years }}</span>
       </p>
       <h3 class="case-title">
         {{ project.title }}
       </h3>
       <p class="case-summary">
         {{ project.summary }}
+      </p>
+      <p
+        v-if="showHighlight"
+        class="case-highlight"
+      >
+        {{ project.highlight }}
       </p>
       <ul class="case-tags">
         <li
@@ -59,6 +64,7 @@ withDefaults(defineProps<{
 .case {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
   overflow: hidden;
   border-radius: var(--radius-panel);
   border: 1px solid var(--color-line);
@@ -76,71 +82,11 @@ withDefaults(defineProps<{
   border-color: var(--color-amber);
 }
 
-.case-art {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 220px;
-  padding: 28px;
-}
-
-.case-window {
-  display: grid;
-  grid-template-rows: 22px 1fr;
-  width: 86%;
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  border-radius: 12px;
-  background: var(--color-bg);
-  box-shadow: 0 24px 50px -20px #0009;
-}
-
-.case-window-bar {
-  display: flex;
-  align-items: center;
-  padding-left: 10px;
-  background: var(--color-bg-2);
-}
-
-.case-window-bar::before {
-  content: "";
-  width: 34px;
-  height: 8px;
-  background:
-    radial-gradient(circle at 4px 4px, #f26b6b 3px, transparent 4px),
-    radial-gradient(circle at 17px 4px, #f4c04a 3px, transparent 4px),
-    radial-gradient(circle at 30px 4px, #6bd17a 3px, transparent 4px);
-}
-
-.case-window-body {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  padding: 12px;
-}
-
-.case-block {
-  border-radius: 6px;
-  background: var(--color-bg-2);
-}
-
-.case-block-wide {
-  grid-column: span 3;
-  background: color-mix(in srgb, var(--color-amber) 30%, var(--color-bg-2));
-}
-
-.tone-dusk { background: linear-gradient(135deg, #4a3f8c, #c97a8e); }
-.tone-ocean { background: linear-gradient(135deg, #24305e, #4a6fb8); }
-.tone-ember { background: linear-gradient(135deg, #5b3a6e, #f4a93a); }
-.tone-forest { background: linear-gradient(135deg, #2f5e57, #9cc3a4); }
-.tone-blossom { background: linear-gradient(135deg, #3a2a52, #f2b5c4); }
-.tone-night { background: linear-gradient(135deg, #1c2140, #6b6fb0); }
-
 .case-body {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 28px;
+  padding: 24px;
 }
 
 .case-meta {
@@ -150,17 +96,33 @@ withDefaults(defineProps<{
   font-size: 0.9rem;
 }
 
+.case-years {
+  white-space: nowrap;
+}
+
 .case-title {
   margin: 0;
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.5rem, 2.4vw, 1.8rem);
+  font-size: clamp(1.4rem, 2.4vw, 1.8rem);
   line-height: 1.15;
+  text-wrap: balance;
+}
+
+.case-stack .case-title {
+  font-size: 1.35rem;
 }
 
 .case-summary {
   margin: 0;
   color: var(--color-muted);
+}
+
+.case-highlight {
+  margin: 0;
+  padding-left: 12px;
+  border-left: 2px solid var(--color-amber);
+  font-size: 0.92rem;
 }
 
 .case-tags {
@@ -183,19 +145,25 @@ withDefaults(defineProps<{
 }
 
 @media (min-width: 900px) {
-  .case {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  .case:not(.case-stack) {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: auto;
   }
 
-  .case-art {
-    min-height: 260px;
-  }
-
-  .case-body {
+  .case:not(.case-stack) .case-body {
+    justify-content: center;
     padding: 34px;
   }
 
-  .case:nth-child(even) .case-art {
+  .case:not(.case-stack) .case-tags {
+    margin-top: 6px;
+  }
+
+  .case:not(.case-stack):nth-child(even) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  }
+
+  .case:not(.case-stack):nth-child(even) .case-art {
     order: 2;
   }
 }

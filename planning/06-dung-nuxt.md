@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-build.html](../artifact/lantern-hour-build.html).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-work-update.html](../artifact/lantern-hour-work-update.html) (vòng 2; báo cáo vòng đầu ở commit 281cc94).
 
 ## 1. Cấu trúc
 
@@ -64,3 +64,17 @@
 - [ ] `/impressum` nếu làm với khách Đức (cần địa chỉ).
 - [ ] Xác nhận "20+ online stores and apps delivered". Có ghi giá ở Services không.
 - [ ] Giai đoạn 2: `/work/<slug>` cho từng case study. Blog để sau.
+
+## 7. Vòng 2 (08/10/2026): form gọn, trang Work mới, thêm Node.js
+
+Theo phản hồi của Khoa sau khi xem bản đầu.
+
+- **Form liên hệ** chỉ còn tên, email, tin nhắn. Bỏ "What do you need?" và "Budget". Tiêu đề email ở nhánh `mailto:` là "Project enquiry from <tên>".
+- **Thẻ dự án** bỏ khung trình duyệt rỗng (Khoa: "đâu có gì hiện ra đâu"). Mỗi dự án có một màn hình vẽ bằng SVG đúng loại sản phẩm: cửa hàng (`store`), bảng kế toán (`ledger`), đăng nhập ngân hàng có xác minh danh tính (`signin`), trang quản lý lead dạng bảng, không kéo thả (`leads`), lịch ghi giờ (`timesheet`), danh sách lệnh mua bán kèm chat thời gian thực (`trading`). Màu lấy từ token nên tự đổi theo ngày/đêm. Code ở `app/components/work/ProjectArt.vue` và `app/components/work/art/`. Hình Thermomix và crypto vẽ lại theo mô tả của Khoa; mô tả crypto thêm "listings and real-time chat between traders" (Khoa cung cấp, CV chỉ ghi "trading system").
+- **Danh sách dự án đầy đủ theo CV:** 6 dự án nổi bật (`featuredProjects`) và 11 dự án khác (`moreProjects`), tổng 17. Bản CV gộp manomama và Brichbag vào thẻ Shopware.
+- **Trang `/work`:** 6 thẻ so le → danh sách "Team projects and freelance builds" (công ty, năm, loại, mô tả, stack) → khối "And much more": tên các store, plugin Shopware, ghi chú phần lớn việc cho khách là NDA, nút "Ask about work like yours".
+- **Trang chủ:** 3 thẻ dự án xếp dọc (Shopware, kế toán, GLS Bank), bấm vào nhảy tới đúng thẻ ở `/work#<slug>`. Dưới là dòng "Plus 14 more projects… See all projects". Số 14 tính từ dữ liệu.
+- **Node.js:** Khoa đang chuyển dần sang full-stack PHP + Node. Đã sửa câu giới thiệu ở hero, thẻ vai trò ("PHP · Node.js · Vue"), dịch vụ thứ hai thành "PHP and Node.js back ends", mô tả trang Services, đoạn About, meta description.
+- **Tương phản mới đo:** nhãn loại dự án 5.92 (đêm) / 4.84 (ngày) sau khi giảm nền từ 16% xuống 10%. Lần đo đầu ở 16% chỉ đạt 4.44.
+
+Còn mở thêm: nếu có ảnh chụp thật của các store công khai (van Laack, Egret…), có thể thay hình vẽ cho các dự án đó.

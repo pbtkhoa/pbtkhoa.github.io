@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { clients, projects, services, site, stats } from '~/data/site'
+import { clients, featuredProjects, moreProjects, services, site, stats } from '~/data/site'
+
+const HOME_PROJECT_COUNT = 3
 
 const featuredServices = services.slice(0, 3)
-const featuredProjects = projects.slice(0, 2)
+const homeProjects = featuredProjects.slice(0, HOME_PROJECT_COUNT)
+const remainingProjects = featuredProjects.length + moreProjects.length - HOME_PROJECT_COUNT
 
 useSeoMeta({
   description: site.pitch,
@@ -69,14 +72,24 @@ useHead({
           </NuxtLink>
         </template>
       </SectionHead>
-      <div class="grid gap-4.5">
+      <div class="grid gap-4.5 lg:grid-cols-3">
         <CaseCard
-          v-for="project in featuredProjects"
+          v-for="project in homeProjects"
           :key="project.slug"
           :project="project"
-          to="/work"
+          :to="`/work#${project.slug}`"
+          layout="stack"
         />
       </div>
+      <p class="mt-7 text-muted">
+        Plus {{ remainingProjects }} more projects on the work page, and many more stores and plugins under NDA.
+        <NuxtLink
+          to="/work"
+          class="text-link font-semibold text-fg"
+        >
+          See all projects
+        </NuxtLink>
+      </p>
     </PageBand>
 
     <PageBand>

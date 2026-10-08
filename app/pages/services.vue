@@ -3,7 +3,7 @@ import { engagements, faqs, processSteps, services } from '~/data/site'
 
 useSeoMeta({
   title: 'Services',
-  description: 'Shopware 6 development, Laravel and Symfony apps, Vue, React and mobile front ends, or a remote engineer on your team.',
+  description: 'Shopware 6 development, PHP and Node.js back ends, Vue, React and mobile front ends, or a remote engineer on your team.',
 })
 </script>
 
@@ -13,7 +13,7 @@ useSeoMeta({
       <SectionHead
         kicker="Services"
         title="Engineering for e-commerce and business apps"
-        text="Ten years of PHP and JavaScript for online stores, banks, agencies and SaaS products. Pick one service or combine them."
+        text="Ten years of PHP and JavaScript, now on Node.js too, for online stores, banks, agencies and SaaS products. Pick one service or combine them."
         :level="1"
       />
       <div class="grid gap-4.5 lg:grid-cols-2">

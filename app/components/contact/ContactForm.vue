@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import { contactBudgets, contactNeeds, site } from '~/data/site'
+import { site } from '~/data/site'
 import type { ContactField } from '~/composables/useContactForm'
 
-const { fields, errors, status, submit } = useContactForm({
-  recipient: site.email,
-  needs: contactNeeds,
-  budgets: contactBudgets,
-})
+const { fields, errors, status, submit } = useContactForm({ recipient: site.email })
 
 const emailInput = useTemplateRef<HTMLInputElement>('emailInput')
 const messageInput = useTemplateRef<HTMLTextAreaElement>('messageInput')
@@ -73,47 +69,6 @@ async function onSubmit() {
           :aria-invalid="errors.email ? 'true' : undefined"
           :aria-describedby="describedBy('email')"
         >
-      </FormField>
-    </div>
-
-    <div class="field-row">
-      <FormField
-        id="contact-need"
-        label="What do you need?"
-      >
-        <select
-          id="contact-need"
-          v-model="fields.need"
-          class="field-control"
-          name="need"
-        >
-          <option
-            v-for="need in contactNeeds"
-            :key="need"
-            :value="need"
-          >
-            {{ need }}
-          </option>
-        </select>
-      </FormField>
-      <FormField
-        id="contact-budget"
-        label="Budget (USD or EUR)"
-      >
-        <select
-          id="contact-budget"
-          v-model="fields.budget"
-          class="field-control"
-          name="budget"
-        >
-          <option
-            v-for="budget in contactBudgets"
-            :key="budget"
-            :value="budget"
-          >
-            {{ budget }}
-          </option>
-        </select>
       </FormField>
     </div>
 
