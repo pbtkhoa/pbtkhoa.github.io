@@ -21,6 +21,7 @@ onMounted(() => {
   >
     {{ announcement }}
   </p>
+  <PageProgress />
   <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>

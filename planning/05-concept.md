@@ -6,7 +6,7 @@
 2. **Bỏ đồng hồ giờ Việt Nam/Berlin** và mọi chi tiết nhắm riêng múi giờ châu Âu, vì site hướng tới khách toàn cầu.
 3. Câu chữ viết cho **khách và nhà tuyển dụng ở mọi nơi**. Phần kinh nghiệm vẫn ghi đúng là đã làm cho công ty Đức và Áo.
 
-Mockup đã chốt: [`design/mockup/index.html`](../design/mockup/index.html), mở thẳng bằng trình duyệt. Ảnh kiểm tra ở `design/mockup/shots/`, báo cáo dựng Nuxt có ảnh ở [artifact/lantern-hour-store-mockup.html](../artifact/lantern-hour-store-mockup.html) (vòng 7; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1, 2026f8f và f59a90f). Token màu ở [`design/tokens.css`](../design/tokens.css). Lúc dựng Nuxt sẽ bám theo mockup này.
+Mockup đã chốt: [`design/mockup/index.html`](../design/mockup/index.html), mở thẳng bằng trình duyệt. Ảnh kiểm tra ở `design/mockup/shots/`, báo cáo dựng Nuxt có ảnh ở [artifact/lantern-hour-page-progress.html](../artifact/lantern-hour-page-progress.html) (vòng 8; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1, 2026f8f, f59a90f và 0e9acf7). Token màu ở [`design/tokens.css`](../design/tokens.css). Lúc dựng Nuxt sẽ bám theo mockup này.
 
 ## 1. Ý tưởng
 

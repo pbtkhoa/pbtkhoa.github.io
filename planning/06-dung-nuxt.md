@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-store-mockup.html](../artifact/lantern-hour-store-mockup.html) (vòng 7; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1, 2026f8f và f59a90f).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-page-progress.html](../artifact/lantern-hour-page-progress.html) (vòng 8; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1, 2026f8f, f59a90f và 0e9acf7).
 
 ## 1. Cấu trúc
 
@@ -278,3 +278,18 @@ Khoa gửi ảnh chụp ba sản phẩm và muốn hình trên thẻ giống ch�
   - Thẻ ở `/work` cao 366px, như trước.
   - Không cuộn ngang ở 390px.
   - axe trên `/work` và trang chủ: 0 vi phạm. Console không có lỗi.
+
+## 20. Thanh tiến trình khi chuyển trang (08/10/2026)
+
+- Khoa thấy khi mạng chậm, bấm menu chuyển trang thì không có dấu hiệu gì là đang tải. Thêm `PageProgress` (`app/components/ui/PageProgress.vue`), đặt trong `app.vue`.
+- Không dùng `<NuxtLoadingIndicator>` vì component đó tô màu bằng inline style, trái quy tắc chỉ dùng Tailwind (giống lý do bỏ `NuxtRouteAnnouncer` ở trên). Thay vào đó:
+  - Lấy `progress`, `isLoading`, `error` từ `useLoadingIndicator()`. Composable này tự bắt `page:loading:start`, `page:loading:end` và `vue:error`.
+  - Dùng thẻ `<progress>` gốc: giá trị đi qua thuộc tính `value`, không cần `style`. Màu tô bằng class Tailwind cho `::-webkit-progress-value` (Chrome, Safari) và `::-moz-progress-bar` (Firefox).
+  - Màu theo concept: gradient `sakura` sang `amber` cùng quầng sáng `drop-shadow` amber. Nếu trang lỗi, thanh chuyển sang màu `error`.
+  - Thanh cao 3px, nằm trên header (`z-30`). Đặt `aria-hidden`, vì việc báo trang mới cho trình đọc màn hình đã có route announcer lo.
+- Giữ mặc định của Nuxt:
+  - Chỉ hiện nếu chuyển trang lâu hơn 200ms, nên mạng nhanh không bị nháy.
+  - Thanh tăng dần trong lúc chờ, lên 100% khi trang mới tới, giữ 0,5 giây rồi mờ đi trong 0,3 giây.
+  - Lần tải đầu tiên (gõ URL hoặc F5) không hiện, vì lúc đó trình duyệt có thanh tải riêng.
+- **Bẫy:** bản đầu có `transition-[width]` trên `::-webkit-progress-value`. Giá trị được đổi mỗi khung hình nên transition bị khởi động lại liên tục. Trên WebKit, thanh chỉ vẽ tới 27% khi giá trị đã là 54%. Bỏ transition thì cả ba engine vẽ đúng, vì giá trị vốn đã mượt.
+- Cách thử: một server tĩnh nhỏ trả `/_nuxt/*` và `_payload.json` chậm 2,5 giây khi bật chế độ chậm. Sau đó bấm menu thật bằng agent-browser (Chrome) và Playwright (Firefox, WebKit).
