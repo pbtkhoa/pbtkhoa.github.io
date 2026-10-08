@@ -48,6 +48,7 @@ if (props.priority) {
 <template>
   <picture class="contents">
     <source
+      class="hidden"
       type="image/avif"
       :srcset="avif.srcset"
       :sizes="avif.sizes || undefined"

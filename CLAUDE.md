@@ -33,6 +33,7 @@ Personal portfolio of Phạm Bá Tuấn Khoa (full-stack engineer, Vietnam), pub
 - Facts come from the CV (`~/Documents/PHAM_BA_TUAN_KHOA_CV_2026.pdf`). Do not invent metrics, clients or testimonials.
 - No phone number on the site's pages. The downloadable CV PDF (`public/pham-ba-tuan-khoa-cv.pdf`) keeps it; Khoa confirmed this on 08/10/2026.
 - Availability status appears in the first screen. No local-time or timezone widgets.
+- No fixed durations ("ten years", "five years of …"): anchor to a start year instead ("since 2016") so copy never goes stale.
 
 ## Quality floor
 

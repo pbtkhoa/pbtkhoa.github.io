@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-photo.html](../artifact/lantern-hour-photo.html) (vòng 4; báo cáo các vòng trước ở commit 281cc94, e0f78a9 và bde577c).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-copy.html](../artifact/lantern-hour-copy.html) (vòng 4; báo cáo các vòng trước ở commit 281cc94, e0f78a9 và bde577c).
 
 ## 1. Cấu trúc
 
@@ -155,4 +155,43 @@ Sau khi chạy Lighthouse (mở thêm Chrome), tab của agent-browser có thể
   - Ảnh `/_ipx/...` nằm dưới đường dẫn có `&`. GitHub trả `image/jpeg` cho chúng vì đuôi file là `.jpg`, nhưng không gửi `nosniff`, nên cả ba trình duyệt vẫn nhận đúng định dạng.
 - Trang 404 ghi `[NUXT_E1005]` ra console. Đây là lỗi 404 bắt được lúc app khởi động, khi router không tìm thấy trang, rồi trang "wandered off" hiện ra. Hành vi đúng, các trang thật không có.
 - Workflow nâng lên `checkout@v7`, `setup-node@v7`, `configure-pages@v6`, `upload-pages-artifact@v5`, `deploy-pages@v5` (chạy Node 24), vì GitHub báo Node 20 đã cũ. Đã kiểm tra input và output: `base_path` và `path` vẫn còn.
+
+## 11. Tên dự án (08/10/2026)
+
+- Giữ nguyên tiêu đề và mô tả. Tên dự án thêm thành một dòng `highlight` dưới mô tả, cùng kiểu với dòng "Stores: …" của thẻ Shopware:
+  - Kế toán SaaS ở Shape & Shift: "Project: cybooks" (viết thường theo cách Khoa ghi).
+  - Nền tảng crypto ở Rikkeisoft: "Project: CHIP".
+- Dòng `highlight` chỉ hiện ở `/work` (thẻ ngang). Thẻ dọc ở trang chủ không hiện, để ba thẻ cao bằng nhau.
+
+## 12. Không ghi số năm cố định (08/10/2026)
+
+Khoa không muốn câu chữ cứ mỗi năm lại sai, kiểu "ten years" hay "five years". Thay bằng năm bắt đầu:
+
+- Thẻ số liệu: "10 · years shipping production code" thành "2016 · shipping production code", cùng kiểu với "2017 · freelancing alongside every job".
+- Services: "Ten years of PHP and JavaScript" thành "PHP and JavaScript since 2016".
+- Work: tiêu đề "Projects from the last ten years" thành "Projects I've shipped". Meta description "from ten years of client work" thành "from my client work".
+- About: "spent the last five years on Shopware 6 and Laravel" thành "started with WordPress, Symfony and Laravel in 2016 … in 2021 took on Shopware 6, building stores and Laravel apps". Laravel có từ 2016 (Khoa xác nhận), chỉ Shopware 6 là từ 2021; bản đầu ghi "Shopware 6 and Laravel since 2021" là sai. Meta description cũng đổi tương tự.
+
+Quy tắc từ nay: nói "since <năm>", không ghi số năm kinh nghiệm.
+
+## 13. Dòng thời gian ở About (08/10/2026)
+
+- Solio: "Drupal, Symfony and Vue for European clients." (trước đây ghi Shopware và "Austrian and German clients").
+- Rikkeisoft: "Core member on client projects, including real-time features. Promising Employee 2017, Outstanding Employee 2018." Vai trò "Team Lead" đã ghi ở tiêu đề dòng nên không nhắc lại. Bỏ câu về Git workflow cho gọn. Danh hiệu 2017 lấy từ CV.
+- Đoạn văn ở About và meta description: "companies in Germany and Austria" đổi thành "companies across Europe" (Khoa chọn, 08/10/2026). "Vorwerk Austria" là tên khách nên giữ.
+
+## 14. Lỗi lệch dải CTA, ảnh "Xin chào" và logo (08/10/2026)
+
+- **Nguyên nhân:** `KhoaPhoto` xuất `<picture class="contents">`. `display: contents` làm `<source>` và `<img>` thành phần tử con trực tiếp của lưới hoặc flex cha. `<source>` không bị trình duyệt ẩn mặc định, nên nó chiếm một ô:
+  - Dải CTA: ảnh bị đẩy sang cột giữa, nút rơi xuống dòng mới (Khoa phát hiện).
+  - Thẻ "Xin chào": ảnh bị đẩy xuống dòng.
+  - Logo ở header: lệch thêm 10px.
+- **Sửa:** thêm `class="hidden"` cho `<source>`. Trình duyệt vẫn đọc nó để chọn AVIF.
+- **Kiểm lại:**
+  - Dải CTA cùng một hàng, đúng thứ tự.
+  - Thẻ "Xin chào" cao 160px, chữ trái ảnh phải.
+  - Logo cách tên 10px.
+  - Ảnh About bằng khung, vẫn là AVIF.
+- **Bài học:** lần đổi ảnh trước chỉ đo dung lượng và chụp hero, About; chưa so bố cục ở mọi chỗ dùng `KhoaPhoto`. Từ nay, đổi component dùng chung thì phải kiểm tra mọi nơi dùng nó.
+- Lỗi đã lên site thật ở commit `f837c24`, chỉ hết khi push bản sửa.
 

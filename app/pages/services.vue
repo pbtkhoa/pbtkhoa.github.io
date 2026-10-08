@@ -13,7 +13,7 @@ useSeoMeta({
       <SectionHead
         kicker="Services"
         title="Engineering for e-commerce and business apps"
-        text="Ten years of PHP and JavaScript, now on Node.js too, for online stores, banks, agencies and SaaS products. Pick one service or combine them."
+        text="PHP and JavaScript since 2016, now on Node.js too, for online stores, banks, agencies and SaaS products. Pick one service or combine them."
         :level="1"
       />
       <div class="grid gap-4.5 lg:grid-cols-2">

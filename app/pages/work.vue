@@ -5,7 +5,7 @@ const intro = `${featuredProjects.length} projects in detail, ${moreProjects.len
 
 useSeoMeta({
   title: 'Work',
-  description: 'Shopware stores and plugins, a multi-tenant accounting SaaS, banking sign-on, a Thermomix lead tool, trading platforms, mobile apps and more from ten years of client work.',
+  description: 'Shopware stores and plugins, a multi-tenant accounting SaaS, banking sign-on, a Thermomix lead tool, trading platforms, mobile apps and more from my client work.',
 })
 </script>
 
@@ -14,7 +14,7 @@ useSeoMeta({
     <PageBand>
       <SectionHead
         kicker="Work"
-        title="Projects from the last ten years"
+        title="Projects I've shipped"
         :text="intro"
         :level="1"
       />

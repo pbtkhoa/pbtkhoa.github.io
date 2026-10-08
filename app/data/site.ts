@@ -92,7 +92,7 @@ export const navLinks: NavLink[] = [
 ]
 
 export const stats: Stat[] = [
-  { value: '10', label: 'years shipping production code' },
+  { value: '2016', label: 'shipping production code' },
   { value: '20+', label: 'online stores and apps delivered' },
   { value: '2017', label: 'freelancing alongside every job' },
   { value: '5', label: 'companies, plus freelance clients' },
@@ -162,6 +162,7 @@ export const featuredProjects: Project[] = [
     org: 'Shape & Shift',
     years: '2021 – 2023',
     summary: 'A bookkeeping platform with double-entry ledger, invoicing, bank reconciliation, payroll and reporting. I worked across all modules, wrote Python Lambdas and added OpenAI and Twilio SMS.',
+    highlight: 'Project: cybooks',
     tags: ['Laravel', 'Vue 3', 'AWS', 'OpenAI', 'Stripe'],
     tone: 'ocean',
     art: 'ledger',
@@ -202,6 +203,7 @@ export const featuredProjects: Project[] = [
     org: 'Rikkeisoft',
     years: '2017 – 2019',
     summary: 'A crypto trading platform with listings and real-time chat between traders, built on microservices by a team of 13. I was team lead and core developer.',
+    highlight: 'Project: CHIP',
     tags: ['Laravel', 'Node.js', 'Vue', 'Socket.IO', 'Docker'],
     tone: 'blossom',
     art: 'trading',
@@ -235,10 +237,10 @@ export const shopwareStores: string[] = ['Egret', 'Biomex', 'van Laack', 'Citysc
 export const shopwareExtensions: string[] = ['Checkout.com payments', 'Sprinque B2B credit', 'Blog', 'Shopware Node.js SDK']
 
 export const career: Role[] = [
-  { years: '2023 – now', role: 'Software Engineer', org: 'Solio', note: 'Drupal, Symfony and Shopware for Austrian and German clients.' },
+  { years: '2023 – now', role: 'Software Engineer', org: 'Solio', note: 'Drupal, Symfony and Vue for European clients.' },
   { years: '2021 – 2023', role: 'Software Engineer', org: 'Shape & Shift', note: 'Shopware 6 extensions and a Laravel accounting SaaS.' },
   { years: '2019 – 2021', role: 'Frontend Developer', org: 'NFQ', note: 'React and React Native apps for clients.' },
-  { years: '2017 – 2019', role: 'Team Lead', org: 'Rikkeisoft', note: 'Led client projects, set up the Git workflow. Outstanding Employee 2018.' },
+  { years: '2017 – 2019', role: 'Team Lead', org: 'Rikkeisoft', note: 'Core member on client projects, including real-time features. Promising Employee 2017, Outstanding Employee 2018.' },
   { years: '2016 – 2017', role: 'Software Engineer', org: 'Junoteam', note: 'WordPress and Symfony sites, plugins and themes.' },
   { years: '2017 – now', role: 'Freelance engineer', org: 'Independent', note: 'Stores, plugins, web and mobile apps for clients worldwide.' },
 ]
