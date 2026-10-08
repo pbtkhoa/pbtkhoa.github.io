@@ -1,9 +1,6 @@
 <script setup lang="ts">
-type ProductIcon = 'jacket' | 'mittens' | 'sweater'
-
 interface Product {
   x: number
-  icon: ProductIcon
   titles: number[]
   properties: { x: number, width: number, value?: boolean, divider?: boolean }[]
 }
@@ -26,19 +23,16 @@ const filters = [
 const products: Product[] = [
   {
     x: 9.4,
-    icon: 'jacket',
     titles: [59],
     properties: [{ x: 3.8, width: 6.2 }, { x: 11.1, width: 1.5, value: true }],
   },
   {
     x: 86.4,
-    icon: 'mittens',
     titles: [56, 34],
     properties: [],
   },
   {
     x: 163.4,
-    icon: 'sweater',
     titles: [31.5],
     properties: [
       { x: 3.8, width: 9.2 },
@@ -55,14 +49,6 @@ const descriptionLines = [
   { y: 169.3, width: 57 },
   { y: 173.5, width: 57.5 },
 ]
-
-const iconOffset: Record<ProductIcon, number> = {
-  jacket: 16,
-  mittens: 0,
-  sweater: 14.5,
-}
-
-const mittenPath = 'M-5 3V-3.5a5 5 0 0 1 10 0V-1l1.8-1.8a1.9 1.9 0 0 1 2.7 2.7L5.6 3'
 </script>
 
 <template>
@@ -118,14 +104,22 @@ const mittenPath = 'M-5 3V-3.5a5 5 0 0 1 10 0V-1l1.8-1.8a1.9 1.9 0 0 1 2.7 2.7L5
       class="fill-[#4a545b]"
       d="M313 3.2h2.4l-1.2 1.3z"
     />
-    <text
+    <rect
       class="fill-[#545454]"
-      x="4.4"
-      y="18.4"
-      font-family="Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
-      font-size="12"
-      letter-spacing="-0.3"
-    ><tspan font-weight="800">Demo</tspan><tspan font-weight="400">store</tspan></text>
+      x="4.7"
+      y="10.4"
+      width="27"
+      height="6.2"
+      rx="1"
+    />
+    <rect
+      class="fill-[#9e9e9e]"
+      x="33.2"
+      y="10.4"
+      width="22"
+      height="6.2"
+      rx="1"
+    />
     <rect
       class="fill-white stroke-[#d7d7d7] stroke-[0.5]"
       x="119.2"
@@ -284,69 +278,37 @@ const mittenPath = 'M-5 3V-3.5a5 5 0 0 1 10 0V-1l1.8-1.8a1.9 1.9 0 0 1 2.7 2.7L5
         height="110"
       />
       <rect
+        class="fill-[#f1f3f4]"
+        :x="product.x + 4"
+        y="80"
+        width="61.9"
+        height="47"
+      />
+      <circle
+        class="fill-[#cfd4d7]"
+        :cx="product.x + 42"
+        cy="97"
+        r="3"
+      />
+      <path
+        class="fill-[#cfd4d7]"
+        :d="`M${product.x + 21} 113.5l9-10 5.5 6 4.5-4.5 9.5 8.5z`"
+      />
+      <rect
         class="fill-[#3cc261]"
         :x="product.x"
         y="83.2"
         width="12.8"
         height="7.2"
       />
-      <text
+      <rect
         class="fill-white"
-        :x="product.x + 1.9"
-        y="88.4"
-        font-family="Plus Jakarta Sans, ui-sans-serif, system-ui, sans-serif"
-        font-size="4.6"
-        font-weight="700"
-      >New</text>
-      <g
-        class="fill-none stroke-[#333333] stroke-[1.9]"
-        :transform="`translate(${product.x + iconOffset[product.icon]} 82)`"
-      >
-        <template v-if="product.icon === 'jacket'">
-          <path d="M12 3.6L5 6.2C2.6 7.2 1.6 9.2 1.4 12L.6 37.5h5.8l.8-20v24h23.3v-24l.8 20h5.8L36.3 12c-.2-2.8-1.2-4.8-3.6-5.8l-7-2.6" />
-          <path d="M12 3.6C12 1 14 .5 18.9.5s6.8.5 6.8 3.1M12 3.6c2 1.6 11.7 1.6 13.7 0M18.9 5.2v36.3M.7 34.5h5.8M31.2 34.5H37" />
-          <circle
-            v-for="y in [14.3, 19.4, 24.5, 29.6, 34.8]"
-            :key="y"
-            class="fill-[#333333] stroke-none"
-            cx="21.4"
-            :cy="y"
-            r="1"
-          />
-        </template>
-        <template v-else-if="product.icon === 'mittens'">
-          <g
-            class="stroke-[1.58]"
-            transform="translate(23 21) scale(1.2) rotate(-25)"
-          >
-            <path :d="mittenPath" />
-            <rect
-              x="-5.6"
-              y="3"
-              width="11.6"
-              height="5.6"
-              rx="1.8"
-            />
-          </g>
-          <g
-            class="stroke-[1.58]"
-            transform="translate(47.5 22) scale(-1.2 1.2) rotate(-25)"
-          >
-            <path :d="mittenPath" />
-            <rect
-              x="-5.6"
-              y="3"
-              width="11.6"
-              height="5.6"
-              rx="1.8"
-            />
-          </g>
-        </template>
-        <template v-else>
-          <path d="M13 1.5L5.5 4C2.5 5 1.2 7.5 1 11L.4 39H7l1-25v27.5h24V14l1 25h6.6L39 11c-.2-3.5-1.5-6-4.5-7L27 1.5" />
-          <path d="M13 1.5Q20-.5 27 1.5M13 1.5c1.5 3.5 12.5 3.5 14 0" />
-        </template>
-      </g>
+        :x="product.x + 2.4"
+        y="86"
+        width="8"
+        height="1.6"
+        rx="0.8"
+      />
       <rect
         v-for="(width, line) in product.titles"
         :key="line"
