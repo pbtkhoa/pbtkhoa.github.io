@@ -15,6 +15,7 @@ const props = withDefaults(defineProps<{
 
 const isRow = computed(() => props.layout === 'row')
 const showHighlight = computed(() => Boolean(props.project.highlight) && isRow.value)
+const showLink = computed(() => Boolean(props.project.link) && !props.to)
 
 const rootClass = computed(() => [
   isRow.value ? 'lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:grid-rows-[auto] lg:even:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)]' : '',
@@ -57,6 +58,15 @@ const rootClass = computed(() => [
       >
         {{ project.highlight }}
       </p>
+      <a
+        v-if="showLink && project.link"
+        :href="project.link.href"
+        class="self-start text-[0.92rem] font-semibold"
+        :class="textLinkClass"
+      >
+        {{ project.link.label }}
+        <span aria-hidden="true">↗</span>
+      </a>
       <ul
         class="mb-0 flex list-none flex-wrap gap-1.5 p-0 pt-2"
         :class="isRow ? 'mt-auto lg:mt-1.5' : 'mt-auto'"

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ArtLeads, ArtLedger, ArtSignin, ArtStore, ArtTimesheet, ArtTrading } from '#components'
+import { ArtLeads, ArtLedger, ArtPos, ArtSignin, ArtStore, ArtTimesheet, ArtTrading } from '#components'
 import type { ProjectArt, ProjectTone } from '~/data/site'
 
 const props = defineProps<{
@@ -14,6 +14,7 @@ const scenes = {
   leads: ArtLeads,
   timesheet: ArtTimesheet,
   trading: ArtTrading,
+  pos: ArtPos,
 }
 
 const tones: Record<ProjectTone, string> = {
@@ -23,9 +24,11 @@ const tones: Record<ProjectTone, string> = {
   forest: 'from-[#2f5e57] to-[#9cc3a4]',
   blossom: 'from-[#3a2a52] to-[#f2b5c4]',
   night: 'from-[#1c2140] to-[#6b6fb0]',
+  meadow: 'from-[#1d3a12] to-[#8bc34a]',
 }
 
 const scene = computed(() => scenes[props.kind])
+const isPhone = computed(() => props.kind === 'pos')
 </script>
 
 <template>
@@ -34,7 +37,20 @@ const scene = computed(() => scenes[props.kind])
     :class="tones[tone]"
     aria-hidden="true"
   >
-    <div class="w-[min(100%,440px)] overflow-hidden rounded-xl bg-bg shadow-[0_24px_50px_-20px_#0009]">
+    <div
+      v-if="isPhone"
+      class="relative w-[150px] overflow-hidden rounded-[26px] border-[5px] border-[#0d1020] bg-bg shadow-[0_24px_50px_-20px_#0009]"
+    >
+      <span class="absolute top-1 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-[#0d1020]" />
+      <component
+        :is="scene"
+        class="block h-auto w-full"
+      />
+    </div>
+    <div
+      v-else
+      class="w-[min(100%,440px)] overflow-hidden rounded-xl bg-bg shadow-[0_24px_50px_-20px_#0009]"
+    >
       <div class="flex h-5.5 items-center gap-3 bg-bg-2 px-2.5">
         <span class="ml-px flex flex-none gap-[7px]">
           <span class="size-1.5 rounded-full bg-[#f26b6b]" />

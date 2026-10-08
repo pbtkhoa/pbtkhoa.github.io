@@ -28,9 +28,9 @@ export interface Engagement {
   featured?: boolean
 }
 
-export type ProjectTone = 'dusk' | 'ocean' | 'ember' | 'forest' | 'blossom' | 'night'
+export type ProjectTone = 'dusk' | 'ocean' | 'ember' | 'forest' | 'blossom' | 'night' | 'meadow'
 
-export type ProjectArt = 'store' | 'ledger' | 'signin' | 'leads' | 'timesheet' | 'trading'
+export type ProjectArt = 'store' | 'ledger' | 'signin' | 'leads' | 'timesheet' | 'trading' | 'pos'
 
 export type ProjectCategory = 'ecommerce' | 'business' | 'finance' | 'mobile' | 'website'
 
@@ -41,6 +41,7 @@ export interface Project {
   years: string
   summary: string
   highlight?: string
+  link?: { label: string, href: string }
   tags: string[]
   tone: ProjectTone
   art: ProjectArt
@@ -198,6 +199,17 @@ export const featuredProjects: Project[] = [
     art: 'timesheet',
   },
   {
+    slug: 'posbill',
+    title: 'PosBill Mobile ordering app',
+    org: 'NFQ',
+    years: '2019 – 2021',
+    summary: 'The Android companion to the PosBill cash register, so service staff spend less time walking and more time with guests. Built in React Native.',
+    link: { label: 'PosBill Mobile on Google Play', href: 'https://play.google.com/store/apps/details?id=com.posbill.posbillmobile.app' },
+    tags: ['React Native', 'React', 'Android'],
+    tone: 'meadow',
+    art: 'pos',
+  },
+  {
     slug: 'crypto',
     title: 'Crypto trading platform',
     org: 'Rikkeisoft',
@@ -213,7 +225,6 @@ export const featuredProjects: Project[] = [
 export const moreProjects: ProjectEntry[] = [
   { title: 'E-learning platform', org: 'Rikkeisoft', years: '2017 – 2019', summary: 'A large e-learning system built by a team of 38.', tags: ['Laravel', 'MySQL', 'jQuery', 'AWS'], category: 'website' },
   { title: 'Model sales management', org: 'Rikkeisoft', years: '2017 – 2019', summary: 'Core developer on an enterprise sales system, in a team of 26.', tags: ['PHP', 'Oracle', 'jQuery'], category: 'business' },
-  { title: 'Posbill point of sale', org: 'NFQ', years: '2019 – 2021', summary: 'A point-of-sale app.', tags: ['React Native'], category: 'mobile' },
   { title: 'Company wiki', org: 'NFQ', years: '2019 – 2021', summary: 'An internal knowledge base.', tags: ['React'], category: 'business' },
   { title: 'WordPress plugins and themes', org: 'Junoteam', years: '2016 – 2017', summary: 'Custom plugins and themes for client sites.', tags: ['WordPress', 'Symfony'], category: 'website' },
   { title: 'Mobile banking app', org: 'Freelance', summary: 'A mobile banking app.', tags: ['React Native'], category: 'mobile' },

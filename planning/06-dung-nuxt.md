@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-copy.html](../artifact/lantern-hour-copy.html) (vòng 4; báo cáo các vòng trước ở commit 281cc94, e0f78a9 và bde577c).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-posbill.html](../artifact/lantern-hour-posbill.html) (vòng 4; báo cáo các vòng trước ở commit 281cc94, e0f78a9 và bde577c).
 
 ## 1. Cấu trúc
 
@@ -194,4 +194,27 @@ Quy tắc từ nay: nói "since <năm>", không ghi số năm kinh nghiệm.
   - Ảnh About bằng khung, vẫn là AVIF.
 - **Bài học:** lần đổi ảnh trước chỉ đo dung lượng và chụp hero, About; chưa so bố cục ở mọi chỗ dùng `KhoaPhoto`. Từ nay, đổi component dùng chung thì phải kiểm tra mọi nơi dùng nó.
 - Lỗi đã lên site thật ở commit `f837c24`, chỉ hết khi push bản sửa.
+
+## 15. Thêm PosBill vào dự án nổi bật (08/10/2026)
+
+- Lúc trước chưa có dự án nào ở NFQ trong phần nổi bật. Thêm "PosBill Mobile ordering app" · NFQ · 2019 – 2021, đặt trước thẻ crypto cho đúng thứ tự thời gian. Bỏ dòng Posbill khỏi danh sách dự án khác. Giờ có 7 dự án nổi bật và 10 dự án khác, tổng vẫn 17.
+- Thông tin lấy từ trang Google Play (Khoa gửi link):
+  - Tên "PosBill Mobile", nhà phát triển PosBill GmbH, "the perfect extension to your PosBill cash register".
+  - Lợi ích ghi trên trang: "more time for your guests", "less walking for your employees".
+  - Chỉ có Android (Khoa xác nhận), viết bằng React Native.
+- Card có link "PosBill Mobile on Google Play ↗" (trường `link` mới của `Project`). Link chỉ hiện khi thẻ không phải là link, tức chỉ ở `/work`, để không lồng `<a>` trong `<a>`.
+- Hình mới `ArtPos`: điện thoại Android dựng đứng, vẽ lại màn "Vorgang Tisch" của app thật theo ảnh chụp trên Google Play. Màu đo từ ảnh chụp:
+  - Thanh tiêu đề, hàng thao tác, thanh nút dưới: xanh chuối `#aef656` / `#b1ee5a`.
+  - Status bar và dòng đơn: `#265119`.
+  - Danh sách: nền trắng, tab xám.
+  - Cột "Gang": ô đang chọn `#12a55e`, ô báo động `#ff0d0d`.
+  - Nút nổi: `#9bce35`.
+
+  Đây là màu thương hiệu nên giữ cố định, không đổi theo theme. Nền thẻ là tone `meadow` (xanh lá đậm sang xanh chuối), giống ảnh quảng cáo của PosBill. `ProjectArt` hiện khung điện thoại khi `kind === 'pos'`.
+- **Bài học:** bản đầu mình tự vẽ bằng màu của site (hổ phách, tím) và nền xanh mòng két, không giống app thật. Khoa nhắc: "đừng có làm kiểu khác khi chưa hiểu". Vẽ minh họa cho sản phẩm có thật thì xem ảnh chụp thật trước, lấy đúng màu và bố cục.
+- Kiểm tra:
+  - Thẻ cao 356px trên desktop, ngang các thẻ khác.
+  - Không cuộn ngang ở 390px.
+  - axe trên `/work`: 0 vi phạm.
+  - Trang chủ vẫn ghi "Plus 14 more projects".
 
