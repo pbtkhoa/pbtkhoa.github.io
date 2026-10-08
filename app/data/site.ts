@@ -28,7 +28,7 @@ export interface Engagement {
   featured?: boolean
 }
 
-export type ProjectTone = 'dusk' | 'violet' | 'ember' | 'vorwerk' | 'blossom' | 'night' | 'meadow'
+export type ProjectTone = 'storefront' | 'violet' | 'ember' | 'vorwerk' | 'blossom' | 'night' | 'meadow'
 
 export type ProjectArt = 'store' | 'ledger' | 'signin' | 'leads' | 'timesheet' | 'trading' | 'pos'
 
@@ -155,7 +155,7 @@ export const featuredProjects: Project[] = [
     summary: 'Complete online stores, from backend to storefront, and the extensions behind them: Checkout.com payments, the Sprinque B2B-credit app, a blog plugin and a Node.js SDK for Shopware.',
     highlight: 'Stores: Egret, Biomex, van Laack, Cityschuh, Roto-store, Kraft, manomama, Brichbag and more.',
     tags: ['Shopware 6', 'Symfony', 'Vue', 'MySQL'],
-    tone: 'dusk',
+    tone: 'storefront',
     art: 'store',
   },
   {

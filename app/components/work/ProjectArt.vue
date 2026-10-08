@@ -18,7 +18,7 @@ const scenes = {
 }
 
 const tones: Record<ProjectTone, string> = {
-  dusk: 'from-[#4a3f8c] to-[#c97a8e]',
+  storefront: 'from-[#0f2b2e] to-[#3b8c90]',
   violet: 'from-[#101828] to-[#7f56d9]',
   ember: 'from-[#5b3a6e] to-[#f4a93a]',
   vorwerk: 'from-[#113c2b] to-[#009a3d]',

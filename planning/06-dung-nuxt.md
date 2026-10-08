@@ -1,6 +1,6 @@
 # 06 — Dựng Nuxt từ mockup Lantern Hour
 
-**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-brand-art.html](../artifact/lantern-hour-brand-art.html) (vòng 5; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c và 93fd4b1).
+**Ngày 08/10/2026.** Dựng site Nuxt theo [05-concept.md](05-concept.md) và `design/mockup/`. Báo cáo kèm ảnh chụp ở [artifact/lantern-hour-demostore.html](../artifact/lantern-hour-demostore.html) (vòng 6; báo cáo các vòng trước ở commit 281cc94, e0f78a9, bde577c, 93fd4b1 và 2026f8f).
 
 ## 1. Cấu trúc
 
@@ -258,3 +258,24 @@ Khoa gửi ảnh chụp ba sản phẩm và muốn hình trên thẻ giống ch�
 
 - Câu cũ "On the back end I work in PHP and, more and more, Node.js" đọc lạ. Khoa muốn liệt kê đủ công nghệ và mảng đã làm. Câu mới: "I work with **PHP, Node.js, Laravel, Symfony, Vue, React, Python and AWS**, building infrastructure, mobile apps, e-commerce stores and more."
 - Bỏ câu "I studied Electronics and Telecommunications at Hue University." theo ý Khoa. Thông tin học vấn vẫn còn trong CV.
+
+## 19. Hình Shopware theo Demostore (08/10/2026)
+
+- Khoa gửi ảnh trang danh mục "Clothing" của Demostore, giao diện storefront mặc định của Shopware 6. `ArtStore` vẽ lại theo ảnh đó:
+  - Thanh trên có cờ Anh, "English", "$ US-Dollar".
+  - Logo "Demostore" ("Demo" đậm, "store" mảnh), ô tìm kiếm, icon tài khoản, giỏ hàng, giá màu teal.
+  - Menu Home / Clothing / Free time & electronics; mục Clothing có gạch chân teal. Breadcrumb "Clothing" màu teal.
+  - Hàng bộ lọc: Manufacturer, Colour, Material, Size, Target group, Price, Free shipping. Ô sắp xếp "Name A-Z".
+  - Ba thẻ sản phẩm có nhãn "New": áo khoác, găng tay, áo len. Mỗi thẻ có tên, thuộc tính và ba dòng mô tả; thẻ bị cắt ở mép dưới giống ảnh.
+- Ảnh này có trên máy, nên màu đo trực tiếp bằng ImageMagick:
+  - Teal `#297376` (gạch chân menu, breadcrumb, giá). Bản mặc định của Shopware ghi `#008490`, nhưng ảnh của Khoa ra `#297376`, nên lấy theo ảnh.
+  - Nhãn "New" `#3cc261`, trùng màu success mặc định của Shopware.
+  - Chữ `#4a545b`, logo `#545454`, icon sản phẩm `#333333`.
+  - Viền thẻ `#bfbfbf`, viền bộ lọc `#bdbdbd`, viền ô tìm kiếm `#d7d7d7`.
+- Chỉ "Demostore" và "New" là chữ thật. Các chữ khác vẽ thành thanh ngang như những hình còn lại.
+- Hai chiếc găng: bản đầu bị chồng lên nhau. Đã thu ngón cái lại và kéo hai chiếc ra xa, giống ảnh gốc: chiếc trái nghiêng sang trái, chiếc phải nghiêng sang phải, ngón cái quay vào trong.
+- Tone nền thẻ đổi từ `dusk` sang `storefront` (`#0f2b2e` sang `#3b8c90`) để hợp với màu teal. Tone `dusk` không còn dùng nên bỏ.
+- Kiểm tra:
+  - Thẻ ở `/work` cao 366px, như trước.
+  - Không cuộn ngang ở 390px.
+  - axe trên `/work` và trang chủ: 0 vi phạm. Console không có lỗi.
