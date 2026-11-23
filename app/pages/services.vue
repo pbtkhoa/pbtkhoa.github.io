@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { engagements, faqs, processSteps, services } from '~/data/site'
+import { aiService, engagements, faqs, processSteps, services } from '~/data/site'
 
 useSeoMeta({
   title: 'Services',
@@ -9,50 +9,57 @@ useSeoMeta({
 
 <template>
   <div>
-    <PageBand>
-      <SectionHead
-        kicker="Services"
+    <div :class="wrapClass">
+      <PageHead
+        label="Services"
         title="Engineering for e-commerce and business apps"
         text="PHP and JavaScript since 2016 for online stores, banks, agencies and SaaS products. Pick one service or combine them."
-        :level="1"
-      />
-      <div class="grid gap-4.5 lg:grid-cols-2">
-        <ServiceCard
-          v-for="service in services"
-          :key="service.key"
-          :service="service"
-          :heading-level="2"
-          detailed
-        />
-      </div>
-    </PageBand>
+      >
+        <template #title>
+          Engineering for <span class="whitespace-nowrap">e-commerce</span> and business apps
+        </template>
+      </PageHead>
+    </div>
+    <ServiceColumns
+      :services="services"
+      :ai="aiService"
+      :level="2"
+    />
 
-    <PageBand alt>
+    <section
+      :class="wrapClass"
+      aria-labelledby="process-title"
+    >
       <SectionHead
-        kicker="How we work"
+        heading-id="process-title"
         title="How a project runs"
       />
       <ProcessSteps :steps="processSteps" />
-    </PageBand>
+    </section>
 
-    <PageBand>
+    <section
+      :class="wrapClass"
+      aria-labelledby="terms-title"
+    >
       <SectionHead
-        kicker="Ways to work together"
-        title="Choose what fits your team"
+        heading-id="terms-title"
+        title="Ways to work together"
+        text="Choose what fits your team."
       />
       <EngagementModels :engagements="engagements" />
-    </PageBand>
+    </section>
 
-    <PageBand alt>
+    <section
+      :class="wrapClass"
+      aria-labelledby="faq-title"
+    >
       <SectionHead
-        kicker="FAQ"
+        heading-id="faq-title"
         title="Common questions"
       />
       <FaqList :items="faqs" />
-    </PageBand>
+    </section>
 
-    <PageBand>
-      <CtaBand />
-    </PageBand>
+    <ContactCta />
   </div>
 </template>

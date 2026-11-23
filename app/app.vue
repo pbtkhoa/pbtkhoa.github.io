@@ -1,6 +1,6 @@
 <script setup lang="ts">
 useHead({
-  titleTemplate: title => (title ? `${title} · Khoa Phạm` : 'Khoa Phạm · Full-stack software engineer'),
+  titleTemplate: title => (title ? `${title} | Khoa Pham` : 'Khoa Pham, full-stack software engineer'),
 })
 
 const { message, politeness } = useRouteAnnouncer()

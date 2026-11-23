@@ -2,76 +2,174 @@
 
 @source "../../../nuxt.config.ts";
 
-@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@custom-variant sfx {
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      @slot;
+    }
+  }
+}
 
 @theme static {
   --color-*: initial;
   --color-white: #ffffff;
   --color-transparent: transparent;
-  --color-bg: #161a33;
-  --color-bg-2: #1e2347;
-  --color-card: #232850;
-  --color-fg: #f3f2f8;
-  --color-muted: #b3b1cc;
-  --color-line: #343a6b;
-  --color-violet: #4a3f8c;
-  --color-iris: #635194;
-  --color-rose: #c97a8e;
-  --color-amber: #f4a93a;
-  --color-amber-ink: #241603;
-  --color-sakura: #f2b5c4;
-  --color-sky-1: #1c2140;
-  --color-sky-2: #4a3f8c;
-  --color-sky-3: #c97a8e;
-  --color-hill: #12152b;
-  --color-hero-fg: #ffffff;
-  --color-hero-muted: #e9e5f7;
-  --color-glass: #ffffff1a;
-  --color-glass-line: #ffffff40;
-  --color-ok: #7ee08a;
-  --color-error: #ff8a8a;
+  --color-bg: #f2f0eb;
+  --color-surface: #ffffff;
+  --color-sunk: #e9e5dc;
+  --color-fg: #121316;
+  --color-muted: #4a4c55;
+  --color-line: #dcd7cc;
+  --color-accent: #ff5b1f;
+  --color-accent-ink: #140a05;
+  --color-accent-text: #b23a0c;
+  --color-ok: #1f7a3a;
+  --color-error: #b3261e;
+  --color-panel: #e4dfd4;
+  --color-dots: #12131621;
+  --color-glow: #ff5b1f30;
+  --color-frame: #161a33;
+  --color-frame-bar: #1e2347;
+  --color-frame-cap: #11142a;
+  --color-frame-ink: #eceaf6;
+  --color-frame-edge: #0d1020;
+  --color-frame-url: #343a6b;
+  --color-win-red: #f26b6b;
+  --color-win-yellow: #f4c04a;
+  --color-win-green: #6bd17a;
 
-  --font-display: "Fraunces", Georgia, serif;
-  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
 
-  --radius-field: 14px;
-  --radius-tile: 18px;
-  --radius-card: 24px;
-  --radius-panel: 28px;
-
-  --breakpoint-lg: 56.25rem;
+  --breakpoint-lg: 56.3125rem;
 
   --animate-marquee: marquee 40s linear infinite;
+  --animate-drift: drift 80s linear infinite;
+  --animate-drift-back: drift 96s linear infinite reverse;
+  --animate-open: open linear both;
+  --animate-flatten: flatten linear both;
+  --animate-slide-out: slide-out linear both;
+  --animate-hide: hide linear both;
+  --animate-show: show linear both;
+  --animate-grow: grow linear both;
+  --animate-up: up linear both;
+  --animate-bar: bar linear both;
+  --animate-rise: rise linear both;
 
   @keyframes marquee {
     to {
       transform: translateX(-50%);
     }
   }
+
+  @keyframes drift {
+    to {
+      transform: translateY(-25%);
+    }
+  }
+
+  @keyframes deal {
+    from {
+      opacity: 0;
+      transform: translateY(90px) scale(0.86);
+    }
+  }
+
+  @keyframes word {
+    from {
+      transform: translateY(110%);
+    }
+  }
+
+  @keyframes open {
+    to {
+      clip-path: inset(0 0 0 0 round 0);
+    }
+  }
+
+  @keyframes flatten {
+    to {
+      transform: translateX(-23.5vw) rotateX(0deg) rotateZ(0deg) scale(0.78);
+    }
+  }
+
+  @keyframes slide-out {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      transform: translateX(-8vw);
+    }
+  }
+
+  @keyframes hide {
+    to {
+      opacity: 0;
+      visibility: hidden;
+    }
+  }
+
+  @keyframes show {
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes grow {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes up {
+    from {
+      opacity: 0;
+      transform: translateY(50%);
+    }
+  }
+
+  @keyframes bar {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @keyframes rise {
+    from {
+      transform: translateY(64px) rotate(-2.5deg) scale(0.92);
+    }
+  }
 }
 
-:root[data-theme="light"] {
-  --color-bg: #f3f2f8;
-  --color-bg-2: #e9e6f5;
-  --color-card: #ffffff;
-  --color-fg: #1c2140;
-  --color-muted: #57557a;
-  --color-line: #d9d5ec;
-  --color-amber: #9a5800;
-  --color-amber-ink: #ffffff;
-  --color-sakura: #c2566f;
-  --color-sky-1: #9cc3ec;
-  --color-sky-2: #f7d9b5;
-  --color-sky-3: #f2b5c4;
-  --color-hill: #6b8f71;
-  --color-hero-fg: #1c2140;
-  --color-hero-muted: #3d3a5c;
-  --color-glass: #ffffff8c;
-  --color-glass-line: #1c214030;
-  --color-error: #b3261e;
+@theme inline {
+  --animate-deal: deal 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) both;
+  --animate-word: word 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) var(--d, 0ms) both;
+}
+
+:root[data-theme="dark"] {
+  --color-bg: #101114;
+  --color-surface: #1a1b20;
+  --color-sunk: #24252b;
+  --color-fg: #f4f2ed;
+  --color-muted: #c4c1b8;
+  --color-line: #2c2d33;
+  --color-accent: #ff6a32;
+  --color-accent-text: #ff8f63;
+  --color-ok: #6fdc8c;
+  --color-error: #ff8a7a;
+  --color-panel: #17181c;
+  --color-dots: #f4f2ed1c;
+  --color-glow: #ff6a3233;
 }
 
 @layer base {
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
   p,
   li {
     text-wrap: pretty;

@@ -5,27 +5,30 @@ defineProps<{ engagements: Engagement[] }>()
 </script>
 
 <template>
-  <ul class="m-0 grid list-none grid-cols-1 gap-4.5 p-0 lg:grid-cols-3">
+  <ul class="m-0 grid list-none grid-cols-1 gap-4 p-0 lg:grid-cols-3">
     <li
       v-for="engagement in engagements"
       :key="engagement.title"
-      class="grid content-start gap-2 rounded-card border p-7"
+      class="grid content-start gap-3 rounded-[28px] border p-[clamp(24px,2.6vw,36px)]"
       :class="engagement.featured
-        ? 'border-transparent bg-linear-160/srgb from-violet to-[#2a2560] text-white'
-        : 'border-line bg-card'"
+        ? 'border-transparent bg-accent text-accent-ink'
+        : 'border-line bg-surface text-fg'"
     >
-      <h3 :class="cardHeadingClass">
+      <h3
+        class="text-[clamp(1.35rem,1.8vw,1.75rem)] leading-[1.1]"
+        :class="displayClass"
+      >
         {{ engagement.title }}
       </h3>
       <p
-        class="m-0 font-display text-[1.1rem]"
-        :class="engagement.featured ? 'text-[#f4a93a]' : 'text-amber'"
+        class="m-0 text-[0.8125rem]/[1.35] font-semibold tracking-[0.07em] uppercase"
+        :class="engagement.featured ? 'text-accent-ink' : 'text-accent-text'"
       >
         {{ engagement.terms }}
       </p>
       <p
         class="m-0"
-        :class="engagement.featured ? 'text-[#ddd8f5]' : 'text-muted'"
+        :class="engagement.featured ? 'text-accent-ink' : 'text-muted'"
       >
         {{ engagement.text }}
       </p>

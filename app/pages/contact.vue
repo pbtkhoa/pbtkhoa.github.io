@@ -8,18 +8,18 @@ useSeoMeta({
 </script>
 
 <template>
-  <div>
-    <PageBand>
-      <SectionHead
-        kicker="Contact"
-        title="Let's talk about your project"
-        :text="`A few lines are enough. ${site.replyPromise}`"
-        :level="1"
-      />
-      <div class="grid items-start gap-7 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
-        <ContactForm />
-        <ContactAside />
-      </div>
-    </PageBand>
+  <div
+    class="pb-[clamp(64px,8vw,120px)]"
+    :class="wrapClass"
+  >
+    <PageHead
+      label="Contact"
+      title="Let's talk about your project"
+      :text="`A few lines are enough. ${site.replyPromise}`"
+    />
+    <div class="grid items-start gap-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)]">
+      <ContactForm />
+      <ContactAside />
+    </div>
   </div>
 </template>

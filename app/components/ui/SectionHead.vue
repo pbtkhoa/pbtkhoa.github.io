@@ -1,34 +1,47 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
-  kicker: string
   title: string
+  headingId?: string
   text?: string
-  level?: 1 | 2
+  linkTo?: string
+  linkLabel?: string
 }>(), {
+  headingId: undefined,
   text: undefined,
-  level: 2,
+  linkTo: undefined,
+  linkLabel: undefined,
 })
 </script>
 
 <template>
-  <div class="mb-9 flex flex-wrap items-end justify-between gap-5">
-    <div>
-      <p :class="kickerClass">
-        {{ kicker }}
-      </p>
-      <component
-        :is="`h${level}`"
-        :class="displayHeadingClass"
-      >
-        {{ title }}
-      </component>
+  <div class="grid items-end gap-6 pt-[clamp(72px,9vw,140px)] pb-[clamp(28px,3vw,48px)] lg:grid-cols-[1fr_auto]">
+    <h2
+      :id="headingId"
+      :class="sectionTitleClass"
+    >
+      {{ title }}
+    </h2>
+    <div
+      v-if="text || linkTo"
+      class="grid max-w-[28rem] gap-2.5"
+    >
       <p
         v-if="text"
-        class="mt-2.5 mb-0 max-w-[48ch] text-muted"
+        class="m-0 text-[1.0625rem] text-muted"
       >
         {{ text }}
       </p>
+      <p
+        v-if="linkTo"
+        class="m-0"
+      >
+        <NuxtLink
+          :to="linkTo"
+          :class="textLinkClass"
+        >
+          {{ linkLabel }}
+        </NuxtLink>
+      </p>
     </div>
-    <slot name="action" />
   </div>
 </template>

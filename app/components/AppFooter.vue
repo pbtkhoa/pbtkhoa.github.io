@@ -1,35 +1,47 @@
 <script setup lang="ts">
-import { site } from '~/data/site'
+import { navLinks, site } from '~/data/site'
 
 const year = useState('footer-year', () => new Date().getFullYear())
+
+const linkClass = `rounded-sm text-muted no-underline hover:text-fg ${focusRing}`
 </script>
 
 <template>
-  <footer class="border-t border-line py-8 text-[0.9rem] text-muted">
-    <div
-      class="flex flex-wrap justify-between gap-3.5"
-      :class="wrapClass"
+  <footer
+    class="flex flex-wrap justify-between gap-4 border-t border-line py-6.5 text-[0.9375rem] text-muted"
+    :class="wrapClass"
+  >
+    <span>© {{ year }} {{ site.name }}</span>
+    <nav
+      class="flex flex-wrap gap-x-5 gap-y-2"
+      aria-label="Footer"
     >
-      <span>© {{ year }} {{ site.name }}</span>
-      <nav
-        class="flex flex-wrap gap-4.5"
-        aria-label="Footer"
+      <NuxtLink
+        v-for="link in navLinks"
+        :key="link.to"
+        :to="link.to"
+        :class="linkClass"
       >
-        <a
-          :href="site.github"
-          :class="textLinkClass"
-        >GitHub</a>
-        <a
-          :href="site.linkedin"
-          :class="textLinkClass"
-        >LinkedIn</a>
-        <NuxtLink
-          to="/privacy"
-          :class="textLinkClass"
-        >
-          Privacy
-        </NuxtLink>
-      </nav>
-    </div>
+        {{ link.label }}
+      </NuxtLink>
+      <NuxtLink
+        to="/privacy"
+        :class="linkClass"
+      >
+        Privacy
+      </NuxtLink>
+      <a
+        :href="site.github"
+        :class="linkClass"
+        target="_blank"
+        rel="noopener"
+      >GitHub</a>
+      <a
+        :href="site.linkedin"
+        :class="linkClass"
+        target="_blank"
+        rel="noopener"
+      >LinkedIn</a>
+    </nav>
   </footer>
 </template>

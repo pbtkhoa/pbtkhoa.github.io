@@ -28,40 +28,50 @@ export interface Engagement {
   featured?: boolean
 }
 
-export type ProjectTone = 'storefront' | 'violet' | 'ember' | 'vorwerk' | 'blossom' | 'night' | 'meadow'
+export type ArtKey = 'store' | 'ledger' | 'signin' | 'leads' | 'timesheet' | 'trading' | 'pos'
 
-export type ProjectArt = 'store' | 'ledger' | 'signin' | 'leads' | 'timesheet' | 'trading' | 'pos'
-
-export type ProjectCategory = 'ecommerce' | 'business' | 'finance' | 'mobile' | 'website'
-
-export interface Project {
-  slug: string
-  title: string
-  org: string
-  years: string
-  summary: string
-  highlight?: string
-  highlightLink?: { text: string, href: string }
-  link?: { label: string, href: string }
-  tags: string[]
-  tone: ProjectTone
-  art: ProjectArt
+export interface WorkLink {
+  before?: string
+  label: string
+  href: string
+  after?: string
 }
 
-export interface ProjectEntry {
-  title: string
+export interface FeaturedWork {
+  art: ArtKey
   org: string
-  years?: string
-  summary: string
-  tags: string[]
-  category: ProjectCategory
+  years: string
+  title: string
+  lede: string
+  built: string[]
+  note?: string
+  link?: WorkLink
+  stack: string
 }
 
-export interface Role {
+export interface WorkEntry {
+  title: string
+  text: string
+  stack: string
+}
+
+export interface WorkGroup {
+  org: string
   years: string
+  entries: WorkEntry[]
+}
+
+export type CareerTone = 'job' | 'lead' | 'free'
+
+export interface CareerRow {
+  org: string
   role: string
-  org: string
-  note: string
+  years: string
+  start: number
+  end: number
+  bar: string
+  tone: CareerTone
+  awards?: string[]
 }
 
 export interface Faq {
@@ -69,9 +79,11 @@ export interface Faq {
   answer: string
 }
 
+const range = (from: string, to: string) => `${from}\u00a0–\u00a0${to}`
+
 export const site = {
-  name: 'Phạm Bá Tuấn Khoa',
-  shortName: 'Khoa Phạm',
+  name: 'Pham Ba Tuan Khoa',
+  shortName: 'Khoa Pham',
   firstName: 'Khoa',
   role: 'Full-stack software engineer',
   email: 'pbtkhoa@gmail.com',
@@ -80,23 +92,23 @@ export const site = {
   cv: '/pham-ba-tuan-khoa-cv.pdf',
   status: 'Open to remote roles and freelance projects',
   headline: "Hi, I'm Khoa. I build the shops and tools your team runs on.",
+  highlights: ['shops', 'tools'],
   pitch: 'I build Shopware stores, PHP and Node.js back ends and JavaScript front ends for teams around the world.',
-  badge: 'Full-stack engineer',
+  badge: 'Khoa Pham, full-stack engineer',
   replyPromise: 'I reply within one working day.',
+  wallCaption: "Products I've built, from storefronts to bank sign-on.",
 } as const
 
 export const navLinks: NavLink[] = [
-  { to: '/', label: 'Home' },
-  { to: '/services', label: 'Services' },
   { to: '/work', label: 'Work' },
+  { to: '/services', label: 'Services' },
   { to: '/about', label: 'About' },
   { to: '/contact', label: 'Contact' },
 ]
 
 export const stats: Stat[] = [
   { value: '2016', label: 'shipping production code' },
-  { value: '20+', label: 'online stores and apps delivered' },
-  { value: '2017', label: 'freelancing alongside every job' },
+  { value: '2017', label: 'taking freelance projects on the side' },
   { value: '5', label: 'companies, plus freelance clients' },
 ]
 
@@ -107,31 +119,39 @@ export const services: Service[] = [
     key: 'shopware',
     mark: 'S6',
     title: 'Shopware 6 development',
-    blurb: 'Plugins, apps and themes, complete store setups, version upgrades and integrations with payment, shipping and ERP systems.',
-    points: ['Custom plugins and apps', 'Storefront themes in Twig and SCSS, admin modules in VueJS', 'Elasticsearch search with custom indexes and queries', 'Upgrades to the latest Shopware 6', 'Payment, shipping and ERP integrations'],
+    blurb: 'Plugins, apps and themes, store setups, upgrades and payment, shipping and ERP integrations.',
+    points: ['Custom plugins and apps', 'Twig, SCSS, VueJS admin', 'Elasticsearch'],
   },
   {
     key: 'apps',
     mark: 'API',
     title: 'PHP and Node.js back ends',
-    blurb: 'Business web apps, SaaS products, admin tools and APIs in Laravel, Symfony and Node.js. I also move older systems onto current PHP, Symfony and Laravel versions.',
-    points: ['Multi-tenant SaaS', 'REST APIs in API Platform, Laravel or Express', 'Legacy PHP upgrades without downtime', 'AWS, Vapor and Docker deploys'],
+    blurb: 'Web apps, SaaS products, admin tools and APIs in Laravel, Symfony and Node.js.',
+    points: ['Multi-tenant SaaS', 'REST APIs', 'Legacy PHP upgrades'],
   },
   {
     key: 'frontend',
-    mark: 'V',
+    mark: 'UI',
     title: 'VueJS, ReactJS and mobile',
-    blurb: 'Front ends in VueJS and ReactJS, and cross-platform mobile apps in React\u00a0Native.',
-    points: ['VueJS and Nuxt', 'ReactJS and Next.js', 'React\u00a0Native apps', 'Tailwind CSS design systems'],
+    blurb: 'Front ends in VueJS and ReactJS, and cross-platform apps in React\u00a0Native.',
+    points: ['VueJS and Nuxt', 'ReactJS and Next.js', 'React\u00a0Native'],
   },
   {
     key: 'team',
     mark: 'R',
     title: 'Remote team member',
-    blurb: 'I join your team for the long term, work in your tools and ship through your review process.',
-    points: ['Hours that overlap with yours', 'Jira, GitLab, GitHub, Slack', 'Code review and pairing', 'Long-term retainer or full-time'],
+    blurb: 'I join your team for the long term, work in your tools and ship through your review.',
+    points: ['Overlapping hours', 'Jira, GitLab, GitHub', 'Retainer or full-time'],
   },
 ]
+
+export const aiService: Service = {
+  key: 'ai',
+  mark: 'AI',
+  title: 'Working with AI',
+  blurb: "I use Claude Code and Gemini in my daily work, and I've built OpenAI API features into a production accounting SaaS. I read every change before it goes into your repo, and I work within your team's rules for AI tools.",
+  points: ['Claude Code and Gemini every day', 'OpenAI API and AWS Textract in production', 'No client secrets in prompts'],
+}
 
 export const processSteps: ProcessStep[] = [
   { title: 'Talk', text: 'A short call or email thread about the goal, the users and the deadline.' },
@@ -146,115 +166,103 @@ export const engagements: Engagement[] = [
   { title: 'Full-time remote', terms: 'Employment or contract', text: 'I join your team as a full-time engineer, on your tools and your review process.' },
 ]
 
-export const featuredProjects: Project[] = [
+export const featuredWork: FeaturedWork[] = [
   {
-    slug: 'shopware',
-    title: 'Shopware 6 stores and plugins',
-    org: 'Shape & Shift · Solio · freelance',
-    years: '2021 - now',
-    summary: 'Complete online stores and the extensions behind them: Checkout.com payments, the Sprinque B2B-credit app, a blog plugin and a Node.js SDK for Shopware.',
-    highlight: 'Stores: Egret, Biomex, van Laack, Cityschuh, Roto-store, Kraft, manomama, Brichbag and more.',
-    tags: ['Shopware 6', 'Symfony', 'Node.js', 'VueJS', 'Elasticsearch'],
-    tone: 'storefront',
     art: 'store',
+    org: 'Shape & Shift, Solio and freelance',
+    years: range('2021', 'now'),
+    title: 'Shopware 6 stores and plugins',
+    lede: 'Complete online stores, and the extensions they run on.',
+    built: ['Checkout.com payments', 'The Sprinque B2B-credit app', 'A blog plugin and a Node.js SDK for Shopware'],
+    note: 'Stores for Egret, Biomex, van Laack, Cityschuh, Roto-store, Kraft, manomama, Brichbag and others.',
+    stack: 'Shopware 6, Symfony, Node.js, VueJS, Elasticsearch',
   },
   {
-    slug: 'accounting',
-    title: 'Multi-tenant accounting SaaS',
-    org: 'Shape & Shift',
-    years: '2021 - 2023',
-    summary: 'A bookkeeping platform with double-entry ledger, invoicing, bank reconciliation, payroll and reporting. I wrote Python Lambdas and integrated Stripe, GoCardless bank feeds, AWS Textract OCR, OpenAI, Twilio SMS and more.',
-    highlight: 'Project: cybooks',
-    highlightLink: { text: 'cybooks', href: 'https://app.cybooks.com.cy/' },
-    tags: ['Laravel', 'VueJS', 'AWS', 'OpenAI', 'Stripe'],
-    tone: 'violet',
     art: 'ledger',
+    org: 'Shape & Shift',
+    years: range('2021', '2023'),
+    title: 'Multi-tenant accounting SaaS',
+    lede: 'Double-entry ledger, invoicing, bank reconciliation, payroll and reporting in one product.',
+    built: ['Python Lambdas on AWS', 'Stripe payments and GoCardless bank feeds', 'OCR with AWS Textract, OpenAI features and Twilio SMS'],
+    link: { before: 'Live at ', label: 'cybooks', href: 'https://app.cybooks.com.cy/', after: '.' },
+    stack: 'Laravel, VueJS, MySQL, AWS, Python',
   },
   {
-    slug: 'banking',
-    title: 'GLS Bank sign-on and account opening',
-    org: 'Solio',
-    years: '2023 - now',
-    summary: "I maintain GLS Bank's single sign-on with OAuth2 and LDAP, and the business account-opening app with Postident identity checks.",
-    tags: ['Symfony', 'OAuth2', 'LDAP'],
-    tone: 'ember',
     art: 'signin',
-  },
-  {
-    slug: 'thermomix',
-    title: 'Lead management for Thermomix',
     org: 'Solio',
-    years: '2023 - now',
-    summary: 'A lead management tool on Drupal 11 for Vorwerk Austria: lead assignment, reminders, CSV import and SAP export.',
-    tags: ['Drupal 11', 'PHP', 'SAP export'],
-    tone: 'vorwerk',
-    art: 'leads',
+    years: range('2023', 'now'),
+    title: 'GLS Bank sign-on and account opening',
+    lede: "I maintain GLS Bank's single sign-on and the app businesses use to open an account.",
+    built: ['Single sign-on with OAuth2 and LDAP', 'Business account opening with Postident identity checks'],
+    stack: 'Symfony, OAuth2, LDAP',
   },
   {
-    slug: 'timesheet',
-    title: 'Ticketing and time tracking',
-    org: 'Solio',
-    years: '2023 - now',
-    summary: 'A ticketing and time-tracking tool built on Symfony and API Platform, integrated with Jira and GitLab.',
-    tags: ['Symfony', 'API Platform', 'Jira', 'GitLab'],
-    tone: 'night',
-    art: 'timesheet',
-  },
-  {
-    slug: 'posbill',
-    title: 'PosBill Mobile ordering app',
-    org: 'NFQ',
-    years: '2019 - 2021',
-    summary: 'The Android ordering app for the PosBill cash register. I restructured the React\u00a0Native codebase, added Redux and wrote native Android modules for multiple printers.',
-    link: { label: 'PosBill Mobile on Google Play', href: 'https://play.google.com/store/apps/details?id=com.posbill.posbillmobile.app' },
-    tags: ['React Native', 'Redux', 'Android'],
-    tone: 'meadow',
     art: 'pos',
+    org: 'NFQ',
+    years: range('2019', '2021'),
+    title: 'PosBill Mobile ordering app',
+    lede: 'The Android ordering app for the PosBill cash register.',
+    built: ['A restructured React\u00a0Native codebase', 'Redux for app state', 'Native Android modules for several printer models'],
+    link: { label: 'PosBill Mobile on Google Play', href: 'https://play.google.com/store/apps/details?id=com.posbill.posbillmobile.app' },
+    stack: 'React Native, Redux, Android',
+  },
+]
+
+export const workGroups: WorkGroup[] = [
+  {
+    org: 'Solio',
+    years: range('2023', 'now'),
+    entries: [
+      { title: 'Lead management for Thermomix', text: 'Built for Vorwerk Austria on Drupal 11: lead assignment, reminders, CSV import and SAP export.', stack: 'Drupal 11, PHP' },
+      { title: 'Ticketing and time tracking', text: 'A ticketing and time-tracking tool on Symfony and API Platform, connected to Jira and GitLab.', stack: 'Symfony, API Platform, Jira, GitLab' },
+      { title: 'Elasticsearch for Shopware and Drupal', text: 'Custom Elasticsearch indexes and queries for Shopware stores and Drupal sites.', stack: 'Elasticsearch, Shopware, Drupal' },
+    ],
   },
   {
-    slug: 'crypto',
-    title: 'Crypto trading platform',
+    org: 'NFQ',
+    years: range('2019', '2021'),
+    entries: [
+      { title: 'Company wiki', text: 'An internal knowledge base. I built time tracking, leave requests and more.', stack: 'ReactJS' },
+    ],
+  },
+  {
     org: 'Rikkeisoft',
-    years: '2017 - 2019',
-    summary: 'A trading platform built on microservices by a team of 13. I built user management, trading between users, real-time disputes and user-to-manager chat, and set up the project structure and Docker for the team.',
-    highlight: 'Project: CHIP',
-    tags: ['Laravel', 'Node.js', 'VueJS', 'Socket.IO', 'Redis', 'Docker'],
-    tone: 'blossom',
-    art: 'trading',
+    years: range('2017', '2019'),
+    entries: [
+      { title: 'CHIP crypto trading platform', text: 'Microservices built by a team of 13. I built user management, trading between users, real-time disputes and user-to-manager chat, and set up the project structure and Docker.', stack: 'Laravel, Node.js, VueJS, Socket.IO, Redis, Docker' },
+      { title: 'E-learning platform', text: 'A large platform built by a team of 38. I was the main front-end developer: I turned PSD designs into pages and built the design system with SCSS and webpack.', stack: 'Laravel, MySQL, jQuery, SCSS, webpack, AWS' },
+      { title: 'Model sales management', text: 'An enterprise sales system built by a team of 26. As a core developer I wrote features in plain PHP and SQL, with most of the logic in MySQL stored procedures.', stack: 'PHP, MySQL, jQuery' },
+    ],
+  },
+  {
+    org: 'Junoteam',
+    years: range('2016', '2017'),
+    entries: [
+      { title: 'WordPress plugins and themes', text: 'Custom plugins and themes for client sites.', stack: 'WordPress, Symfony' },
+    ],
+  },
+  {
+    org: 'Freelance',
+    years: 'since 2017',
+    entries: [
+      { title: 'Mobile banking app', text: 'I built the UI and connected the APIs for account data and money transfers.', stack: 'React Native' },
+      { title: 'Coinbase trading integration', text: 'Trading through the Coinbase API, with deposits and withdrawals.', stack: 'Node.js, Express, Coinbase API' },
+      { title: 'Online store', text: 'I maintained the storefront and the admin of an online store.', stack: 'Yii2, ReactJS, PostgreSQL' },
+      { title: 'Excel document management', text: 'I maintained a healthcare system that exports Excel files in preset formats.', stack: 'ReactJS, Laravel' },
+      { title: 'Taiwan tourism news', text: 'I built the WordPress theme for a tourism news portal.', stack: 'WordPress, MySQL' },
+    ],
   },
 ]
 
-export const moreProjects: ProjectEntry[] = [
-  { title: 'E-learning platform', org: 'Rikkeisoft', years: '2017 - 2019', summary: 'A large e-learning platform built by a team of 38. I was the main front-end developer: turned PSD designs into pages and built the design system with SCSS and webpack.', tags: ['Laravel', 'MySQL', 'jQuery', 'SCSS', 'webpack', 'AWS'], category: 'website' },
-  { title: 'Model sales management', org: 'Rikkeisoft', years: '2017 - 2019', summary: 'An enterprise sales system built by a team of 26. As a core developer I built features in plain PHP and SQL and wrote most of the logic as MySQL stored procedures.', tags: ['PHP', 'MySQL', 'jQuery'], category: 'business' },
-  { title: 'Company wiki', org: 'NFQ', years: '2019 - 2021', summary: 'An internal knowledge base. I built time tracking, leave requests and more.', tags: ['ReactJS'], category: 'business' },
-  { title: 'WordPress plugins and themes', org: 'Junoteam', years: '2016 - 2017', summary: 'Custom plugins and themes for client sites.', tags: ['WordPress', 'Symfony'], category: 'website' },
-  { title: 'Mobile banking app', org: 'Freelance', summary: 'I built the UI of a mobile banking app and integrated the APIs for account data and money transfers.', tags: ['React Native'], category: 'mobile' },
-  { title: 'Coinbase trading integration', org: 'Freelance', summary: 'Trading through the Coinbase API, with deposits and withdrawals.', tags: ['Node.js', 'Express', 'Coinbase API'], category: 'finance' },
-  { title: 'Online store', org: 'Freelance', summary: 'I maintained the storefront and admin of an online store.', tags: ['Yii2', 'ReactJS', 'PostgreSQL'], category: 'ecommerce' },
-  { title: 'Excel document management', org: 'Freelance', summary: 'I maintained a healthcare system that exports Excel files in preset formats.', tags: ['ReactJS', 'Laravel'], category: 'business' },
-  { title: 'Taiwan tourism news', org: 'Freelance', summary: 'I built the WordPress theme for a tourism news portal in Taiwan.', tags: ['WordPress', 'MySQL'], category: 'website' },
-]
+export const careerAxis: string[] = ['2016', '2018', '2020', '2022', '2024', 'now']
 
-export const projectCategoryLabels: Record<ProjectCategory, string> = {
-  ecommerce: 'E-commerce',
-  business: 'Business app',
-  finance: 'Finance',
-  mobile: 'Mobile app',
-  website: 'Website',
-}
-
-export const shopwareStores: string[] = ['Egret', 'Biomex', 'van Laack', 'Cityschuh', 'Roto-store', 'Kraft', 'manomama', 'Brichbag']
-
-export const shopwareExtensions: string[] = ['Checkout.com payments', 'Sprinque B2B credit', 'Blog', 'Shopware Node.js SDK']
-
-export const career: Role[] = [
-  { years: '2023 - now', role: 'Software Engineer', org: 'Solio', note: 'Drupal, Symfony, Shopware and Elasticsearch for European clients.' },
-  { years: '2021 - 2023', role: 'Software Engineer', org: 'Shape & Shift', note: 'Shopware 6 extensions and a Laravel accounting SaaS.' },
-  { years: '2019 - 2021', role: 'Frontend Developer', org: 'NFQ', note: 'ReactJS and React\u00a0Native apps for clients.' },
-  { years: '2017 - 2019', role: 'Team Lead', org: 'Rikkeisoft', note: 'Core member on client projects, including real-time features. Promising Employee 2017, Outstanding Employee 2018.' },
-  { years: '2016 - 2017', role: 'Software Engineer', org: 'Junoteam', note: 'WordPress and Symfony sites, plugins and themes.' },
-  { years: '2017 - now', role: 'Freelance engineer', org: 'Independent', note: 'Stores, plugins, web and mobile apps for clients worldwide.' },
+export const career: CareerRow[] = [
+  { org: 'Solio', role: 'Software Engineer', years: range('2023', 'now'), start: 7, end: 10, bar: 'Drupal, Symfony, Shopware', tone: 'job' },
+  { org: 'Shape & Shift', role: 'Software Engineer', years: range('2021', '2023'), start: 5, end: 7, bar: 'Shopware 6, Laravel SaaS', tone: 'job' },
+  { org: 'NFQ', role: 'Frontend Developer', years: range('2019', '2021'), start: 3, end: 5, bar: 'ReactJS, React Native', tone: 'job' },
+  { org: 'Rikkeisoft', role: 'Team Lead', years: range('2017', '2019'), start: 1, end: 3, bar: 'Laravel, Node.js, VueJS', tone: 'lead', awards: ['Promising Employee 2017', 'Outstanding Employee 2018'] },
+  { org: 'Junoteam', role: 'Software Engineer', years: range('2016', '2017'), start: 0, end: 1, bar: 'WordPress', tone: 'job' },
+  { org: 'Freelance', role: 'Freelance engineer', years: range('2017', 'now'), start: 1, end: 10, bar: 'Stores, plugins, web and mobile apps', tone: 'free' },
 ]
 
 export const faqs: Faq[] = [

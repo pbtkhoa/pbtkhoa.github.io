@@ -7,7 +7,6 @@ const { fields, errors, drafted, submit } = useContactForm({ recipient: site.ema
 const emailInput = useTemplateRef<HTMLInputElement>('emailInput')
 const messageInput = useTemplateRef<HTMLTextAreaElement>('messageInput')
 
-
 function controlClass(field: ContactField): string[] {
   return [fieldControlClass, errors.value[field] ? 'border-error' : 'border-line']
 }
@@ -25,7 +24,7 @@ function onSubmit() {
 
 <template>
   <form
-    class="flex flex-col gap-4 rounded-card border border-line bg-card p-6.5 text-fg"
+    class="flex flex-col gap-4 rounded-[28px] border border-line bg-surface p-[clamp(20px,3vw,36px)] text-fg"
     novalidate
     @submit.prevent="onSubmit"
   >
@@ -83,7 +82,7 @@ function onSubmit() {
 
     <div class="flex flex-wrap items-center gap-x-4 gap-y-2.5">
       <AppButton
-        variant="amber"
+        variant="accent"
         type="submit"
         aria-describedby="contact-submit-hint"
       >
@@ -104,7 +103,7 @@ function onSubmit() {
     >
       <p
         v-if="drafted"
-        class="m-0 rounded-tile border border-amber/40 bg-[color-mix(in_srgb,var(--color-amber)_14%,var(--color-card))] p-4.5"
+        class="m-0 rounded-xl border border-accent/40 bg-accent/10 p-4.5"
       >
         If your email app didn't open, write to <strong class="select-all [overflow-wrap:anywhere]">{{ site.email }}</strong>. {{ site.replyPromise }}
       </p>

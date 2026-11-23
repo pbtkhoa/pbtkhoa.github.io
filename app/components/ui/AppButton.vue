@@ -1,29 +1,38 @@
 <script setup lang="ts">
 import { NuxtLink } from '#components'
 
-type ButtonVariant = 'plain' | 'amber' | 'glass'
+type ButtonVariant = 'accent' | 'line'
+type ButtonSize = 'md' | 'sm'
 
 const props = withDefaults(defineProps<{
   to?: string
   href?: string
   variant?: ButtonVariant
+  size?: ButtonSize
   type?: 'button' | 'submit'
   download?: boolean
 }>(), {
   to: undefined,
   href: undefined,
-  variant: 'plain',
+  variant: 'line',
+  size: 'md',
   type: 'button',
   download: false,
 })
 
-const base = `inline-flex cursor-pointer items-center justify-center gap-2.5 rounded-full border px-5.5 py-3 leading-[1.4] font-semibold no-underline hover:border-amber motion-safe:transition motion-safe:duration-200 motion-safe:hover:-translate-y-0.5 ${focusRing}`
+const base = `inline-flex cursor-pointer items-center justify-center gap-2.5 rounded-full border-[1.5px] text-base leading-none font-semibold whitespace-nowrap no-underline motion-safe:transition-[translate,background-color,color] motion-safe:duration-200 motion-safe:hover:-translate-y-0.5 ${focusRing}`
 
 const variants: Record<ButtonVariant, string> = {
-  plain: 'border-line bg-card text-fg',
-  amber: 'border-amber bg-amber text-amber-ink shadow-[0_8px_30px_-8px_color-mix(in_srgb,var(--color-amber)_70%,transparent)]',
-  glass: 'border-glass-line bg-glass text-hero-fg',
+  accent: 'border-transparent bg-accent text-accent-ink',
+  line: 'border-fg bg-transparent text-fg hover:bg-fg hover:text-bg',
 }
+
+const sizes: Record<ButtonSize, string> = {
+  md: 'min-h-13 px-6.5',
+  sm: 'min-h-11 px-4.5',
+}
+
+const external = computed(() => Boolean(props.href && /^https?:/.test(props.href)))
 
 const tag = computed(() => {
   if (props.to) return NuxtLink
@@ -39,7 +48,9 @@ const tag = computed(() => {
     :href="href"
     :type="tag === 'button' ? type : undefined"
     :download="download || undefined"
-    :class="[base, variants[variant]]"
+    :target="external ? '_blank' : undefined"
+    :rel="external ? 'noopener' : undefined"
+    :class="[base, variants[variant], sizes[size]]"
   >
     <slot />
   </component>

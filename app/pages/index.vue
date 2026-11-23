@@ -1,15 +1,9 @@
 <script setup lang="ts">
-import { clients, featuredProjects, moreProjects, services, site, stats } from '~/data/site'
-
-const HOME_PROJECT_COUNT = 3
-
-const featuredServices = services.slice(0, 3)
-const homeProjects = featuredProjects.slice(0, HOME_PROJECT_COUNT)
-const remainingProjects = featuredProjects.length + moreProjects.length - HOME_PROJECT_COUNT
+import { aiService, career, careerAxis, clients, featuredWork, services, site, stats, workGroups } from '~/data/site'
 
 useSeoMeta({
   description: site.pitch,
-  ogTitle: `${site.shortName} · ${site.role}`,
+  ogTitle: `${site.shortName}, ${site.role.toLowerCase()}`,
   ogDescription: site.pitch,
 })
 
@@ -30,65 +24,61 @@ useHead({
 
 <template>
   <div>
-    <HeroSky />
-    <StatCards :stats="stats" />
+    <HeroWall />
+    <StatRow :stats="stats" />
+
+    <section
+      id="work"
+      :class="wrapClass"
+      aria-labelledby="work-title"
+    >
+      <SectionHead
+        heading-id="work-title"
+        title="Selected work"
+        text="Stores, SaaS, banking and mobile. The screens are drawings based on the real products."
+      />
+      <FeaturedWork :items="featuredWork" />
+      <WorkIndex :groups="workGroups" />
+    </section>
+
+    <section
+      id="services"
+      aria-labelledby="services-title"
+    >
+      <div :class="wrapClass">
+        <SectionHead
+          heading-id="services-title"
+          title="Services"
+          text="Hire me for a fixed-scope project, a monthly retainer or a full-time remote seat."
+          link-to="/services"
+          link-label="How a project runs, terms and FAQ"
+        />
+      </div>
+      <ServiceColumns
+        :services="services"
+        :ai="aiService"
+      />
+    </section>
+
+    <section
+      id="about"
+      :class="wrapClass"
+      aria-labelledby="about-title"
+    >
+      <SectionHead
+        heading-id="about-title"
+        title="Since 2016"
+        text="I've worked at five companies, and taken freelance projects on the side since 2017."
+        link-to="/about"
+        link-label="More about me"
+      />
+      <CareerChart
+        :rows="career"
+        :axis="careerAxis"
+      />
+    </section>
+
     <ClientMarquee :clients="clients" />
-
-    <PageBand>
-      <SectionHead
-        kicker="What I do"
-        title="Three ways I can help"
-      >
-        <template #action>
-          <AppButton to="/services">
-            All services
-          </AppButton>
-        </template>
-      </SectionHead>
-      <div class="grid gap-4.5 lg:grid-cols-3">
-        <ServiceCard
-          v-for="service in featuredServices"
-          :key="service.key"
-          :service="service"
-          :to="`/services#${service.key}`"
-        />
-      </div>
-    </PageBand>
-
-    <PageBand alt>
-      <SectionHead
-        kicker="Selected work"
-        title="Recent projects"
-      >
-        <template #action>
-          <AppButton to="/work">
-            All projects
-          </AppButton>
-        </template>
-      </SectionHead>
-      <div class="grid gap-4.5 lg:grid-cols-3">
-        <CaseCard
-          v-for="project in homeProjects"
-          :key="project.slug"
-          :project="project"
-          :to="`/work#${project.slug}`"
-          layout="stack"
-        />
-      </div>
-      <p class="mt-7 mb-0 text-muted">
-        Plus {{ remainingProjects }} more projects on the work page, and many more stores and plugins under NDA.
-        <NuxtLink
-          to="/work"
-          class="font-semibold text-fg"
-          :class="textLinkClass"
-        >
-          See all projects
-        </NuxtLink>
-      </p>
-    </PageBand>
-
-    <PageBand>
-      <CtaBand />
-    </PageBand>
+    <ContactCta />
   </div>
 </template>

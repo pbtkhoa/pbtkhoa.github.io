@@ -1,19 +1,19 @@
-export const wrapClass = 'mx-auto w-full max-w-[1160px] px-[clamp(16px,4vw,40px)]'
+export const wrapClass = 'px-[max(16px,4vw)]'
 
-export const focusRing = 'focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-amber'
+export const focusRing = 'focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-accent-text'
 
-export const kickerClass = 'm-0 text-[0.95rem] font-semibold text-amber'
+export const insetFocusRing = 'focus-visible:outline-3 focus-visible:-outline-offset-3 focus-visible:outline-accent-text'
 
-export const displayHeadingClass = 'mt-1.5 mb-0 font-display text-[clamp(2rem,4vw,3rem)] leading-[1.08] font-semibold tracking-[-0.015em] text-balance'
+export const labelClass = 'm-0 text-[0.8125rem]/[1.35] font-semibold tracking-[0.07em] text-accent-text uppercase'
 
-export const cardHeadingClass = 'm-0 font-display text-[1.4rem] leading-[1.2] font-semibold'
+export const displayClass = 'm-0 font-display font-bold tracking-[-0.035em]'
 
-export const cardClass = 'flex flex-col gap-2.5 rounded-card border border-line bg-card p-6.5 text-fg no-underline'
+export const sectionTitleClass = `${displayClass} text-[clamp(2.4rem,5.4vw,5.2rem)] leading-[0.98]`
 
-export const liftOnHover = 'motion-safe:transition motion-safe:duration-250 hover:border-amber motion-safe:hover:-translate-y-1'
+export const textLinkClass = `rounded-sm font-semibold text-accent-text underline underline-offset-3 ${focusRing}`
 
-export const textLinkClass = `underline decoration-current/40 underline-offset-3 hover:text-amber hover:decoration-current ${focusRing}`
+export const dotListItem = 'grid grid-cols-[16px_minmax(0,1fr)] items-baseline before:size-1.5 before:-translate-y-[0.15em] before:rounded-full before:bg-accent'
 
-export const pillTagClass = 'rounded-full border border-line px-2.5 py-1 text-[0.78rem] font-semibold text-muted'
+export const fieldControlClass = `w-full rounded-xl border bg-bg px-3.5 py-3 text-fg focus:outline-3 focus:outline-offset-1 focus:outline-accent-text`
 
-export const fieldControlClass = 'w-full rounded-field border bg-bg px-3.5 py-3 text-fg focus:outline-2 focus:outline-offset-1 focus:outline-amber'
+export const scrollRise = 'sfx:animate-rise sfx:[animation-range:entry_0%_cover_42%] sfx:[animation-timeline:view(block_0px)]'

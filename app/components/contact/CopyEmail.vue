@@ -1,7 +1,16 @@
 <script setup lang="ts">
 type CopyState = 'idle' | 'copied' | 'failed'
 
-const props = defineProps<{ email: string }>()
+const props = withDefaults(defineProps<{
+  email: string
+  variant?: 'accent' | 'line'
+  size?: 'md' | 'sm'
+}>(), {
+  variant: 'line',
+  size: 'md',
+})
+
+const RESET_MS = 2400
 
 const state = shallowRef<CopyState>('idle')
 let resetTimer: ReturnType<typeof setTimeout> | undefined
@@ -29,7 +38,7 @@ async function copy() {
   clearTimeout(resetTimer)
   resetTimer = setTimeout(() => {
     state.value = 'idle'
-  }, 2400)
+  }, RESET_MS)
 }
 
 onBeforeUnmount(() => clearTimeout(resetTimer))
@@ -37,7 +46,11 @@ onBeforeUnmount(() => clearTimeout(resetTimer))
 
 <template>
   <div>
-    <AppButton @click="copy">
+    <AppButton
+      :variant="variant"
+      :size="size"
+      @click="copy"
+    >
       {{ labels[state] }}
     </AppButton>
     <span

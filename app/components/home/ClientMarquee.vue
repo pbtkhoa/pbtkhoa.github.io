@@ -1,27 +1,37 @@
 <script setup lang="ts">
-const props = defineProps<{ clients: string[] }>()
+defineProps<{ clients: string[] }>()
 
-const loop = computed(() => [...props.clients, ...props.clients])
-const summary = computed(() => `Clients include ${props.clients.join(', ')}.`)
+const listClass = 'm-0 flex list-none gap-14 px-7 py-0'
+const itemClass = 'font-display text-[clamp(1.3rem,2.2vw,1.9rem)] font-bold tracking-[-0.035em] whitespace-nowrap text-fg'
 </script>
 
 <template>
-  <div class="group mt-16 overflow-hidden border-y border-line py-4.5 [mask-image:linear-gradient(90deg,transparent,#000_10%,#000_90%,transparent)]">
-    <p class="sr-only">
-      {{ summary }}
-    </p>
-    <div
-      class="flex w-max animate-marquee font-display text-[1.5rem] whitespace-nowrap text-muted group-hover:[animation-play-state:paused] motion-reduce:animate-none"
-      aria-hidden="true"
-    >
-      <span
-        v-for="(client, index) in loop"
-        :key="`${client}-${index}`"
-        class="inline-flex items-center gap-12 pr-12"
+  <section
+    class="overflow-clip border-y border-line bg-surface py-6"
+    aria-label="Clients"
+  >
+    <div class="flex w-max motion-safe:animate-marquee">
+      <ul :class="listClass">
+        <li
+          v-for="client in clients"
+          :key="client"
+          :class="itemClass"
+        >
+          {{ client }}
+        </li>
+      </ul>
+      <ul
+        :class="listClass"
+        aria-hidden="true"
       >
-        {{ client }}
-        <span class="text-[1rem] text-amber">✦</span>
-      </span>
+        <li
+          v-for="client in clients"
+          :key="client"
+          :class="itemClass"
+        >
+          {{ client }}
+        </li>
+      </ul>
     </div>
-  </div>
+  </section>
 </template>
