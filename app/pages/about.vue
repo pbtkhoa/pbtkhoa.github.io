@@ -12,13 +12,13 @@ useSeoMeta({
 <template>
   <div>
     <div
-      class="grid grid-cols-1 items-start gap-10 pt-[calc(68px+clamp(48px,7vw,112px))] lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-[clamp(40px,5vw,88px)]"
+      class="grid grid-cols-1 items-start gap-10 pt-[calc(68px+clamp(48px,7vw,112px))] lg:grid-cols-[20rem_minmax(0,1fr)] lg:gap-[clamp(40px,5vw,88px)]"
       :class="wrapClass"
     >
-      <figure class="m-0 overflow-clip rounded-[28px] border border-line bg-surface lg:sticky lg:top-24">
+      <figure class="m-0 w-full max-w-60 overflow-clip rounded-[28px] border border-line bg-surface lg:sticky lg:top-24 lg:max-w-none">
         <KhoaPhoto
-          :size="470"
-          sizes="320:92vw 640:600px 900:470px"
+          :size="320"
+          sizes="320:240px 900:320px"
           alt="Photo of Khoa"
           priority
           class="aspect-square w-full object-cover"
@@ -28,7 +28,7 @@ useSeoMeta({
         </figcaption>
       </figure>
 
-      <div class="grid gap-5">
+      <div class="grid max-w-[52rem] gap-5">
         <p :class="labelClass">
           About
         </p>
